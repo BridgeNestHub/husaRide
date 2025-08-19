@@ -1,0 +1,36 @@
+<header>
+    <nav>
+        <div class="logo">
+            <div class="logo-container">
+                <div class="logo-placeholder"></div>
+                <span class="logo-text">Husa<span>Ride</span></span>
+            </div>
+        </div>
+        <ul class="nav-links">
+            <li><a href="/">Home</a></li>
+            <li><a href="/services">Services</a></li>
+            <li><a href="/attractions">Attractions</a></li>
+            <li><a href="/about">About</a></li>
+            <li><a href="/contact">Contact</a></li>
+            <% if (typeof user !== 'undefined' && user && user.role === 'driver') { %>
+                <li><a href="/driver/dashboard">Driver Dashboard</a></li>
+            <% } %>
+            <% if (typeof user !== 'undefined' && user && user.role === 'admin') { %>
+                <li><a href="/admin/dashboard">Admin Dashboard</a></li>
+            <% } %>
+            <% if (typeof user !== 'undefined' && user) { %>
+                <li class="mobile-only"><button id="mobileSettingsBtn" class="mobile-nav-btn">Settings</button></li>
+            <% } %>
+        </ul>
+        <div class="auth-buttons">
+            <span id="userGreeting" style="<%= (typeof user !== 'undefined' && user) ? 'display: inline;' : 'display: none;' %>"><%= (typeof user !== 'undefined' && user) ? `Hello, ${user.name}` : '' %></span>
+            <button id="settingsBtn" style="<%= (typeof user !== 'undefined' && user) ? 'display: inline-block;' : 'display: none;' %>">Settings</button>
+            <button id="logoutBtn" style="<%= (typeof user !== 'undefined' && user) ? 'display: inline-block;' : 'display: none;' %>">Logout</button>
+            <button id="loginBtn" style="<%= (typeof user !== 'undefined' && user) ? 'display: none;' : 'display: inline-block;' %>">Login</button>
+            <button id="signupBtn" style="<%= (typeof user !== 'undefined' && user) ? 'display: none;' : 'display: inline-block;' %>">Sign Up</button>
+        </div>
+        <div class="menu-toggle">
+            <i class="fas fa-bars"></i>
+        </div>
+    </nav>
+</header>

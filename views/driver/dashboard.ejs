@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('../partials/head') %>
+<body>
+    <%- include('../partials/driver-nav') %>
+
+    <main style="padding: 6rem 2rem 2rem; max-width: 1200px; margin: 0 auto;">
+        <h1>Driver Dashboard - Welcome, <%= user.name %>!</h1>
+        
+        <!-- Navigation Tabs -->
+        <div class="admin-tabs" style="margin-bottom: 2rem;">
+            <button class="tab-btn active" data-tab="dashboard">Dashboard</button>
+            <button class="tab-btn" data-tab="pending">Pending Rides</button>
+            <button class="tab-btn" data-tab="accepted">Accepted Rides</button>
+            <button class="tab-btn" data-tab="history">Ride History</button>
+        </div>
+        
+        <!-- Dashboard Tab -->
+        <div id="dashboardTab" class="tab-content active">
+            <div class="driver-dashboard-grid">
+            <!-- Pending Rides -->
+            <div style="background: white; padding: 2rem; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
+                <h2 style="margin-bottom: 1.5rem; color: #007bff;">Available Rides</h2>
+                <% if (pendingRides.length === 0) { %>
+                    <p style="color: var(--gray-color); text-align: center; padding: 2rem;">No pending rides available</p>
+                <% } else { %>
+                    <% pendingRides.forEach(ride => { %>
+                        <div class="ride-card">
+                            <div class="ride-card-content">
+                                <div class="ride-info-section">
+                                    <h3 class="customer-title">Customer Information</h3>
+                                    <p class="info-item"><strong>Name:</strong> <%= ride.passenger ? ride.passenger.name : (ride.guestInfo ? ride.guestInfo.fullName : 'Guest') %></p>
+                                    <p class="info-item"><strong>Email:</strong> <%= ride.passenger ? ride.passenger.email : (ride.guestInfo ? ride.guestInfo.email : 'Not provided') %></p>
+                                    <p class="info-item"><strong>Phone:</strong> <% const phone = ride.passenger ? ride.passenger.phone : (ride.guestInfo ? ride.guestInfo.phone : null); %><% if (phone && phone !== 'Not provided') { %><a href="tel:<%= phone %>" style="color: #007bff; text-decoration: none;" class="phone-number"><%= phone %></a><% } else { %>Not provided<% } %></p>
+                                    
+                                    <h3 class="trip-section">Trip Details</h3>
+                                    <p class="info-item"><strong>Pickup From:</strong> <a href="https://maps.google.com/?q=<%= encodeURIComponent(ride.pickupLocation) %>" target="_blank" style="color: #007bff; text-decoration: none;"><%= ride.pickupLocation %></a></p>
+                                    <p class="info-item"><strong>Drop-off To:</strong> <a href="https://maps.google.com/?q=<%= encodeURIComponent(ride.dropoffLocation) %>" target="_blank" style="color: #007bff; text-decoration: none;"><%= ride.dropoffLocation %></a></p>
+                                    <p class="info-item"><strong>Vehicle Type:</strong> <%= ride.vehicleType %></p>
+                                    <p class="info-item"><strong>Pickup Time:</strong> <%= new Date(ride.createdAt).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true }) %></p>
+                                    <p class="info-item"><strong>Fare:</strong> $<%= ride.fare %></p>
+                                </div>
+                                <button onclick="acceptRide('<%= ride._id %>')" class="accept-ride-btn">
+                                    Accept Ride
+                                </button>
+                            </div>
+                        </div>
+                    <% }) %>
+                <% } %>
+            </div>
+
+            <!-- Active Rides -->
+            <div style="background: white; padding: 2rem; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
+                <h2 style="margin-bottom: 1.5rem; color: #007bff;">Active Rides</h2>
+                <% 
+                const activeRides = myRides.filter(ride => ride.status !== 'completed');
+                %>
+                <% if (activeRides.length === 0) { %>
+                    <p style="color: var(--gray-color); text-align: center; padding: 2rem;">No active rides</p>
+                <% } else { %>
+                    <% activeRides.forEach(ride => { %>
+                        <div class="ride-card">
+                            <div class="ride-card-content">
+                                <div class="ride-info-section">
+                                    <div class="customer-header">
+                                        <h3 class="customer-title">Customer Information</h3>
+                                        <span class="status-badge" style="color: <%= ride.status === 'completed' ? 'var(--secondary-color)' : ride.status === 'accepted' ? 'var(--primary-color)' : 'var(--accent-color)' %>; background: <%= ride.status === 'completed' ? '#e8f5e8' : ride.status === 'accepted' ? '#fff3e0' : '#ffebee' %>;">
+                                            <%= ride.status.charAt(0).toUpperCase() + ride.status.slice(1) %>
+                                        </span>
+                                    </div>
+                                    <p class="info-item"><strong>Name:</strong> <%= ride.passenger ? ride.passenger.name : (ride.guestInfo ? ride.guestInfo.fullName : 'Guest') %></p>
+                                    <p class="info-item"><strong>Email:</strong> <%= ride.passenger ? ride.passenger.email : (ride.guestInfo ? ride.guestInfo.email : 'Not provided') %></p>
+                                    <p class="info-item"><strong>Phone:</strong> <% const phone2 = ride.passenger ? ride.passenger.phone : (ride.guestInfo ? ride.guestInfo.phone : null); %><% if (phone2 && phone2 !== 'Not provided') { %><a href="tel:<%= phone2 %>" style="color: #007bff; text-decoration: none;" class="phone-number"><%= phone2 %></a><% } else { %>Not provided<% } %></p>
+                                    
+                                    <h3 class="trip-section">Trip Details</h3>
+                                    <p class="info-item"><strong>Pickup From:</strong> <a href="https://maps.google.com/?q=<%= encodeURIComponent(ride.pickupLocation) %>" target="_blank" style="color: #007bff; text-decoration: none;"><%= ride.pickupLocation %></a></p>
+                                    <p class="info-item"><strong>Drop-off To:</strong> <a href="https://maps.google.com/?q=<%= encodeURIComponent(ride.dropoffLocation) %>" target="_blank" style="color: #007bff; text-decoration: none;"><%= ride.dropoffLocation %></a></p>
+                                    <p class="info-item"><strong>Vehicle Type:</strong> <%= ride.vehicleType %></p>
+                                    <p class="info-item"><strong>Pickup Time:</strong> <%= new Date(ride.createdAt).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true }) %></p>
+                                    <p class="info-item"><strong>Fare:</strong> $<%= ride.fare %></p>
+                                    
+                                    <% if (ride.acceptedAt) { %>
+                                        <p class="info-item"><strong>Accepted:</strong> <%= new Date(ride.acceptedAt).toLocaleString() %></p>
+                                    <% } %>
+                                </div>
+                            </div>
+                            <% if (ride.status === 'accepted') { %>
+                                <div class="complete-ride-container">
+                                    <button onclick="completeRide('<%= ride._id %>')" class="complete-ride-btn">
+                                        Complete Ride
+                                    </button>
+                                </div>
+                            <% } %>
+                        </div>
+                    <% }) %>
+                <% } %>
+            </div>
+            </div>
+        </div>
+        
+        <!-- Pending Rides Tab -->
+        <div id="pendingTab" class="tab-content">
+            <div style="background: white; padding: 2rem; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
+                <h2 style="margin-bottom: 1.5rem; color: #007bff;">Pending Rides - Need Your Acceptance</h2>
+                <% if (pendingRides.length === 0) { %>
+                    <p style="color: var(--gray-color); text-align: center; padding: 2rem;">No pending rides available</p>
+                <% } else { %>
+                    <% pendingRides.forEach(ride => { %>
+                        <div class="ride-card">
+                            <div class="ride-card-content">
+                                <div class="ride-info-section">
+                                    <h3 class="customer-title">Customer Information</h3>
+                                    <p class="info-item"><strong>Name:</strong> <%= ride.passenger ? ride.passenger.name : (ride.guestInfo ? ride.guestInfo.fullName : 'Guest') %></p>
+                                    <p class="info-item"><strong>Email:</strong> <%= ride.passenger ? ride.passenger.email : (ride.guestInfo ? ride.guestInfo.email : 'Not provided') %></p>
+                                    <p class="info-item"><strong>Phone:</strong> <% const phone3 = ride.passenger ? ride.passenger.phone : (ride.guestInfo ? ride.guestInfo.phone : null); %><% if (phone3 && phone3 !== 'Not provided') { %><a href="tel:<%= phone3 %>" style="color: #007bff; text-decoration: none;" class="phone-number"><%= phone3 %></a><% } else { %>Not provided<% } %></p>
+                                    
+                                    <h3 class="trip-section">Trip Details</h3>
+                                    <p class="info-item"><strong>Pickup From:</strong> <a href="https://maps.google.com/?q=<%= encodeURIComponent(ride.pickupLocation) %>" target="_blank" style="color: #007bff; text-decoration: none;"><%= ride.pickupLocation %></a></p>
+                                    <p class="info-item"><strong>Drop-off To:</strong> <a href="https://maps.google.com/?q=<%= encodeURIComponent(ride.dropoffLocation) %>" target="_blank" style="color: #007bff; text-decoration: none;"><%= ride.dropoffLocation %></a></p>
+                                    <p class="info-item"><strong>Vehicle Type:</strong> <%= ride.vehicleType %></p>
+                                    <p class="info-item"><strong>Pickup Time:</strong> <%= new Date(ride.createdAt).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true }) %></p>
+                                    <p class="info-item"><strong>Fare:</strong> $<%= ride.fare %></p>
+                                </div>
+                                <button onclick="acceptRide('<%= ride._id %>')" class="accept-ride-btn">
+                                    Accept Ride
+                                </button>
+                            </div>
+                        </div>
+                    <% }) %>
+                <% } %>
+            </div>
+        </div>
+        
+        <!-- Accepted Rides Tab -->
+        <div id="acceptedTab" class="tab-content">
+            <div style="background: white; padding: 2rem; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
+                <h2 style="margin-bottom: 1.5rem; color: #007bff;">Your Accepted Rides</h2>
+                <% 
+                const acceptedRides = myRides.filter(ride => ride.status === 'accepted');
+                %>
+                <% if (acceptedRides.length === 0) { %>
+                    <p style="color: var(--gray-color); text-align: center; padding: 2rem;">No accepted rides</p>
+                <% } else { %>
+                    <% acceptedRides.forEach(ride => { %>
+                        <div class="ride-card">
+                            <div class="ride-card-content">
+                                <div class="ride-info-section">
+                                    <div class="customer-header">
+                                        <h3 class="customer-title">Customer Information</h3>
+                                        <span class="status-badge" style="color: #007bff; background: #fff3e0;">
+                                            Accepted
+                                        </span>
+                                    </div>
+                                    <p class="info-item"><strong>Name:</strong> <%= ride.passenger ? ride.passenger.name : (ride.guestInfo ? ride.guestInfo.fullName : 'Guest') %></p>
+                                    <p class="info-item"><strong>Email:</strong> <%= ride.passenger ? ride.passenger.email : (ride.guestInfo ? ride.guestInfo.email : 'Not provided') %></p>
+                                    <p class="info-item"><strong>Phone:</strong> <% const phone4 = ride.passenger ? ride.passenger.phone : (ride.guestInfo ? ride.guestInfo.phone : null); %><% if (phone4 && phone4 !== 'Not provided') { %><a href="tel:<%= phone4 %>" style="color: #007bff; text-decoration: none;" class="phone-number"><%= phone4 %></a><% } else { %>Not provided<% } %></p>
+                                    
+                                    <h3 class="trip-section">Trip Details</h3>
+                                    <p class="info-item"><strong>Pickup From:</strong> <a href="https://maps.google.com/?q=<%= encodeURIComponent(ride.pickupLocation) %>" target="_blank" style="color: #007bff; text-decoration: none;"><%= ride.pickupLocation %></a></p>
+                                    <p class="info-item"><strong>Drop-off To:</strong> <a href="https://maps.google.com/?q=<%= encodeURIComponent(ride.dropoffLocation) %>" target="_blank" style="color: #007bff; text-decoration: none;"><%= ride.dropoffLocation %></a></p>
+                                    <p class="info-item"><strong>Vehicle Type:</strong> <%= ride.vehicleType %></p>
+                                    <p class="info-item"><strong>Pickup Time:</strong> <%= new Date(ride.createdAt).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true }) %></p>
+                                    <p class="info-item"><strong>Fare:</strong> $<%= ride.fare %></p>
+                                    <p class="info-item"><strong>Accepted:</strong> <%= new Date(ride.acceptedAt).toLocaleString() %></p>
+                                </div>
+                            </div>
+                            <div class="complete-ride-container">
+                                <button onclick="completeRide('<%= ride._id %>')" class="complete-ride-btn">
+                                    Complete Ride
+                                </button>
+                            </div>
+                        </div>
+                    <% }) %>
+                <% } %>
+            </div>
+        </div>
+        
+        <!-- Ride History Tab -->
+        <div id="historyTab" class="tab-content">
+            <div style="background: white; padding: 2rem; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
+                <h2 style="margin-bottom: 1.5rem; color: #007bff;">Ride History</h2>
+                <% 
+                const completedRides = myRides.filter(ride => ride.status === 'completed');
+                %>
+                <% if (completedRides.length === 0) { %>
+                    <p style="color: var(--gray-color); text-align: center; padding: 2rem;">No completed rides</p>
+                <% } else { %>
+                    <% completedRides.forEach(ride => { %>
+                        <div class="ride-card" style="opacity: 0.9;">
+                            <div class="ride-card-content">
+                                <div class="ride-info-section">
+                                    <div class="customer-header">
+                                        <h3 class="customer-title">Customer Information</h3>
+                                        <span class="status-badge" style="color: var(--secondary-color); background: #e8f5e8;">
+                                            Completed
+                                        </span>
+                                    </div>
+                                    <p class="info-item"><strong>Name:</strong> <%= ride.passenger ? ride.passenger.name : (ride.guestInfo ? ride.guestInfo.fullName : 'Guest') %></p>
+                                    <p class="info-item"><strong>Email:</strong> <%= ride.passenger ? ride.passenger.email : (ride.guestInfo ? ride.guestInfo.email : 'Not provided') %></p>
+                                    <p class="info-item"><strong>Phone:</strong> <% const phone5 = ride.passenger ? ride.passenger.phone : (ride.guestInfo ? ride.guestInfo.phone : null); %><% if (phone5 && phone5 !== 'Not provided') { %><a href="tel:<%= phone5 %>" style="color: #007bff; text-decoration: none;" class="phone-number"><%= phone5 %></a><% } else { %>Not provided<% } %></p>
+                                    
+                                    <h3 class="trip-section">Trip Details</h3>
+                                    <p class="info-item"><strong>Pickup From:</strong> <a href="https://maps.google.com/?q=<%= encodeURIComponent(ride.pickupLocation) %>" target="_blank" style="color: #007bff; text-decoration: none;"><%= ride.pickupLocation %></a></p>
+                                    <p class="info-item"><strong>Drop-off To:</strong> <a href="https://maps.google.com/?q=<%= encodeURIComponent(ride.dropoffLocation) %>" target="_blank" style="color: #007bff; text-decoration: none;"><%= ride.dropoffLocation %></a></p>
+                                    <p class="info-item"><strong>Vehicle Type:</strong> <%= ride.vehicleType %></p>
+                                    <p class="info-item"><strong>Pickup Time:</strong> <%= new Date(ride.createdAt).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true }) %></p>
+                                    <p class="info-item"><strong>Fare:</strong> $<%= ride.fare %></p>
+                                    <p class="info-item"><strong>Completed:</strong> <%= new Date(ride.completedAt).toLocaleString() %></p>
+                                </div>
+                            </div>
+                        </div>
+                    <% }) %>
+                <% } %>
+            </div>
+        </div>
+    </main>
+
+    <%- include('../partials/driver-footer') %>
+
+    <script>
+        // Tab switching functionality
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const tabName = btn.dataset.tab;
+                switchTab(tabName);
+            });
+        });
+        
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+            
+            document.querySelector(`[data-tab="${tabName}"]`).classList.add('active');
+            document.getElementById(`${tabName}Tab`).classList.add('active');
+        }
+        
+        function showConfirmDialog(title, message, onConfirm) {
+            const overlay = document.createElement('div');
+            overlay.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.5);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                z-index: 10000;
+            `;
+
+            const dialog = document.createElement('div');
+            dialog.style.cssText = `
+                background: white;
+                padding: 2rem;
+                border-radius: 15px;
+                text-align: center;
+                max-width: 400px;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            `;
+
+            dialog.innerHTML = `
+                <h3 style="margin: 0 0 1rem 0; color: #007bff;">${title}</h3>
+                <p style="margin: 0 0 2rem 0; color: var(--dark-color);">${message}</p>
+                <div style="display: flex; gap: 1rem; justify-content: center;">
+                    <button id="confirmBtn" style="background: var(--secondary-color); color: white; border: none; padding: 0.8rem 1.5rem; border-radius: 8px; font-weight: 600; cursor: pointer;">Yes</button>
+                    <button id="cancelBtn" style="background: var(--accent-color); color: white; border: none; padding: 0.8rem 1.5rem; border-radius: 8px; font-weight: 600; cursor: pointer;">Cancel</button>
+                </div>
+            `;
+
+            overlay.appendChild(dialog);
+            document.body.appendChild(overlay);
+
+            dialog.querySelector('#confirmBtn').onclick = () => {
+                overlay.remove();
+                onConfirm();
+            };
+
+            dialog.querySelector('#cancelBtn').onclick = () => {
+                overlay.remove();
+            };
+        }
+
+        async function acceptRide(rideId) {
+            showConfirmDialog(
+                'Accept Ride',
+                'Are you sure you want to accept this ride?',
+                async () => {
+                    try {
+                        const response = await fetch(`/driver/rides/${rideId}/accept`, {
+                            method: 'PATCH',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            }
+                        });
+
+                        const data = await response.json();
+                        
+                        if (response.ok) {
+                            alert('Ride accepted successfully!');
+                            location.reload();
+                        } else {
+                            alert(data.error || 'Failed to accept ride');
+                        }
+                    } catch (error) {
+                        alert('Failed to accept ride. Please try again.');
+                    }
+                }
+            );
+        }
+
+        async function completeRide(rideId) {
+            showConfirmDialog(
+                'Complete Ride',
+                'Mark this ride as completed?',
+                async () => {
+                    try {
+                        const response = await fetch(`/driver/rides/${rideId}/complete`, {
+                            method: 'PATCH',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            }
+                        });
+
+                        const data = await response.json();
+                        
+                        if (response.ok) {
+                            alert('Ride completed successfully!');
+                            location.reload();
+                        } else {
+                            alert(data.error || 'Failed to complete ride');
+                        }
+                    } catch (error) {
+                        alert('Failed to complete ride. Please try again.');
+                    }
+                }
+            );
+        }
+        
+        function toggleDriverNav() {
+            const navLinks = document.querySelector('.driver-nav-links');
+            navLinks.classList.toggle('active');
+        }
+        
+        // Close mobile nav when clicking outside
+        document.addEventListener('click', function(event) {
+            const nav = document.querySelector('.driver-nav');
+            const navLinks = document.querySelector('.driver-nav-links');
+            if (!nav.contains(event.target) && navLinks.classList.contains('active')) {
+                navLinks.classList.remove('active');
+            }
+        });
+        
+        // Close mobile nav when clicking on nav links
+        document.querySelectorAll('.driver-nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                document.querySelector('.driver-nav-links').classList.remove('active');
+            });
+        });
+        
+        function handleLogout() {
+            showConfirmDialog(
+                'Confirm Logout',
+                'Are you sure you want to logout?',
+                async () => {
+                    try {
+                        await fetch('/driver/logout', {
+                            method: 'POST'
+                        });
+                    } catch (error) {
+                        console.log('Logout request failed, clearing local session anyway');
+                    }
+                    
+                    // Cookies are cleared by server
+                    window.location.href = '/driver/login';
+                }
+            );
+        }
+        
+        // Connect desktop logout button
+        document.getElementById('logoutBtn')?.addEventListener('click', (e) => {
+            e.preventDefault();
+            handleLogout();
+        });
+        
+        // Format phone numbers on page load
+        function formatPhoneNumber(phone) {
+            if (!phone) return '';
+            const digits = phone.replace(/\D/g, '');
+            if (digits.length === 10) {
+                return `(${digits.slice(0, 3)}) ${digits.slice(3, 6)}-${digits.slice(6)}`;
+            } else if (digits.length === 11 && digits.startsWith('1')) {
+                const phoneDigits = digits.slice(1);
+                return `(${phoneDigits.slice(0, 3)}) ${phoneDigits.slice(3, 6)}-${phoneDigits.slice(6)}`;
+            } else if (digits.length >= 10) {
+                const phoneDigits = digits.slice(-10);
+                return `(${phoneDigits.slice(0, 3)}) ${phoneDigits.slice(3, 6)}-${phoneDigits.slice(6)}`;
+            }
+            return phone;
+        }
+        
+        // Format all phone numbers on page
+        document.querySelectorAll('.phone-number').forEach(element => {
+            const phoneText = element.textContent.trim();
+            if (phoneText && phoneText !== 'Not provided' && phoneText !== 'N/A') {
+                element.textContent = formatPhoneNumber(phoneText);
+            }
+        });
+    </script>
+</body>
+</html>

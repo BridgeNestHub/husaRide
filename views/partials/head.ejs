@@ -1,0 +1,50 @@
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <meta name="description" content="HusaRide - Simple and reliable ride-hailing service. Book rides with professional drivers.">
+    <meta name="keywords" content="ride hailing, taxi, transportation, booking, drivers">
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/enhanced-styles.css">
+    <link rel="stylesheet" href="/css/vehicle-booking.css">
+    <link rel="stylesheet" href="/css/attractions.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
+    
+    <!-- Google Maps API - Load asynchronously with loading=async -->
+    <script>
+        // Global callback for Google Maps
+        window.initGoogleMaps = function() {
+            console.log('Google Maps API loaded successfully');
+            // Dispatch custom event to notify the application
+            window.dispatchEvent(new CustomEvent('googleMapsLoaded'));
+        };
+        
+        // Error handler for Google Maps authentication failures
+        window.gm_authFailure = function() {
+            console.error('Google Maps API authentication failed. Please check your API key.');
+            window.dispatchEvent(new CustomEvent('googleMapsError', { 
+                detail: { error: 'Authentication failed' } 
+            }));
+        };
+        
+        // Load Google Maps API with proper loading parameter
+        (function() {
+            const script = document.createElement('script');
+            script.src = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyC6loexxttO5jHOieU1zBH9f7UHo5tnqcs&libraries=places,geometry&loading=async&callback=initGoogleMaps';
+            script.async = true;
+            script.defer = true;
+            script.onerror = function() {
+                console.error('Failed to load Google Maps API script');
+                window.dispatchEvent(new CustomEvent('googleMapsError', { 
+                    detail: { error: 'Script load failed' } 
+                }));
+            };
+            document.head.appendChild(script);
+        })();
+    </script>
+</head>

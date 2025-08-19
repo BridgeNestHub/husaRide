@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('../partials/head') %>
+<style>
+    .drivers-grid {
+        grid-template-columns: repeat(4, 1fr) !important;
+        gap: 1.5rem;
+    }
+    .driver-avatar img {
+        width: 200px;
+        height: 200px;
+        border-radius: 50%;
+        object-fit: cover;
+        object-position: center top;
+        margin-bottom: 1rem;
+    }
+    @media (max-width: 768px) {
+        .drivers-grid {
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)) !important;
+        }
+        .driver-avatar img {
+            width: 170px;
+            height: 170px;
+        }
+    }
+    @media (max-width: 480px) {
+        .driver-avatar img {
+            width: 150px;
+            height: 150px;
+        }
+    }
+</style>
+<body>
+    <%- include('../partials/nav') %>
+
+    <main class="about-main">
+        <section class="page-hero">
+            <div class="hero-container">
+                <h1>About HusaRide</h1>
+                <p class="hero-subtitle">Connecting communities through premium transportation services since 2020. From luxury limousines to event buses, we're your trusted partner for every journey.</p>
+            </div>
+        </section>
+        
+        <section class="about-content">
+            <div class="content-container">
+        
+        <!-- Mission & Values -->
+        <section class="about-section">
+            <div class="about-cards">
+                <div class="card">
+                    <i class="fas fa-bullseye"></i>
+                    <h3>Our Mission</h3>
+                    <p>To revolutionize transportation by providing safe, reliable, and luxurious rides that exceed expectations. We believe every journey should be comfortable, convenient, and memorable.</p>
+                </div>
+                <div class="card">
+                    <i class="fas fa-shield-alt"></i>
+                    <h3>Safety & Quality</h3>
+                    <p>Every driver is thoroughly vetted with background checks and regular training. Our fleet undergoes rigorous maintenance to ensure the highest safety and comfort standards.</p>
+                </div>
+                <div class="card">
+                    <i class="fas fa-users"></i>
+                    <h3>Community Impact</h3>
+                    <p>We're committed to supporting local communities by providing employment opportunities for drivers and contributing to local economic growth through our services.</p>
+                </div>
+            </div>
+        </section>
+
+                        <!-- Drivers Section -->
+                        <section id="drivers" class="drivers-section">
+                            <h2>Meet Our Professional Drivers</h2>
+                            <div class="drivers-grid">
+                                <div class="driver-card">
+                                    <div class="driver-avatar">
+                                        <img src="/images/feysal.jpg" alt="Michael Johnson">
+                                    </div>
+                                    <h3>Abdul Feysal</h3>
+                                    <p class="driver-rating">★★★★★ 4.9</p>
+                                    <p class="driver-experience">5+ years experience</p>
+                                    <p class="driver-vehicle">Drives: Luxury Sedan</p>
+                                </div>
+                                <div class="driver-card">
+                                    <div class="driver-avatar">
+                                        <img src="images/adnan.jpg" alt="Sarah Williams">
+                                    </div>
+                                    <h3>Adnan Abduljalil</h3>
+                                    <p class="driver-rating">★★★★★ 4.8</p>
+                                    <p class="driver-experience">7+ years experience</p>
+                                    <p class="driver-vehicle">Drives: Premium SUV</p>
+                                </div>
+                                <div class="driver-card">
+                                    <div class="driver-avatar">
+                                        <img src="images/david.jpg" alt="David Chen">
+                                    </div>
+                                    <h3>David Chen</h3>
+                                    <p class="driver-rating">★★★★★ 4.9</p>
+                                    <p class="driver-experience">6+ years experience</p>
+                                    <p class="driver-vehicle">Drives: Luxury Limousine</p>
+                                </div>
+                                <div class="driver-card">
+                                    <div class="driver-avatar">
+                                        <img src="images/james.jpg" alt="Maria Rodriguez">
+                                    </div>
+                                    <h3>James Rodriguez</h3>
+                                    <p class="driver-rating">★★★★★ 4.7</p>
+                                    <p class="driver-experience">4+ years experience</p>
+                                    <p class="driver-vehicle">Drives: Comfort Van</p>
+                                </div>
+                            </div>
+                        </section>
+        
+                <!-- Fleet Section -->
+                <section id="fleet" class="fleet-section">
+                    <h2>Our Premium Fleet</h2>
+                    <p>From luxury limousines to spacious buses, we have the perfect vehicle for every occasion</p>
+                    <div class="fleet-grid">
+                        <div class="fleet-item">
+                            <img src="/images/limo.jpg" alt="Luxury Limousine">
+                            <div class="fleet-info">
+                                <h3>Luxury Limousines</h3>
+                                <p>Premium comfort for special occasions</p>
+                                <span class="capacity">Up to 8 passengers</span>
+                            </div>
+                        </div>
+                        <div class="fleet-item">
+                            <img src="/images/teslaComfort.jpg" alt="Comfort Electric">
+                            <div class="fleet-info">
+                                <h3>Comfort Electric</h3>
+                                <p>Eco-friendly and comfortable rides</p>
+                                <span class="capacity">Up to 4 passengers</span>
+                            </div>
+                        </div>
+                        <div class="fleet-item">
+                            <img src="/images/premiumsuv.jpg" alt="Premium SUV">
+                            <div class="fleet-info">
+                                <h3>Premium SUVs</h3>
+                                <p>Spacious and powerful for any journey</p>
+                                <span class="capacity">Up to 7 passengers</span>
+                            </div>
+                        </div>
+                        <div class="fleet-item">
+                            <img src="/images/sprintervan.jpg" alt="Luxury Van">
+                            <div class="fleet-info">
+                                <h3>Luxury Vans</h3>
+                                <p>Perfect for group travel and events</p>
+                                <span class="capacity">Up to 12 passengers</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+        
+                
+        <!-- Fleet Overview -->
+        <section style="margin: 4rem 0; text-align: center;">
+            <h2 style="margin-bottom: 2rem;">Our Premium Fleet</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; margin-bottom: 3rem;">
+                <div style="background: white; padding: 1.5rem; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
+                    <i class="fas fa-car" style="font-size: 2rem; color: var(--primary-color); margin-bottom: 1rem;"></i>
+                    <h4>50+ Vehicles</h4>
+                    <p style="color: var(--gray-color);">Modern, well-maintained fleet</p>
+                </div>
+                <div style="background: white; padding: 1.5rem; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
+                    <i class="fas fa-user-tie" style="font-size: 2rem; color: var(--primary-color); margin-bottom: 1rem;"></i>
+                    <h4>100+ Drivers</h4>
+                    <p style="color: var(--gray-color);">Professional, experienced drivers</p>
+                </div>
+                <div style="background: white; padding: 1.5rem; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
+                    <i class="fas fa-star" style="font-size: 2rem; color: var(--primary-color); margin-bottom: 1rem;"></i>
+                    <h4>4.8/5 Rating</h4>
+                    <p style="color: var(--gray-color);">Excellent customer satisfaction</p>
+                </div>
+                <div style="background: white; padding: 1.5rem; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
+                    <i class="fas fa-clock" style="font-size: 2rem; color: var(--primary-color); margin-bottom: 1rem;"></i>
+                    <h4>24/7 Service</h4>
+                    <p style="color: var(--gray-color);">Always available when you need us</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Company Story -->
+        <section style="background: #f8f9fa; padding: 3rem; border-radius: 15px; margin: 4rem 0;">
+            <div style="max-width: 800px; margin: 0 auto; text-align: center;">
+                <h2 style="margin-bottom: 2rem;">Our Story</h2>
+                <p style="font-size: 1.1rem; line-height: 1.8; color: var(--dark-color); margin-bottom: 2rem;">Founded in 2020, HusaRide began with a simple vision: to transform the way people experience transportation. What started as a small fleet of luxury vehicles has grown into a comprehensive transportation service that serves thousands of customers across the region.</p>
+                <p style="font-size: 1.1rem; line-height: 1.8; color: var(--dark-color);">Today, we're proud to offer everything from intimate rides for two to large event transportation for groups of 25 or more. Our commitment to excellence, safety, and customer satisfaction has made us the preferred choice for personal transportation, corporate events, weddings, and special occasions.</p>
+            </div>
+            </div>
+        </section>
+    </main>
+
+    <%- include('../partials/footer') %>
+    <%- include('../partials/auth-modals') %>
+    <script src="/js/main.js"></script>
+</body>
+</html>

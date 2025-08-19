@@ -1,0 +1,1438 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('../partials/head') %>
+<body>
+    <%- include('../partials/admin-nav') %>
+
+    <main class="admin-main">
+        <div class="admin-header">
+            <h1>Admin Dashboard</h1>
+            <p>Manage your HusaRide platform</p>
+        </div>
+        
+        <!-- Stats Cards -->
+        <div class="admin-stats">
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fas fa-users"></i></div>
+                <div class="stat-info">
+                    <h3><%= stats.totalUsers %></h3>
+                    <p>Total Users</p>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fas fa-car"></i></div>
+                <div class="stat-info">
+                    <h3><%= stats.totalDrivers %></h3>
+                    <p>Drivers</p>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fas fa-user-friends"></i></div>
+                <div class="stat-info">
+                    <h3><%= stats.totalPassengers %></h3>
+                    <p>Passengers</p>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fas fa-route"></i></div>
+                <div class="stat-info">
+                    <h3><%= stats.totalRides %></h3>
+                    <p>Total Rides</p>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fas fa-check-circle"></i></div>
+                <div class="stat-info">
+                    <h3><%= stats.completedRides %></h3>
+                    <p>Completed</p>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fas fa-clock"></i></div>
+                <div class="stat-info">
+                    <h3><%= stats.pendingRides %></h3>
+                    <p>Pending</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation Tabs -->
+        <div class="admin-tabs">
+            <button class="tab-btn active" data-tab="overview">Overview</button>
+            <button class="tab-btn" data-tab="users">Users</button>
+            <button class="tab-btn" data-tab="drivers">Drivers</button>
+            <button class="tab-btn" data-tab="rides">Rides</button>
+            <button class="tab-btn" data-tab="completed">Completed Rides</button>
+            <button class="tab-btn" data-tab="analytics">Analytics</button>
+        </div>
+
+        <!-- Content Area -->
+        <div id="adminContent" class="admin-content">
+            <div id="overviewTab" class="tab-content active">
+                <h2>Recent Activity (Pending & Accepted)</h2>
+                <div class="recent-rides">
+                    <% recentRides.filter(ride => ride.status !== 'completed').forEach(ride => { %>
+                    <div class="activity-item">
+                        <div class="activity-icon">
+                            <i class="fas fa-route"></i>
+                        </div>
+                        <div class="activity-info">
+                            <h4><%= ride.pickupLocation %> → <%= ride.dropoffLocation %></h4>
+                            <p>Passenger: <%= ride.passenger ? ride.passenger.name : (ride.guestInfo ? ride.guestInfo.fullName : 'Guest') %> • Driver: <%= ride.driver ? ride.driver.name : 'Not assigned' %></p>
+                            <span class="activity-meta">$<%= ride.fare %> • <%= new Date(ride.createdAt).toLocaleDateString() %></span>
+                        </div>
+                        <div class="activity-status">
+                            <span class="status-badge status-<%= ride.status %>"><%= ride.status %></span>
+                        </div>
+                    </div>
+                    <% }) %>
+                </div>
+            </div>
+            
+            <div id="usersTab" class="tab-content">
+                <div class="tab-header">
+                    <h2>User Management</h2>
+                    <button class="add-btn" onclick="showAddUserModal()"><i class="fas fa-plus"></i> Add User</button>
+                </div>
+                <div id="usersContainer"></div>
+            </div>
+            
+            <div id="driversTab" class="tab-content">
+                <div class="tab-header">
+                    <h2>Driver Management</h2>
+                    <button class="add-btn" onclick="showAddDriverModal()"><i class="fas fa-plus"></i> Add Driver</button>
+                </div>
+                <div id="driversContainer"></div>
+            </div>
+            
+            <div id="ridesTab" class="tab-content">
+                <div class="tab-header">
+                    <h2>Ride Management (Active Rides)</h2>
+                    <div class="filter-buttons">
+                        <button class="filter-btn active" onclick="filterRides('all')">All</button>
+                        <button class="filter-btn" onclick="filterRides('pending')">Pending</button>
+                        <button class="filter-btn" onclick="filterRides('accepted')">Accepted</button>
+                    </div>
+                </div>
+                <div id="ridesContainer"></div>
+            </div>
+            
+            <div id="completedTab" class="tab-content">
+                <div class="tab-header">
+                    <h2>Completed Rides</h2>
+                </div>
+                <div id="completedRidesContainer">
+                    <div class="recent-rides">
+                        <% recentRides.filter(ride => ride.status === 'completed').forEach(ride => { %>
+                        <div class="activity-item">
+                            <div class="activity-icon">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                            <div class="activity-info">
+                                <h4><%= ride.pickupLocation %> → <%= ride.dropoffLocation %></h4>
+                                <p>Passenger: <%= ride.passenger ? ride.passenger.name : 'Guest' %> • Driver: <%= ride.driver ? ride.driver.name : 'Not assigned' %></p>
+                                <span class="activity-meta">$<%= ride.fare %> • Completed: <%= new Date(ride.completedAt || ride.createdAt).toLocaleDateString() %></span>
+                            </div>
+                            <div class="activity-status">
+                                <span class="status-badge status-completed">Completed</span>
+                            </div>
+                        </div>
+                        <% }) %>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="analyticsTab" class="tab-content">
+                <h2>Analytics & Reports</h2>
+                <div class="analytics-grid">
+                    <div class="analytics-card">
+                        <h3>Revenue</h3>
+                        <p class="analytics-value">$<span id="totalRevenue">0</span></p>
+                    </div>
+                    <div class="analytics-card">
+                        <h3>Average Ride</h3>
+                        <p class="analytics-value">$<span id="avgRide">0</span></p>
+                    </div>
+                    <div class="analytics-card">
+                        <h3>Success Rate</h3>
+                        <p class="analytics-value"><span id="successRate">0</span>%</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <%- include('../partials/admin-footer') %>
+    <%- include('../partials/auth-modals') %>
+    <script>
+        // Tab switching
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const tabName = btn.dataset.tab;
+                switchTab(tabName);
+                
+                // Load data based on tab
+                if (tabName === 'users') loadUsers();
+                if (tabName === 'drivers') loadDrivers();
+                if (tabName === 'rides') loadRides();
+                if (tabName === 'completed') loadCompletedRides();
+                if (tabName === 'analytics') loadAnalytics();
+            });
+        });
+        
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+            
+            document.querySelector(`[data-tab="${tabName}"]`).classList.add('active');
+            document.getElementById(`${tabName}Tab`).classList.add('active');
+        }
+
+        async function loadUsers() {
+            try {
+                const response = await fetch('/admin/users');
+                const data = await response.json();
+                displayUsers(data.users.filter(u => u.role === 'passenger'));
+            } catch (error) {
+                console.error('Failed to load users:', error);
+            }
+        }
+        
+        async function loadDrivers() {
+            try {
+                const response = await fetch('/admin/users');
+                const data = await response.json();
+                displayDrivers(data.users.filter(u => u.role === 'driver'));
+            } catch (error) {
+                console.error('Failed to load drivers:', error);
+            }
+        }
+
+        async function loadRides() {
+            try {
+                const response = await fetch('/admin/rides');
+                const data = await response.json();
+                // Filter to show only pending and accepted rides
+                const activeRides = data.rides.filter(ride => ride.status === 'pending' || ride.status === 'accepted');
+                displayRides(activeRides);
+                window.allActiveRides = activeRides; // Store for filtering
+            } catch (error) {
+                console.error('Failed to load rides:', error);
+            }
+        }
+        
+        async function loadAnalytics() {
+            try {
+                const response = await fetch('/admin/rides');
+                const data = await response.json();
+                calculateAnalytics(data.rides);
+            } catch (error) {
+                console.error('Failed to load analytics:', error);
+            }
+        }
+
+        function displayUsers(users) {
+            const container = document.getElementById('usersContainer');
+            container.innerHTML = `
+                <div class="users-table">
+                    ${users.map(user => `
+                        <div class="user-row">
+                            <div class="user-info">
+                                <div class="driver-header" onclick="toggleUserInfo('${user._id}')">
+                                    <strong>${user.name}</strong>
+                                    <span class="expand-icon" id="user-icon-${user._id}">▼</span>
+                                </div>
+                                <p>${user.email} • ${user.phone}</p>
+                                <p>Points: ${user.points} • Joined: ${new Date(user.createdAt).toLocaleDateString()}</p>
+                                <div class="driver-details" id="user-details-${user._id}" style="display: none;">
+                                    <div class="driver-stats">
+                                        <h4>User Information</h4>
+                                        <p><strong>Full Name:</strong> ${user.name}</p>
+                                        <p><strong>Email Address:</strong> ${user.email}</p>
+                                        <p><strong>Phone Number:</strong> <span class="phone-number">${user.phone}</span></p>
+                                        <p><strong>Role:</strong> ${user.role}</p>
+                                        <p><strong>Points Balance:</strong> ${user.points}</p>
+                                        <p><strong>Account Created:</strong> ${new Date(user.createdAt).toLocaleString()}</p>
+                                        <p><strong>Last Updated:</strong> ${new Date(user.updatedAt || user.createdAt).toLocaleString()}</p>
+                                        <div class="driver-ride-stats" id="user-stats-${user._id}">
+                                            <p>Loading user statistics...</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="user-actions">
+                                <select onchange="updateUserRole('${user._id}', this.value)">
+                                    <option value="passenger" ${user.role === 'passenger' ? 'selected' : ''}>Passenger</option>
+                                    <option value="driver" ${user.role === 'driver' ? 'selected' : ''}>Driver</option>
+                                    <option value="admin" ${user.role === 'admin' ? 'selected' : ''}>Admin</option>
+                                </select>
+                                <button onclick="resetUserPassword('${user._id}')" class="reset-btn">Reset Password</button>
+                                <button onclick="deleteUser('${user._id}')" class="delete-btn">Delete</button>
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+        }
+        
+        function displayDrivers(drivers) {
+            const container = document.getElementById('driversContainer');
+            container.innerHTML = `
+                <div class="users-table">
+                    ${drivers.map(driver => `
+                        <div class="user-row driver-row">
+                            <div class="user-info">
+                                <div class="driver-header" onclick="toggleDriverInfo('${driver._id}')">
+                                    <strong>${driver.name}</strong>
+                                    <span class="expand-icon" id="icon-${driver._id}">▼</span>
+                                </div>
+                                <p>${driver.email} • ${driver.phone}</p>
+                                <p>Joined: ${new Date(driver.createdAt).toLocaleDateString()}</p>
+                                <div class="driver-details" id="details-${driver._id}" style="display: none;">
+                                    <div class="driver-stats">
+                                        <h4>Driver Information</h4>
+                                        <div class="editable-field">
+                                            <p><strong>Full Name:</strong> <span id="name-${driver._id}">${driver.name}</span></p>
+                                            <button onclick="editField('${driver._id}', 'name', '${driver.name}')" class="edit-btn">Edit</button>
+                                        </div>
+                                        <div class="editable-field">
+                                            <p><strong>Email Address:</strong> <span id="email-${driver._id}">${driver.email}</span></p>
+                                            <button onclick="editField('${driver._id}', 'email', '${driver.email}')" class="edit-btn">Edit</button>
+                                        </div>
+                                        <div class="editable-field">
+                                            <p><strong>Phone Number:</strong> <span id="phone-${driver._id}" class="phone-number">${driver.phone}</span></p>
+                                            <button onclick="editField('${driver._id}', 'phone', '${driver.phone}')" class="edit-btn">Edit</button>
+                                        </div>
+                                        <div class="editable-field">
+                                            <p><strong>Role:</strong> <span id="role-${driver._id}">${driver.role}</span></p>
+                                            <button onclick="editField('${driver._id}', 'role', '${driver.role}')" class="edit-btn">Edit</button>
+                                        </div>
+                                        <p><strong>Account Created:</strong> ${new Date(driver.createdAt).toLocaleString()}</p>
+                                        <p><strong>Last Updated:</strong> ${new Date(driver.updatedAt || driver.createdAt).toLocaleString()}</p>
+                                        <div class="vehicle-info" id="vehicle-info-${driver._id}">
+                                            <div class="vehicle-header">
+                                                <h4>Vehicle Information</h4>
+                                                <button onclick="addVehicle('${driver._id}')" class="add-vehicle-btn">Add Vehicle</button>
+                                            </div>
+                                            ${driver.vehicles && driver.vehicles.length > 0 ? 
+                                                driver.vehicles.map((vehicle, index) => `
+                                                    <div class="vehicle-item" id="vehicle-${driver._id}-${index}">
+                                                        <div class="vehicle-actions">
+                                                            <p><strong>Vehicle ${index + 1}:</strong></p>
+                                                            <button onclick="editVehicle('${driver._id}', ${index})" class="edit-btn">Edit</button>
+                                                            <button onclick="deleteVehicle('${driver._id}', ${index})" class="delete-btn-small">Delete</button>
+                                                        </div>
+                                                        <p><strong>Type:</strong> ${vehicle.type || 'Not specified'}</p>
+                                                        <p><strong>Make & Model:</strong> ${vehicle.make || 'N/A'} ${vehicle.model || ''}</p>
+                                                        <p><strong>Year:</strong> ${vehicle.year || 'N/A'}</p>
+                                                        <p><strong>Color:</strong> ${vehicle.color || 'N/A'}</p>
+                                                        <p><strong>License Plate:</strong> ${vehicle.licensePlate || 'N/A'}</p>
+                                                    </div>
+                                                `).join('') 
+                                                : '<p>No vehicle information available</p>'
+                                            }
+                                        </div>
+                                        <div class="driver-ride-stats" id="driver-stats-${driver._id}">
+                                            <p>Loading driver statistics...</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="user-actions">
+                                <button onclick="resetUserPassword('${driver._id}')" class="reset-btn">Reset Password</button>
+                                <button onclick="deleteUser('${driver._id}')" class="delete-btn">Remove Driver</button>
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+        }
+
+        function displayRides(rides) {
+            const container = document.getElementById('ridesContainer');
+            container.innerHTML = `
+                <div class="rides-table">
+                    ${rides.map(ride => `
+                        <div class="ride-row">
+                            <div class="ride-info">
+                                <div class="driver-header" onclick="toggleRideClientInfo('${ride._id}')">
+                                    <div>
+                                        <strong><a href="https://maps.google.com/?q=${encodeURIComponent(ride.pickupLocation)}" target="_blank" style="color: #007bff; text-decoration: none;">${ride.pickupLocation}</a> → <a href="https://maps.google.com/?q=${encodeURIComponent(ride.dropoffLocation)}" target="_blank" style="color: #007bff; text-decoration: none;">${ride.dropoffLocation}</a></strong>
+                                        <p>Passenger: ${ride.passenger ? ride.passenger.name : (ride.guestInfo ? ride.guestInfo.fullName : 'Guest')}</p>
+                                        <p>Driver: ${ride.driver ? ride.driver.name : 'Not assigned'}</p>
+                                        <p>Fare: $${ride.fare} • Vehicle: ${ride.vehicleType}</p>
+                                    </div>
+                                    <span class="expand-icon" id="ride-expand-${ride._id}">▼</span>
+                                </div>
+                                <div class="driver-details" id="ride-details-${ride._id}" style="display: none;">
+                                    <div class="ride-details-vertical">
+                                        <h4>Client Information</h4>
+                                        <p><strong>Name:</strong> ${ride.passenger ? ride.passenger.name : (ride.guestInfo ? ride.guestInfo.fullName : 'Guest')}</p>
+                                        <p><strong>Email:</strong> ${ride.passenger ? ride.passenger.email : (ride.guestInfo ? ride.guestInfo.email : 'Not provided')}</p>
+                                        <p><strong>Phone:</strong> ${(ride.passenger ? ride.passenger.phone : (ride.guestInfo ? ride.guestInfo.phone : null)) && (ride.passenger ? ride.passenger.phone : ride.guestInfo.phone) !== 'Not provided' ? `<a href="tel:${ride.passenger ? ride.passenger.phone : ride.guestInfo.phone}" style="color: #007bff; text-decoration: none;">${ride.passenger ? ride.passenger.phone : ride.guestInfo.phone}</a>` : 'Not provided'}</p>
+                                        
+                                        <h4>Trip Details</h4>
+                                        <p><strong>Vehicle Requested:</strong> ${ride.vehicleType}</p>
+                                        <p><strong>Booking Date:</strong> ${new Date(ride.createdAt).toLocaleString()}</p>
+                                        <p><strong>Estimated Fare:</strong> $${ride.fare}</p>
+                                        ${ride.passengers && ride.passengers > 1 ? `<p><strong>Passengers:</strong> ${ride.passengers}</p>` : ''}
+                                        
+                                        ${ride.notes ? `
+                                            <h4>Additional Notes</h4>
+                                            <p>${ride.notes}</p>
+                                        ` : ''}
+                                        ${ride.bookingDate && ride.bookingDate !== ride.createdAt ? `
+                                            <h4>Scheduled Information</h4>
+                                            <p><strong>Scheduled For:</strong> ${new Date(ride.bookingDate).toLocaleString()}</p>
+                                        ` : ''}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="ride-actions">
+                                <div style="display: flex; flex-direction: column; align-items: center; gap: 0.5rem;">
+                                    <span class="status-badge status-${ride.status}">${ride.status}</span>
+                                    <p class="ride-date" style="margin: 0; font-size: 0.9rem; color: var(--gray-color);">${new Date(ride.createdAt).toLocaleDateString()}</p>
+                                    ${ride.status === 'pending' ? `
+                                        <button class="accept-ride-btn" onclick="showDriverSelectionModal('${ride._id}')">Accept & Assign Driver</button>
+                                    ` : ''}
+                                    ${ride.status === 'accepted' ? `
+                                        <button class="reassign-ride-btn" onclick="showReassignModal('${ride._id}')">Reassign Driver</button>
+                                    ` : ''}
+                                </div>
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+        }
+        
+        function calculateAnalytics(rides) {
+            const totalRevenue = rides.reduce((sum, ride) => sum + ride.fare, 0);
+            const avgRide = rides.length ? totalRevenue / rides.length : 0;
+            const completedRides = rides.filter(r => r.status === 'completed').length;
+            const successRate = rides.length ? (completedRides / rides.length * 100) : 0;
+            
+            document.getElementById('totalRevenue').textContent = totalRevenue.toFixed(2);
+            document.getElementById('avgRide').textContent = avgRide.toFixed(2);
+            document.getElementById('successRate').textContent = successRate.toFixed(1);
+        }
+        
+        function filterRides(status) {
+            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            if (!window.allActiveRides) return;
+            
+            let filteredRides;
+            if (status === 'all') {
+                filteredRides = window.allActiveRides;
+            } else {
+                filteredRides = window.allActiveRides.filter(ride => ride.status === status);
+            }
+            
+            displayRides(filteredRides);
+        }
+
+        async function updateUserRole(userId, role) {
+            try {
+                await fetch(`/admin/users/${userId}/role`, {
+                    method: 'PATCH',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ role })
+                });
+                loadUsers();
+            } catch (error) {
+                console.error('Failed to update user role:', error);
+            }
+        }
+
+        async function resetUserPassword(userId) {
+            showPasswordResetModal(userId);
+        }
+        
+        function showPasswordResetModal(userId) {
+            const overlay = document.createElement('div');
+            overlay.className = 'modal-overlay';
+            
+            const modal = document.createElement('div');
+            modal.className = 'password-modal';
+            
+            modal.innerHTML = `
+                <div class="modal-header">
+                    <h3>Reset User Password</h3>
+                    <button class="modal-close" onclick="closePasswordModal()">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="password-form">
+                        <div class="form-group">
+                            <label class="modal-label">New Password:</label>
+                            <input type="password" id="newPassword" class="modal-input" placeholder="Enter new password" minlength="6">
+                            <small class="password-hint">Password must be at least 6 characters long</small>
+                        </div>
+                        <div class="form-group">
+                            <label class="modal-label">Confirm Password:</label>
+                            <input type="password" id="confirmPassword" class="modal-input" placeholder="Confirm new password">
+                        </div>
+                        <div class="password-strength" id="passwordStrength"></div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="modal-btn modal-cancel" onclick="closePasswordModal()">Cancel</button>
+                    <button class="modal-btn modal-save" onclick="savePasswordReset('${userId}')">Reset Password</button>
+                </div>
+            `;
+            
+            overlay.appendChild(modal);
+            document.body.appendChild(overlay);
+            
+            // Focus on password input
+            setTimeout(() => {
+                document.getElementById('newPassword').focus();
+            }, 100);
+            
+            // Add password strength indicator
+            document.getElementById('newPassword').addEventListener('input', updatePasswordStrength);
+        }
+        
+        function closePasswordModal() {
+            const overlay = document.querySelector('.modal-overlay');
+            if (overlay) {
+                overlay.remove();
+            }
+        }
+        
+        function updatePasswordStrength() {
+            const password = document.getElementById('newPassword').value;
+            const strengthDiv = document.getElementById('passwordStrength');
+            
+            if (password.length === 0) {
+                strengthDiv.innerHTML = '';
+                return;
+            }
+            
+            let strength = 0;
+            let feedback = [];
+            
+            if (password.length >= 6) strength++;
+            else feedback.push('At least 6 characters');
+            
+            if (/[A-Z]/.test(password)) strength++;
+            else feedback.push('One uppercase letter');
+            
+            if (/[0-9]/.test(password)) strength++;
+            else feedback.push('One number');
+            
+            if (/[^A-Za-z0-9]/.test(password)) strength++;
+            else feedback.push('One special character');
+            
+            const levels = ['Very Weak', 'Weak', 'Fair', 'Good', 'Strong'];
+            const colors = ['#ff4757', '#ff6b7a', '#ffa502', '#2ed573', '#20bf6b'];
+            
+            strengthDiv.innerHTML = `
+                <div class="strength-bar">
+                    <div class="strength-fill" style="width: ${(strength / 4) * 100}%; background: ${colors[strength]}"></div>
+                </div>
+                <span class="strength-text" style="color: ${colors[strength]}">${levels[strength]}</span>
+            `;
+        }
+        
+        async function savePasswordReset(userId) {
+            const newPassword = document.getElementById('newPassword').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            
+            if (!newPassword || newPassword.length < 6) {
+                alert('Password must be at least 6 characters long');
+                return;
+            }
+            
+            if (newPassword !== confirmPassword) {
+                alert('Passwords do not match');
+                return;
+            }
+            
+            try {
+                const response = await fetch(`/admin/users/${userId}/reset-password`, {
+                    method: 'PATCH',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ newPassword })
+                });
+                
+                if (response.ok) {
+                    alert('Password reset successfully!');
+                    closePasswordModal();
+                } else {
+                    const data = await response.json();
+                    alert(data.error || 'Failed to reset password');
+                }
+            } catch (error) {
+                console.error('Failed to reset password:', error);
+                alert('Failed to reset password');
+            }
+        }
+        
+        async function loadCompletedRides() {
+            try {
+                const response = await fetch('/admin/rides');
+                const data = await response.json();
+                displayCompletedRides(data.rides.filter(r => r.status === 'completed'));
+            } catch (error) {
+                console.error('Failed to load completed rides:', error);
+            }
+        }
+        
+        function displayCompletedRides(rides) {
+            const container = document.getElementById('completedRidesContainer');
+            container.innerHTML = `
+                <div class="recent-rides">
+                    ${rides.map(ride => `
+                        <div class="activity-item expandable-ride">
+                            <div class="activity-header" onclick="toggleRideDetails('${ride._id}')">
+                                <div class="activity-icon">
+                                    <i class="fas fa-check-circle"></i>
+                                </div>
+                                <div class="activity-info">
+                                    <h4><a href="https://maps.google.com/?q=${encodeURIComponent(ride.pickupLocation)}" target="_blank" style="color: #007bff; text-decoration: none;">${ride.pickupLocation}</a> → <a href="https://maps.google.com/?q=${encodeURIComponent(ride.dropoffLocation)}" target="_blank" style="color: #007bff; text-decoration: none;">${ride.dropoffLocation}</a></h4>
+                                    <p>Passenger: ${ride.passenger ? ride.passenger.name : (ride.guestInfo ? ride.guestInfo.fullName : 'Guest')} • Driver: ${ride.driver ? ride.driver.name : 'Not assigned'}</p>
+                                    <span class="activity-meta">$${ride.fare} • Completed: ${new Date(ride.completedAt || ride.createdAt).toLocaleDateString()}</span>
+                                </div>
+                                <div class="activity-status">
+                                    <span class="status-badge status-completed">Completed</span>
+                                    <span class="expand-icon" id="ride-icon-${ride._id}">▼</span>
+                                </div>
+                            </div>
+                            <div class="ride-details" id="ride-details-${ride._id}" style="display: none;">
+                                <div class="ride-info-grid">
+                                    <div class="info-section">
+                                        <h4>Passenger Information</h4>
+                                        <p><strong>Name:</strong> ${ride.passenger ? ride.passenger.name : (ride.guestInfo ? ride.guestInfo.fullName : 'Guest')}</p>
+                                        <p><strong>Email:</strong> ${ride.passenger ? ride.passenger.email : (ride.guestInfo ? ride.guestInfo.email : 'Not provided')}</p>
+                                        <p><strong>Phone:</strong> ${(ride.passenger ? ride.passenger.phone : (ride.guestInfo ? ride.guestInfo.phone : null)) && (ride.passenger ? ride.passenger.phone : ride.guestInfo.phone) !== 'Not provided' ? `<a href="tel:${ride.passenger ? ride.passenger.phone : ride.guestInfo.phone}" style="color: #007bff; text-decoration: none;">${ride.passenger ? ride.passenger.phone : ride.guestInfo.phone}</a>` : 'Not provided'}</p>
+                                    </div>
+                                    <div class="info-section">
+                                        <h4>Trip Information</h4>
+                                        <p><strong>Pickup Location:</strong> <a href="https://maps.google.com/?q=${encodeURIComponent(ride.pickupLocation)}" target="_blank" style="color: #007bff; text-decoration: none;"><a href="https://maps.google.com/?q=${encodeURIComponent(ride.pickupLocation)}" target="_blank" style="color: #007bff; text-decoration: none;">${ride.pickupLocation}</a></a></p>
+                                        <p><strong>Drop-off Location:</strong> <a href="https://maps.google.com/?q=${encodeURIComponent(ride.dropoffLocation)}" target="_blank" style="color: #007bff; text-decoration: none;"><a href="https://maps.google.com/?q=${encodeURIComponent(ride.dropoffLocation)}" target="_blank" style="color: #007bff; text-decoration: none;">${ride.dropoffLocation}</a></a></p>
+                                        <p><strong>Vehicle Type:</strong> ${ride.vehicleType}</p>
+                                        <p><strong>Fare:</strong> $${ride.fare}</p>
+                                        <p><strong>Distance:</strong> ${ride.distance || 'N/A'} miles</p>
+                                        <p><strong>Requested:</strong> ${new Date(ride.createdAt).toLocaleString()}</p>
+                                        <p><strong>Completed:</strong> ${new Date(ride.completedAt || ride.createdAt).toLocaleString()}</p>
+                                    </div>
+                                    <div class="info-section">
+                                        <h4>Driver Information</h4>
+                                        <p><strong>Name:</strong> ${ride.driver ? ride.driver.name : 'Not assigned'}</p>
+                                        <p><strong>Email:</strong> ${ride.driver ? ride.driver.email : 'N/A'}</p>
+                                        <p><strong>Phone:</strong> <span class="phone-number">${ride.driver ? ride.driver.phone : 'N/A'}</span></p>
+                                        <p><strong>Accepted:</strong> ${ride.acceptedAt ? new Date(ride.acceptedAt).toLocaleString() : 'N/A'}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+        }
+        
+        function toggleRideDetails(rideId) {
+            const details = document.getElementById(`ride-details-${rideId}`);
+            const icon = document.getElementById(`ride-icon-${rideId}`);
+            
+            if (details.style.display === 'none') {
+                details.style.display = 'block';
+                icon.textContent = '▲';
+            } else {
+                details.style.display = 'none';
+                icon.textContent = '▼';
+            }
+        }
+        
+        function toggleDriverInfo(driverId) {
+            const details = document.getElementById(`details-${driverId}`);
+            const icon = document.getElementById(`icon-${driverId}`);
+            
+            if (details.style.display === 'none') {
+                details.style.display = 'block';
+                icon.textContent = '▲';
+                loadDriverStats(driverId);
+            } else {
+                details.style.display = 'none';
+                icon.textContent = '▼';
+            }
+        }
+        
+        function toggleUserInfo(userId) {
+            const details = document.getElementById(`user-details-${userId}`);
+            const icon = document.getElementById(`user-icon-${userId}`);
+            
+            if (details.style.display === 'none') {
+                details.style.display = 'block';
+                icon.textContent = '▲';
+                loadUserStats(userId);
+            } else {
+                details.style.display = 'none';
+                icon.textContent = '▼';
+            }
+        }
+        
+        async function loadUserStats(userId) {
+            try {
+                const response = await fetch(`/admin/users/${userId}/stats`);
+                const data = await response.json();
+                
+                const statsContainer = document.getElementById(`user-stats-${userId}`);
+                statsContainer.innerHTML = `
+                    <h4>Ride Statistics</h4>
+                    <p><strong>Total Rides Booked:</strong> ${data.totalRides}</p>
+                    <p><strong>Completed Rides:</strong> ${data.completedRides}</p>
+                    <p><strong>Total Spent:</strong> $${data.totalSpent}</p>
+                    <p><strong>Points Earned:</strong> ${data.pointsEarned}</p>
+                    <p><strong>Average Ride Cost:</strong> $${data.averageRideCost}</p>
+                `;
+            } catch (error) {
+                console.error('Failed to load user stats:', error);
+                document.getElementById(`user-stats-${userId}`).innerHTML = '<p>Failed to load statistics</p>';
+            }
+        }
+        
+        function editField(userId, field, currentValue) {
+            showEditModal(userId, field, currentValue);
+        }
+        
+        function showEditModal(userId, field, currentValue) {
+            const overlay = document.createElement('div');
+            overlay.className = 'modal-overlay';
+            
+            const modal = document.createElement('div');
+            modal.className = 'edit-modal';
+            
+            let inputHtml = '';
+            if (field === 'role') {
+                inputHtml = `
+                    <select id="editInput" class="modal-select">
+                        <option value="passenger" ${currentValue === 'passenger' ? 'selected' : ''}>Passenger</option>
+                        <option value="driver" ${currentValue === 'driver' ? 'selected' : ''}>Driver</option>
+                        <option value="admin" ${currentValue === 'admin' ? 'selected' : ''}>Admin</option>
+                    </select>
+                `;
+            } else {
+                const inputType = field === 'email' ? 'email' : field === 'phone' ? 'tel' : 'text';
+                inputHtml = `<input type="${inputType}" id="editInput" class="modal-input" value="${currentValue}" placeholder="Enter ${field}">`;
+            }
+            
+            modal.innerHTML = `
+                <div class="modal-header">
+                    <h3>Edit ${field.charAt(0).toUpperCase() + field.slice(1)}</h3>
+                    <button class="modal-close" onclick="closeEditModal()">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <label class="modal-label">New ${field}:</label>
+                    ${inputHtml}
+                </div>
+                <div class="modal-footer">
+                    <button class="modal-btn modal-cancel" onclick="closeEditModal()">Cancel</button>
+                    <button class="modal-btn modal-save" onclick="saveEdit('${userId}', '${field}', '${currentValue}')">Save</button>
+                </div>
+            `;
+            
+            overlay.appendChild(modal);
+            document.body.appendChild(overlay);
+            
+            // Focus on input
+            setTimeout(() => {
+                document.getElementById('editInput').focus();
+            }, 100);
+        }
+        
+        function closeEditModal() {
+            const overlay = document.querySelector('.modal-overlay');
+            if (overlay) {
+                overlay.remove();
+            }
+        }
+        
+        function saveEdit(userId, field, currentValue) {
+            const input = document.getElementById('editInput');
+            const newValue = input.value.trim();
+            
+            if (newValue && newValue !== currentValue) {
+                updateDriverField(userId, field, newValue);
+            }
+            closeEditModal();
+        }
+        
+        async function updateDriverField(userId, field, newValue) {
+            try {
+                const response = await fetch(`/admin/users/${userId}/update-field`, {
+                    method: 'PATCH',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ field, value: newValue })
+                });
+                
+                if (response.ok) {
+                    document.getElementById(`${field}-${userId}`).textContent = newValue;
+                    alert(`${field.charAt(0).toUpperCase() + field.slice(1)} updated successfully!`);
+                } else {
+                    const data = await response.json();
+                    alert(data.error || 'Failed to update field');
+                }
+            } catch (error) {
+                console.error('Failed to update field:', error);
+                alert('Failed to update field');
+            }
+        }
+        
+        function addVehicle(driverId) {
+            showVehicleModal(driverId, 'add');
+        }
+        
+        function editVehicle(driverId, vehicleIndex) {
+            showVehicleModal(driverId, 'edit', vehicleIndex);
+        }
+        
+        function showVehicleModal(driverId, action, vehicleIndex = null) {
+            const overlay = document.createElement('div');
+            overlay.className = 'modal-overlay';
+            
+            const modal = document.createElement('div');
+            modal.className = 'vehicle-modal';
+            
+            modal.innerHTML = `
+                <div class="modal-header">
+                    <h3>${action === 'add' ? 'Add' : 'Edit'} Vehicle</h3>
+                    <button class="modal-close" onclick="closeVehicleModal()">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label class="modal-label">Vehicle Type:</label>
+                            <select id="vehicleType" class="modal-select">
+                                <option value="limo">Limo</option>
+                                <option value="comfort">Comfort</option>
+                                <option value="luxury">Luxury</option>
+                                <option value="suv">SUV</option>
+                                <option value="van">Van</option>
+                                <option value="wedding">Wedding</option>
+                                <option value="bus">Bus</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="modal-label">Make:</label>
+                            <input type="text" id="vehicleMake" class="modal-input" placeholder="e.g., Toyota">
+                        </div>
+                        <div class="form-group">
+                            <label class="modal-label">Model:</label>
+                            <input type="text" id="vehicleModel" class="modal-input" placeholder="e.g., Camry">
+                        </div>
+                        <div class="form-group">
+                            <label class="modal-label">Year:</label>
+                            <input type="number" id="vehicleYear" class="modal-input" placeholder="e.g., 2020" min="1990" max="2025">
+                        </div>
+                        <div class="form-group">
+                            <label class="modal-label">Color:</label>
+                            <input type="text" id="vehicleColor" class="modal-input" placeholder="e.g., Silver">
+                        </div>
+                        <div class="form-group">
+                            <label class="modal-label">License Plate:</label>
+                            <input type="text" id="vehiclePlate" class="modal-input" placeholder="e.g., ABC-123">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="modal-btn modal-cancel" onclick="closeVehicleModal()">Cancel</button>
+                    <button class="modal-btn modal-save" onclick="saveVehicle('${driverId}', '${action}', ${vehicleIndex})">Save</button>
+                </div>
+            `;
+            
+            overlay.appendChild(modal);
+            document.body.appendChild(overlay);
+        }
+        
+        function closeVehicleModal() {
+            const overlay = document.querySelector('.modal-overlay');
+            if (overlay) {
+                overlay.remove();
+            }
+        }
+        
+        function saveVehicle(driverId, action, vehicleIndex) {
+            const vehicleData = {
+                type: document.getElementById('vehicleType').value,
+                make: document.getElementById('vehicleMake').value.trim(),
+                model: document.getElementById('vehicleModel').value.trim(),
+                year: document.getElementById('vehicleYear').value,
+                color: document.getElementById('vehicleColor').value.trim(),
+                licensePlate: document.getElementById('vehiclePlate').value.trim()
+            };
+            
+            if (!vehicleData.make || !vehicleData.model) {
+                alert('Make and Model are required fields.');
+                return;
+            }
+            
+            if (action === 'edit') {
+                vehicleData.index = vehicleIndex;
+            }
+            
+            updateVehicles(driverId, action, vehicleData);
+            closeVehicleModal();
+        }
+        
+        function deleteVehicle(driverId, vehicleIndex) {
+            if (confirm('Are you sure you want to delete this vehicle?')) {
+                updateVehicles(driverId, 'delete', { index: vehicleIndex });
+            }
+        }
+        
+        async function updateVehicles(driverId, action, vehicleData) {
+            try {
+                const response = await fetch(`/admin/users/${driverId}/vehicles`, {
+                    method: 'PATCH',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ action, vehicleData })
+                });
+                
+                if (response.ok) {
+                    alert('Vehicle updated successfully!');
+                    loadDrivers(); // Reload drivers to show updated vehicle info
+                } else {
+                    const data = await response.json();
+                    alert(data.error || 'Failed to update vehicle');
+                }
+            } catch (error) {
+                console.error('Failed to update vehicle:', error);
+                alert('Failed to update vehicle');
+            }
+        }
+        
+        async function loadDriverStats(driverId) {
+            try {
+                const response = await fetch(`/admin/drivers/${driverId}/stats`);
+                const data = await response.json();
+                
+                const statsContainer = document.getElementById(`driver-stats-${driverId}`);
+                statsContainer.innerHTML = `
+                    <h4>Ride Statistics</h4>
+                    <p><strong>Total Rides:</strong> ${data.totalRides}</p>
+                    <p><strong>Completed Rides:</strong> ${data.completedRides}</p>
+                    <p><strong>Total Earnings:</strong> $${data.totalEarnings}</p>
+                    <p><strong>Average Rating:</strong> ${data.averageRating || 'N/A'}</p>
+                    <p><strong>Success Rate:</strong> ${data.successRate}%</p>
+                `;
+            } catch (error) {
+                console.error('Failed to load driver stats:', error);
+                document.getElementById(`driver-stats-${driverId}`).innerHTML = '<p>Failed to load statistics</p>';
+            }
+        }
+
+        async function deleteUser(userId) {
+            if (confirm('Are you sure you want to delete this user?')) {
+                try {
+                    await fetch(`/admin/users/${userId}`, {
+                        method: 'DELETE'
+                    });
+                    loadUsers();
+                } catch (error) {
+                    console.error('Failed to delete user:', error);
+                }
+            }
+        }
+        
+        function toggleAdminNav() {
+            const navLinks = document.querySelector('.admin-nav-links');
+            navLinks.classList.toggle('active');
+        }
+        
+        // Close mobile nav when clicking outside
+        document.addEventListener('click', function(event) {
+            const nav = document.querySelector('.admin-nav');
+            const navLinks = document.querySelector('.admin-nav-links');
+            if (!nav.contains(event.target) && navLinks.classList.contains('active')) {
+                navLinks.classList.remove('active');
+            }
+        });
+        
+        // Close mobile nav when clicking on nav links
+        document.querySelectorAll('.admin-nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                document.querySelector('.admin-nav-links').classList.remove('active');
+            });
+        });
+        
+
+        
+        // Driver selection modal functions
+        function showDriverSelectionModal(rideId) {
+            window.currentRideId = rideId;
+            window.modalType = 'accept';
+            loadAvailableDrivers();
+            
+            const overlay = document.createElement('div');
+            overlay.className = 'modal-overlay';
+            overlay.id = 'driverSelectionOverlay';
+            
+            const modal = document.createElement('div');
+            modal.className = 'edit-modal';
+            
+            modal.innerHTML = `
+                <div class="modal-header">
+                    <h3>Select Driver for Ride</h3>
+                    <button class="modal-close" onclick="closeDriverSelectionModal()">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <label class="modal-label">Choose a driver:</label>
+                    <select id="driverSelect" class="modal-select">
+                        <option value="">Loading drivers...</option>
+                    </select>
+                    <div id="driverInfo" style="margin-top: 1rem; padding: 1rem; background: #f8f9fa; border-radius: 8px; display: none;">
+                        <h4>Driver Information</h4>
+                        <div id="driverDetails"></div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="modal-btn modal-cancel" onclick="closeDriverSelectionModal()">Cancel</button>
+                    <button class="modal-btn modal-save" onclick="acceptRideWithDriver()">Accept & Assign</button>
+                </div>
+            `;
+            
+            overlay.appendChild(modal);
+            document.body.appendChild(overlay);
+        }
+        
+        function showReassignModal(rideId) {
+            window.currentRideId = rideId;
+            window.modalType = 'reassign';
+            loadAvailableDrivers();
+            
+            const overlay = document.createElement('div');
+            overlay.className = 'modal-overlay';
+            overlay.id = 'driverSelectionOverlay';
+            
+            const modal = document.createElement('div');
+            modal.className = 'edit-modal';
+            
+            modal.innerHTML = `
+                <div class="modal-header">
+                    <h3>Reassign Ride to Different Driver</h3>
+                    <button class="modal-close" onclick="closeDriverSelectionModal()">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <label class="modal-label">Choose a new driver:</label>
+                    <select id="driverSelect" class="modal-select">
+                        <option value="">Loading drivers...</option>
+                    </select>
+                    <div id="driverInfo" style="margin-top: 1rem; padding: 1rem; background: #f8f9fa; border-radius: 8px; display: none;">
+                        <h4>Driver Information</h4>
+                        <div id="driverDetails"></div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="modal-btn modal-cancel" onclick="closeDriverSelectionModal()">Cancel</button>
+                    <button class="modal-btn modal-save" onclick="reassignRideToDriver()">Reassign Driver</button>
+                </div>
+            `;
+            
+            overlay.appendChild(modal);
+            document.body.appendChild(overlay);
+        }
+        
+        function closeDriverSelectionModal() {
+            const overlay = document.getElementById('driverSelectionOverlay');
+            if (overlay) {
+                overlay.remove();
+            }
+        }
+        
+        async function loadAvailableDrivers() {
+            try {
+                const response = await fetch('/admin/users');
+                const data = await response.json();
+                const drivers = data.users.filter(u => u.role === 'driver');
+                
+                const select = document.getElementById('driverSelect');
+                if (select) {
+                    select.innerHTML = `
+                        <option value="">Select a driver...</option>
+                        ${drivers.map(driver => `
+                            <option value="${driver._id}">${driver.name} - ${driver.email}</option>
+                        `).join('')}
+                    `;
+                    
+                    select.addEventListener('change', () => {
+                        const selectedDriverId = select.value;
+                        if (selectedDriverId) {
+                            const selectedDriver = drivers.find(d => d._id === selectedDriverId);
+                            showDriverInfo(selectedDriver);
+                        } else {
+                            hideDriverInfo();
+                        }
+                    });
+                }
+            } catch (error) {
+                console.error('Failed to load drivers:', error);
+            }
+        }
+        
+        function showDriverInfo(driver) {
+            const driverInfo = document.getElementById('driverInfo');
+            const driverDetails = document.getElementById('driverDetails');
+            
+            if (driverInfo && driverDetails) {
+                driverDetails.innerHTML = `
+                    <p><strong>Name:</strong> ${driver.name}</p>
+                    <p><strong>Email:</strong> ${driver.email}</p>
+                    <p><strong>Phone:</strong> ${driver.phone}</p>
+                    <p><strong>Vehicles:</strong> ${driver.vehicles && driver.vehicles.length > 0 ? 
+                        driver.vehicles.map(v => `${v.make} ${v.model} (${v.type})`).join(', ') : 
+                        'No vehicles registered'
+                    }</p>
+                `;
+                driverInfo.style.display = 'block';
+            }
+        }
+        
+        function hideDriverInfo() {
+            const driverInfo = document.getElementById('driverInfo');
+            if (driverInfo) {
+                driverInfo.style.display = 'none';
+            }
+        }
+        
+        function toggleRideClientInfo(rideId) {
+            const details = document.getElementById(`ride-details-${rideId}`);
+            const icon = document.getElementById(`ride-expand-${rideId}`);
+            
+            if (details.style.display === 'none') {
+                details.style.display = 'block';
+                icon.style.transform = 'rotate(180deg)';
+                icon.textContent = '▲';
+            } else {
+                details.style.display = 'none';
+                icon.style.transform = 'rotate(0deg)';
+                icon.textContent = '▼';
+            }
+        }
+        
+        function showCenteredNotification(message, type = 'success') {
+            const overlay = document.createElement('div');
+            overlay.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.5);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                z-index: 10000;
+                backdrop-filter: blur(3px);
+            `;
+
+            const notification = document.createElement('div');
+            const bgColor = type === 'success' ? '#28a745' : '#dc3545';
+            notification.style.cssText = `
+                background: ${bgColor};
+                color: white;
+                padding: 2rem 3rem;
+                border-radius: 15px;
+                text-align: center;
+                font-size: 1.2rem;
+                font-weight: 600;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+                animation: notificationSlideIn 0.3s ease-out;
+                max-width: 400px;
+                word-wrap: break-word;
+            `;
+            
+            notification.textContent = message;
+            overlay.appendChild(notification);
+            document.body.appendChild(overlay);
+            
+            // Add animation keyframes if not exists
+            if (!document.querySelector('#notificationAnimation')) {
+                const style = document.createElement('style');
+                style.id = 'notificationAnimation';
+                style.textContent = `
+                    @keyframes notificationSlideIn {
+                        from { transform: scale(0.8); opacity: 0; }
+                        to { transform: scale(1); opacity: 1; }
+                    }
+                `;
+                document.head.appendChild(style);
+            }
+            
+            // Auto-remove after 3 seconds
+            setTimeout(() => {
+                if (overlay.parentNode) {
+                    overlay.remove();
+                }
+            }, 3000);
+            
+            // Remove on click
+            overlay.addEventListener('click', () => {
+                if (overlay.parentNode) {
+                    overlay.remove();
+                }
+            });
+        }
+        
+        async function acceptRideWithDriver() {
+            const driverSelect = document.getElementById('driverSelect');
+            const selectedDriverId = driverSelect.value;
+            
+            if (!selectedDriverId) {
+                showCenteredNotification('⚠️ Please select a driver', 'error');
+                return;
+            }
+            
+            try {
+                const response = await fetch(`/admin/rides/${window.currentRideId}/accept`, {
+                    method: 'PATCH',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ driverId: selectedDriverId })
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok) {
+                    showCenteredNotification('✅ Ride accepted and driver assigned successfully!', 'success');
+                    closeDriverSelectionModal();
+                    loadRides(); // Refresh the rides list
+                } else {
+                    showCenteredNotification('❌ ' + (data.error || 'Failed to accept ride'), 'error');
+                }
+            } catch (error) {
+                console.error('Failed to accept ride:', error);
+                showCenteredNotification('❌ Failed to accept ride', 'error');
+            }
+        }
+        
+        function showReassignModal(rideId) {
+            window.currentRideId = rideId;
+            loadAvailableDrivers();
+            
+            const overlay = document.createElement('div');
+            overlay.className = 'modal-overlay';
+            overlay.id = 'driverSelectionOverlay';
+            
+            const modal = document.createElement('div');
+            modal.className = 'edit-modal';
+            
+            modal.innerHTML = `
+                <div class="modal-header">
+                    <h3>Reassign Ride to Different Driver</h3>
+                    <button class="modal-close" onclick="closeDriverSelectionModal()">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <label class="modal-label">Choose a new driver:</label>
+                    <select id="driverSelect" class="modal-select">
+                        <option value="">Loading drivers...</option>
+                    </select>
+                    <div id="driverInfo" style="margin-top: 1rem; padding: 1rem; background: #f8f9fa; border-radius: 8px; display: none;">
+                        <h4>Driver Information</h4>
+                        <div id="driverDetails"></div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="modal-btn modal-cancel" onclick="closeDriverSelectionModal()">Cancel</button>
+                    <button class="modal-btn modal-save" onclick="reassignRideToDriver()">Reassign Driver</button>
+                </div>
+            `;
+            
+            overlay.appendChild(modal);
+            document.body.appendChild(overlay);
+        }
+        
+        async function reassignRideToDriver() {
+            const driverSelect = document.getElementById('driverSelect');
+            const selectedDriverId = driverSelect.value;
+            
+            if (!selectedDriverId) {
+                showCenteredNotification('⚠️ Please select a driver', 'error');
+                return;
+            }
+            
+            try {
+                const response = await fetch(`/admin/rides/${window.currentRideId}/reassign`, {
+                    method: 'PATCH',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ driverId: selectedDriverId })
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok) {
+                    showCenteredNotification('✅ Ride reassigned successfully!', 'success');
+                    closeDriverSelectionModal();
+                    loadRides(); // Refresh the rides list
+                } else {
+                    showCenteredNotification('❌ ' + (data.error || 'Failed to reassign ride'), 'error');
+                }
+            } catch (error) {
+                console.error('Failed to reassign ride:', error);
+                showCenteredNotification('❌ Failed to reassign ride', 'error');
+            }
+        }
+        
+        function showConfirmDialog(title, message, onConfirm) {
+            const overlay = document.createElement('div');
+            overlay.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.5);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                z-index: 10000;
+            `;
+
+            const dialog = document.createElement('div');
+            dialog.style.cssText = `
+                background: white;
+                padding: 2rem;
+                border-radius: 15px;
+                text-align: center;
+                max-width: 400px;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            `;
+
+            dialog.innerHTML = `
+                <h3 style="margin: 0 0 1rem 0; color: #007bff;">${title}</h3>
+                <p style="margin: 0 0 2rem 0; color: var(--dark-color);">${message}</p>
+                <div style="display: flex; gap: 1rem; justify-content: center;">
+                    <button id="confirmBtn" style="background: var(--secondary-color); color: white; border: none; padding: 0.8rem 1.5rem; border-radius: 8px; font-weight: 600; cursor: pointer;">Yes</button>
+                    <button id="cancelBtn" style="background: var(--accent-color); color: white; border: none; padding: 0.8rem 1.5rem; border-radius: 8px; font-weight: 600; cursor: pointer;">Cancel</button>
+                </div>
+            `;
+
+            overlay.appendChild(dialog);
+            document.body.appendChild(overlay);
+
+            dialog.querySelector('#confirmBtn').onclick = () => {
+                overlay.remove();
+                onConfirm();
+            };
+
+            dialog.querySelector('#cancelBtn').onclick = () => {
+                overlay.remove();
+            };
+        }
+        
+        function handleAdminLogout() {
+            showConfirmDialog(
+                'Confirm Logout',
+                'Are you sure you want to logout?',
+                async () => {
+                    try {
+                        await fetch('/admin/logout', {
+                            method: 'POST'
+                        });
+                    } catch (error) {
+                        console.log('Logout request failed, clearing local session anyway');
+                    }
+                    
+                    window.location.href = '/admin/login';
+                }
+            );
+        }
+        
+        // Connect admin logout button
+        document.getElementById('logoutBtn')?.addEventListener('click', (e) => {
+            e.preventDefault();
+            handleAdminLogout();
+        });
+        
+        // Format phone numbers on page load
+        function formatPhoneNumber(phone) {
+            if (!phone) return '';
+            const digits = phone.replace(/\D/g, '');
+            if (digits.length === 10) {
+                return `(${digits.slice(0, 3)}) ${digits.slice(3, 6)}-${digits.slice(6)}`;
+            } else if (digits.length === 11 && digits.startsWith('1')) {
+                const phoneDigits = digits.slice(1);
+                return `(${phoneDigits.slice(0, 3)}) ${phoneDigits.slice(3, 6)}-${phoneDigits.slice(6)}`;
+            } else if (digits.length >= 10) {
+                const phoneDigits = digits.slice(-10);
+                return `(${phoneDigits.slice(0, 3)}) ${phoneDigits.slice(3, 6)}-${phoneDigits.slice(6)}`;
+            }
+            return phone;
+        }
+        
+        // Format all phone numbers on page
+        document.querySelectorAll('.phone-number').forEach(element => {
+            const phoneText = element.textContent.trim();
+            if (phoneText && phoneText !== 'Not provided' && phoneText !== 'N/A') {
+                element.textContent = formatPhoneNumber(phoneText);
+            }
+        });
+        
+        // Also format phone numbers when loading dynamic content
+        const originalDisplayUsers = displayUsers;
+        displayUsers = function(users) {
+            originalDisplayUsers(users);
+            setTimeout(() => {
+                document.querySelectorAll('.phone-number').forEach(element => {
+                    const phoneText = element.textContent.trim();
+                    if (phoneText && phoneText !== 'Not provided' && phoneText !== 'N/A') {
+                        element.textContent = formatPhoneNumber(phoneText);
+                    }
+                });
+            }, 100);
+        };
+        
+        const originalDisplayDrivers = displayDrivers;
+        displayDrivers = function(drivers) {
+            originalDisplayDrivers(drivers);
+            setTimeout(() => {
+                document.querySelectorAll('.phone-number').forEach(element => {
+                    const phoneText = element.textContent.trim();
+                    if (phoneText && phoneText !== 'Not provided' && phoneText !== 'N/A') {
+                        element.textContent = formatPhoneNumber(phoneText);
+                    }
+                });
+            }, 100);
+        };
+        
+        const originalDisplayRides = displayRides;
+        displayRides = function(rides) {
+            originalDisplayRides(rides);
+            setTimeout(() => {
+                document.querySelectorAll('.phone-number').forEach(element => {
+                    const phoneText = element.textContent.trim();
+                    if (phoneText && phoneText !== 'Not provided' && phoneText !== 'N/A') {
+                        element.textContent = formatPhoneNumber(phoneText);
+                    }
+                });
+            }, 100);
+        };
+        
+        const originalDisplayCompletedRides = displayCompletedRides;
+        displayCompletedRides = function(rides) {
+            originalDisplayCompletedRides(rides);
+            setTimeout(() => {
+                document.querySelectorAll('.phone-number').forEach(element => {
+                    const phoneText = element.textContent.trim();
+                    if (phoneText && phoneText !== 'Not provided' && phoneText !== 'N/A') {
+                        element.textContent = formatPhoneNumber(phoneText);
+                    }
+                });
+            }, 100);
+        };
+    </script>
+</body>
+</html>

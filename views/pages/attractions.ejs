@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('../partials/head') %>
+<body>
+    <%- include('../partials/nav') %>
+
+<main class="attractions-page">
+    <!-- Hero Section -->
+    <section class="attractions-hero">
+        <div class="container">
+            <h1>Discover Washington State</h1>
+            <p>Experience the Pacific Northwest's most breathtaking destinations with HusaRide's premium transportation</p>
+            <div class="hero-features">
+                <div class="hero-feature">
+                    <i class="fas fa-mountain"></i>
+                    <p>National Parks</p>
+                </div>
+                <div class="hero-feature">
+                    <i class="fas fa-city"></i>
+                    <p>Urban Attractions</p>
+                </div>
+                <div class="hero-feature">
+                    <i class="fas fa-water"></i>
+                    <p>Coastal Beauty</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Attractions Grid -->
+    <section class="attractions-section">
+        <div class="container">
+            <h2>Top Washington State Attractions</h2>
+            
+            <div class="attractions-grid">
+                
+                <!-- Space Needle -->
+                <div class="attraction-card">
+                    <img src="/images/spaceNeedle.jpg" alt="Space Needle">
+                    <div class="attraction-content">
+                        <h3>Space Needle</h3>
+                        <p class="attraction-description">Seattle's iconic 605-foot observation tower offering 360-degree views of the city, mountains, and Puget Sound.</p>
+                        <div class="attraction-tags">
+                            <span class="attraction-tag tag-seattle">Seattle</span>
+                            <span class="attraction-tag tag-urban">Urban</span>
+                        </div>
+                        <div class="attraction-details">
+                            <p><strong>Best Time:</strong> Year-round, clearest views in summer</p>
+                            <p><strong>Distance from Seattle:</strong> Downtown</p>
+                            <p><strong>Recommended Vehicle:</strong> Comfort Electric</p>
+                        </div>
+                        <button class="book-ride-btn" onclick="bookRide('Space Needle, Seattle, WA')">Book Ride to Space Needle</button>
+                    </div>
+                </div>
+
+                <!-- Pike Place Market -->
+                <div class="attraction-card">
+                    <img src="/images/pikeplacemarket.jpg" alt="Pike Place Market">
+                    <div class="attraction-content">
+                        <h3>Pike Place Market</h3>
+                        <p class="attraction-description">Historic public market featuring fresh seafood, local produce, artisan crafts, and the original Starbucks store.</p>
+                        <div class="attraction-tags">
+                            <span class="attraction-tag tag-seattle">Seattle</span>
+                            <span class="attraction-tag tag-market">Market</span>
+                        </div>
+                        <div class="attraction-details">
+                            <p><strong>Best Time:</strong> Morning hours, less crowded weekdays</p>
+                            <p><strong>Distance from Seattle:</strong> Downtown</p>
+                            <p><strong>Recommended Vehicle:</strong> Comfort Electric</p>
+                        </div>
+                        <button class="book-ride-btn" onclick="bookRide('Pike Place Market, Seattle, WA')">Book Ride to Pike Place</button>
+                    </div>
+                </div>
+
+                <!-- Mount Rainier National Park -->
+                <div class="attraction-card">
+                    <img src="/images/mountRainier.jpg" alt="Mount Rainier">
+                    <div class="attraction-content">
+                        <h3>Mount Rainier National Park</h3>
+                        <p class="attraction-description">Majestic 14,411-foot volcanic peak with wildflower meadows, ancient forests, and pristine wilderness trails.</p>
+                        <div class="attraction-tags">
+                            <span class="attraction-tag tag-national-park">National Park</span>
+                            <span class="attraction-tag tag-mountain">Mountain</span>
+                        </div>
+                        <div class="attraction-details">
+                            <p><strong>Best Time:</strong> July-September (snow-free access)</p>
+                            <p><strong>Distance from Seattle:</strong> 2.5 hours</p>
+                            <p><strong>Recommended Vehicle:</strong> Premium SUV</p>
+                        </div>
+                        <button class="book-ride-btn" onclick="bookRide('Mount Rainier National Park, WA')">Book Ride to Mount Rainier</button>
+                    </div>
+                </div>
+
+                <!-- Olympic National Park -->
+                <div class="attraction-card">
+                    <img src="/images/olympicNationalPark.jpg" alt="Olympic National Park">
+                    <div class="attraction-content">
+                        <h3>Olympic National Park</h3>
+                        <p class="attraction-description">Diverse ecosystem featuring temperate rainforests, rugged coastlines, and snow-capped mountains.</p>
+                        <div class="attraction-tags">
+                            <span class="attraction-tag tag-national-park">National Park</span>
+                            <span class="attraction-tag tag-rainforest">Rainforest</span>
+                        </div>
+                        <div class="attraction-details">
+                            <p><strong>Best Time:</strong> June-September (dry season)</p>
+                            <p><strong>Distance from Seattle:</strong> 3 hours</p>
+                            <p><strong>Recommended Vehicle:</strong> Premium SUV</p>
+                        </div>
+                        <button class="book-ride-btn" onclick="bookRide('Olympic National Park, WA')">Book Ride to Olympic Park</button>
+                    </div>
+                </div>
+
+                <!-- San Juan Islands -->
+                <div class="attraction-card">
+                    <img src="/images/SanJuanIslands.jpg" alt="San Juan Islands">
+                    <div class="attraction-content">
+                        <h3>San Juan Islands</h3>
+                        <p class="attraction-description">Scenic archipelago perfect for whale watching, kayaking, and exploring charming island communities.</p>
+                        <div class="attraction-tags">
+                            <span class="attraction-tag tag-islands">Islands</span>
+                            <span class="attraction-tag tag-ferry">Ferry</span>
+                        </div>
+                        <div class="attraction-details">
+                            <p><strong>Best Time:</strong> May-September (whale season)</p>
+                            <p><strong>Distance from Seattle:</strong> 2.5 hours + ferry</p>
+                            <p><strong>Recommended Vehicle:</strong> Comfort Electric</p>
+                        </div>
+                        <button class="book-ride-btn" onclick="bookRide('Anacortes Ferry Terminal, WA')">Book Ride to Ferry Terminal</button>
+                    </div>
+                </div>
+
+                <!-- Snoqualmie Falls -->
+                <div class="attraction-card">
+                    <img src="/images/snoqualmieFalls.jpg" alt="Snoqualmie Falls">
+                    <div class="attraction-content">
+                        <h3>Snoqualmie Falls</h3>
+                        <p class="attraction-description">Spectacular 268-foot waterfall featured in Twin Peaks, with observation deck and hiking trails.</p>
+                        <div class="attraction-tags">
+                            <span class="attraction-tag tag-waterfall">Waterfall</span>
+                            <span class="attraction-tag tag-hiking">Hiking</span>
+                        </div>
+                        <div class="attraction-details">
+                            <p><strong>Best Time:</strong> Spring (high water flow)</p>
+                            <p><strong>Distance from Seattle:</strong> 45 minutes</p>
+                            <p><strong>Recommended Vehicle:</strong> Comfort Electric</p>
+                        </div>
+                        <button class="book-ride-btn" onclick="bookRide('Snoqualmie Falls, WA')">Book Ride to Snoqualmie Falls</button>
+                    </div>
+                </div>
+
+                <!-- Leavenworth -->
+                <div class="attraction-card">
+                    <img src="/images/leavenworth.jpg" alt="Leavenworth">
+                    <div class="attraction-content">
+                        <h3>Leavenworth</h3>
+                        <p class="attraction-description">Charming Bavarian-themed village nestled in the Cascade Mountains, famous for Oktoberfest and Christmas markets.</p>
+                        <div class="attraction-tags">
+                            <span class="attraction-tag tag-village">Village</span>
+                            <span class="attraction-tag tag-bavarian">Bavarian</span>
+                        </div>
+                        <div class="attraction-details">
+                            <p><strong>Best Time:</strong> October (Oktoberfest), December (Christmas)</p>
+                            <p><strong>Distance from Seattle:</strong> 2.5 hours</p>
+                            <p><strong>Recommended Vehicle:</strong> Premium SUV</p>
+                        </div>
+                        <button class="book-ride-btn" onclick="bookRide('Leavenworth, WA')">Book Ride to Leavenworth</button>
+                    </div>
+                </div>
+
+                <!-- Chihuly Garden and Glass -->
+                <div class="attraction-card">
+                    <img src="/images/chihulyGardenGlass.jpg" alt="Chihuly Garden">
+                    <div class="attraction-content">
+                        <h3>Chihuly Garden and Glass</h3>
+                        <p class="attraction-description">Stunning exhibition showcasing Dale Chihuly's colorful glass art installations in garden and gallery settings.</p>
+                        <div class="attraction-tags">
+                            <span class="attraction-tag tag-seattle">Seattle</span>
+                            <span class="attraction-tag tag-art">Art</span>
+                        </div>
+                        <div class="attraction-details">
+                            <p><strong>Best Time:</strong> Year-round, evening visits for lighting</p>
+                            <p><strong>Distance from Seattle:</strong> Seattle Center</p>
+                            <p><strong>Recommended Vehicle:</strong> Comfort Electric</p>
+                        </div>
+                        <button class="book-ride-btn" onclick="bookRide('Chihuly Garden and Glass, Seattle, WA')">Book Ride to Chihuly Garden</button>
+                    </div>
+                </div>
+
+                <!-- Deception Pass Bridge -->
+                <div class="attraction-card">
+                    <img src="/images/deceptionPassBridge.jpg" alt="Deception Pass">
+                    <div class="attraction-content">
+                        <h3>Deception Pass Bridge</h3>
+                        <p class="attraction-description">Iconic steel bridge offering breathtaking views of swirling waters and forested islands below.</p>
+                        <div class="attraction-tags">
+                            <span class="attraction-tag tag-bridge">Bridge</span>
+                            <span class="attraction-tag tag-scenic">Scenic</span>
+                        </div>
+                        <div class="attraction-details">
+                            <p><strong>Best Time:</strong> Clear days for best views</p>
+                            <p><strong>Distance from Seattle:</strong> 1.5 hours</p>
+                            <p><strong>Recommended Vehicle:</strong> Comfort Electric</p>
+                        </div>
+                        <button class="book-ride-btn" onclick="bookRide('Deception Pass Bridge, WA')">Book Ride to Deception Pass</button>
+                    </div>
+                </div>
+
+                <!-- North Cascades National Park -->
+                <div class="attraction-card">
+                    <img src="/images/northCascadesNationalPark.jpg" alt="North Cascades">
+                    <div class="attraction-content">
+                        <h3>North Cascades National Park</h3>
+                        <p class="attraction-description">Rugged wilderness known as the "American Alps" with jagged peaks, glaciers, and pristine alpine lakes.</p>
+                        <div class="attraction-tags">
+                            <span class="attraction-tag tag-national-park">National Park</span>
+                            <span class="attraction-tag tag-alpine">Alpine</span>
+                        </div>
+                        <div class="attraction-details">
+                            <p><strong>Best Time:</strong> July-September (road access)</p>
+                            <p><strong>Distance from Seattle:</strong> 2.5 hours</p>
+                            <p><strong>Recommended Vehicle:</strong> Premium SUV</p>
+                        </div>
+                        <button class="book-ride-btn" onclick="bookRide('North Cascades National Park, WA')">Book Ride to North Cascades</button>
+                    </div>
+                </div>
+
+                <!-- Spokane Riverfront Park -->
+                <div class="attraction-card">
+                    <img src="/images/spokaneRiverfrontPark.jpg" alt="Spokane Falls">
+                    <div class="attraction-content">
+                        <h3>Spokane Riverfront Park</h3>
+                        <p class="attraction-description">Beautiful urban park featuring Spokane Falls, gondola rides, and the historic Looff Carrousel.</p>
+                        <div class="attraction-tags">
+                            <span class="attraction-tag tag-spokane">Spokane</span>
+                            <span class="attraction-tag tag-park">Park</span>
+                        </div>
+                        <div class="attraction-details">
+                            <p><strong>Best Time:</strong> Spring-Fall for outdoor activities</p>
+                            <p><strong>Distance from Seattle:</strong> 4.5 hours</p>
+                            <p><strong>Recommended Vehicle:</strong> Comfort Electric</p>
+                        </div>
+                        <button class="book-ride-btn" onclick="bookRide('Spokane Riverfront Park, Spokane, WA')">Book Ride to Spokane Park</button>
+                    </div>
+                </div>
+
+                <!-- Palouse Falls -->
+                <div class="attraction-card">
+                    <img src="/images/palouseFalls.jpg" alt="Palouse Falls">
+                    <div class="attraction-content">
+                        <h3>Palouse Falls</h3>
+                        <p class="attraction-description">Washington's official state waterfall, a dramatic 198-foot plunge through ancient basalt canyons.</p>
+                        <div class="attraction-tags">
+                            <span class="attraction-tag tag-waterfall">Waterfall</span>
+                            <span class="attraction-tag tag-desert">Desert</span>
+                        </div>
+                        <div class="attraction-details">
+                            <p><strong>Best Time:</strong> Spring for peak water flow</p>
+                            <p><strong>Distance from Seattle:</strong> 5 hours</p>
+                            <p><strong>Recommended Vehicle:</strong> Premium SUV</p>
+                        </div>
+                        <button class="book-ride-btn" onclick="bookRide('Palouse Falls State Park, WA')">Book Ride to Palouse Falls</button>
+                    </div>
+                </div>
+
+                <!-- Whidbey Island -->
+                <div class="attraction-card">
+                    <img src="/images/whidbeyIsland.jpg" alt="Whidbey Island">
+                    <div class="attraction-content">
+                        <h3>Whidbey Island</h3>
+                        <p class="attraction-description">Scenic island getaway featuring charming towns, lavender farms, and stunning Puget Sound views.</p>
+                        <div class="attraction-tags">
+                            <span class="attraction-tag tag-islands">Island</span>
+                            <span class="attraction-tag tag-lavender">Lavender</span>
+                        </div>
+                        <div class="attraction-details">
+                            <p><strong>Best Time:</strong> July-August (lavender bloom)</p>
+                            <p><strong>Distance from Seattle:</strong> 1.5 hours + ferry</p>
+                            <p><strong>Recommended Vehicle:</strong> Comfort Electric</p>
+                        </div>
+                        <button class="book-ride-btn" onclick="bookRide('Mukilteo Ferry Terminal, WA')">Book Ride to Ferry Terminal</button>
+                    </div>
+                </div>
+
+                <!-- Crystal Mountain -->
+                <div class="attraction-card">
+                    <img src="/images/crystalMountainResort.jpg" alt="Crystal Mountain">
+                    <div class="attraction-content">
+                        <h3>Crystal Mountain Resort</h3>
+                        <p class="attraction-description">Premier ski resort offering year-round gondola rides with spectacular Mount Rainier views.</p>
+                        <div class="attraction-tags">
+                            <span class="attraction-tag tag-ski-resort">Ski Resort</span>
+                            <span class="attraction-tag tag-mountain">Mountain</span>
+                        </div>
+                        <div class="attraction-details">
+                            <p><strong>Best Time:</strong> Winter (skiing), Summer (hiking)</p>
+                            <p><strong>Distance from Seattle:</strong> 2 hours</p>
+                            <p><strong>Recommended Vehicle:</strong> Premium SUV</p>
+                        </div>
+                        <button class="book-ride-btn" onclick="bookRide('Crystal Mountain Resort, WA')">Book Ride to Crystal Mountain</button>
+                    </div>
+                </div>
+
+                <!-- Tulip Festival -->
+                <div class="attraction-card">
+                    <img src="/images/skagitValleyTulipFestival.jpg" alt="Tulip Festival">
+                    <div class="attraction-content">
+                        <h3>Skagit Valley Tulip Festival</h3>
+                        <p class="attraction-description">Annual spring celebration featuring millions of colorful tulips blooming across the Skagit Valley.</p>
+                        <div class="attraction-tags">
+                            <span class="attraction-tag tag-festival">Festival</span>
+                            <span class="attraction-tag tag-flowers">Flowers</span>
+                        </div>
+                        <div class="attraction-details">
+                            <p><strong>Best Time:</strong> April (peak bloom season)</p>
+                            <p><strong>Distance from Seattle:</strong> 1.5 hours</p>
+                            <p><strong>Recommended Vehicle:</strong> Comfort Electric</p>
+                        </div>
+                        <button class="book-ride-btn" onclick="bookRide('Skagit Valley, Mount Vernon, WA')">Book Ride to Tulip Festival</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Seasonal Guide -->
+    <section class="seasonal-guide">
+        <div class="container">
+            <h2>Seasonal Travel Guide</h2>
+            <div class="seasonal-grid">
+                <div class="seasonal-card">
+                    <i class="fas fa-seedling" style="color: #4caf50;"></i>
+                    <h3>Spring (Mar-May)</h3>
+                    <p>Perfect for waterfalls, tulip festivals, and mild weather hiking. Snoqualmie Falls and Skagit Valley are at their best.</p>
+                </div>
+                <div class="seasonal-card">
+                    <i class="fas fa-sun" style="color: #ff9800;"></i>
+                    <h3>Summer (Jun-Aug)</h3>
+                    <p>Ideal for national parks, mountain activities, and island hopping. All high-elevation areas are accessible.</p>
+                </div>
+                <div class="seasonal-card">
+                    <i class="fas fa-leaf" style="color: #f44336;"></i>
+                    <h3>Fall (Sep-Nov)</h3>
+                    <p>Beautiful foliage, harvest festivals, and comfortable temperatures. Great for Leavenworth's Oktoberfest.</p>
+                </div>
+                <div class="seasonal-card">
+                    <i class="fas fa-snowflake" style="color: #2196f3;"></i>
+                    <h3>Winter (Dec-Feb)</h3>
+                    <p>Ski resorts, Christmas markets, and cozy indoor attractions. Crystal Mountain and Leavenworth shine.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<!-- Attraction Booking Modal -->
+<div id="attractionBookingModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Book Ride to Attraction</h2>
+        <div id="attractionDestinationInfo" class="selected-vehicle-info"></div>
+        <form id="attractionBookingForm">
+            <div class="form-group">
+                <label for="attractionBookingName">Full Name <span class="required">*</span></label>
+                <input type="text" id="attractionBookingName" name="fullName" required>
+            </div>
+            <div class="form-group">
+                <label for="attractionBookingEmail">Email Address <span class="required">*</span></label>
+                <input type="email" id="attractionBookingEmail" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="attractionBookingPhone">Phone Number <span class="required">*</span></label>
+                <input type="tel" id="attractionBookingPhone" name="phone" required>
+            </div>
+            <div class="form-group">
+                <label for="attractionBookingPickup">Pickup Location <span class="required">*</span></label>
+                <input type="text" id="attractionBookingPickup" name="pickupLocation" required>
+            </div>
+            <div class="form-group">
+                <label for="attractionBookingDropoff">Drop-off Location <span class="required">*</span></label>
+                <input type="text" id="attractionBookingDropoff" name="dropoffLocation" required readonly>
+            </div>
+            <div class="input-group">
+                <i class="fas fa-car"></i>
+                <select id="attractionVehicleType" name="vehicleType" required>
+                    <option value="comfort">Comfort Electric - $1.80/mi + $0.90/hr</option>
+                    <option value="suv">Premium SUV - $3.20/mi + $1.60/hr</option>
+                    <option value="van">Luxury Van - $4.50/mi + $2.25/hr</option>
+                    <option value="limo">Luxury Limo - $2.50/mi + $1.25/hr</option>
+                    <option value="wedding">Wedding Package - $8.00/mi + $4.00/hr</option>
+                    <option value="bus">Event Bus - $6.00/mi + $3.00/hr</option>
+                    <option value="convention">Convention Transport - $5.50/mi + $2.75/hr</option>
+                    <option value="sports">Sports Events - $4.80/mi + $2.40/hr</option>
+                    <option value="theme">Theme Parks - $3.80/mi + $1.90/hr</option>
+                    <option value="concert">Concert Transport - $4.20/mi + $2.10/hr</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="attractionBookingDate">Date & Time <span class="required">*</span></label>
+                <input type="datetime-local" id="attractionBookingDate" name="bookingDate" required>
+            </div>
+            <div class="input-group">
+                <i class="fas fa-users"></i>
+                <select id="attractionBookingPassengers" name="passengers" required>
+                    <option value="1">1 passenger</option>
+                    <option value="2">2 passengers</option>
+                    <option value="3">3 passengers</option>
+                    <option value="4">4 passengers</option>
+                    <option value="5">5+ passengers</option>
+                </select>
+            </div>
+            <div class="fare-display">
+                <span class="fare-label">Estimated Fare:</span>
+                <span id="attractionEstimatedFare" class="fare-amount">$0.00</span>
+            </div>
+            <button type="submit" class="book-ride-btn">Book This Ride</button>
+        </form>
+    </div>
+</div>
+
+<script>
+function bookRide(destination) {
+    const modal = document.getElementById('attractionBookingModal');
+    const dropoffInput = document.getElementById('attractionBookingDropoff');
+    const destinationInfo = document.getElementById('attractionDestinationInfo');
+    
+    if (modal && dropoffInput && destinationInfo) {
+        dropoffInput.value = destination;
+        destinationInfo.innerHTML = `<h3>Destination: ${destination}</h3><p>Select your pickup location and travel details</p>`;
+        modal.style.display = 'block';
+        document.body.style.overflow = 'hidden';
+        
+        // Autopopulate user info if logged in
+        if (window.husaRideApp && window.husaRideApp.user && window.husaRideApp.token) {
+            window.husaRideApp.autopopulateModalUserInfo();
+        }
+        
+        setTimeout(() => setupAttractionFareCalculation(), 300);
+    }
+}
+
+function setupAttractionFareCalculation() {
+    const pickupInput = document.getElementById('attractionBookingPickup');
+    const vehicleSelect = document.getElementById('attractionVehicleType');
+    const fareDisplay = document.getElementById('attractionEstimatedFare');
+
+    if (!pickupInput || !vehicleSelect || !fareDisplay) return;
+
+    if (typeof google !== 'undefined' && google.maps && google.maps.places && google.maps.places.Autocomplete) {
+        try {
+            new google.maps.places.Autocomplete(pickupInput, {
+                types: ['geocode'],
+                componentRestrictions: { country: 'us' }
+            });
+        } catch (error) {
+            console.warn('Autocomplete setup failed:', error);
+        }
+    }
+
+    const calculateFare = () => {
+        const pickup = pickupInput.value.trim();
+        const vehicleType = vehicleSelect.value;
+        
+        if (pickup && vehicleType) {
+            fareDisplay.textContent = 'Calculating...';
+            const vehicleRates = { 
+                limo: 2.50, 
+                comfort: 1.80, 
+                suv: 3.20, 
+                van: 4.50, 
+                wedding: 8.00, 
+                bus: 6.00, 
+                convention: 5.50, 
+                sports: 4.80, 
+                theme: 3.80, 
+                concert: 4.20 
+            };
+            const rate = vehicleRates[vehicleType] || 1.80;
+            const estimatedMiles = Math.floor(Math.random() * 12) + 3;
+            const estimatedHours = estimatedMiles / 25; // Assume 25 mph average speed
+            const distanceFare = estimatedMiles * rate;
+            const timeFare = estimatedHours * (rate * 0.5);
+            const fare = distanceFare + timeFare;
+            
+            setTimeout(() => {
+                fareDisplay.textContent = `$${fare.toFixed(2)} (est.)`;
+            }, 1000);
+        } else {
+            fareDisplay.textContent = '$0.00';
+        }
+    };
+
+    pickupInput.addEventListener('blur', calculateFare);
+    vehicleSelect.addEventListener('change', calculateFare);
+}
+</script>
+
+    <%- include('../partials/footer') %>
+    <script src="/js/main.js"></script>
+</body>
+</html>

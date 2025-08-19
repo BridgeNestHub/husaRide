@@ -1,0 +1,236 @@
+<!-- Auth Modals -->
+<div id="loginModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Login</h2>
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="loginEmail">Email</label>
+                <input type="email" name="email" id="loginEmail" required>
+            </div>
+            <div class="form-group">
+                <label for="loginPassword">Password</label>
+                <input type="password" name="password" id="loginPassword" required>
+            </div>
+            <button type="submit">Login</button>
+            <p class="forgot-password"><a href="#" id="showForgotPassword">Forgot Password?</a></p>
+            <p class="signup-link">Don't have an account? <a href="#" id="showSignup">Sign up here</a></p>
+        </form>
+    </div>
+</div>
+
+<div id="signupModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Sign Up</h2>
+        <form id="signupForm">
+            <div class="form-group">
+                <label for="signupName">Full Name</label>
+                <input type="text" name="name" id="signupName" required>
+            </div>
+            <div class="form-group">
+                <label for="signupEmail">Email</label>
+                <input type="email" name="email" id="signupEmail" required>
+            </div>
+            <div class="form-group">
+                <label for="signupPassword">Password</label>
+                <input type="password" name="password" id="signupPassword" required>
+            </div>
+            <div class="form-group">
+                <label for="signupConfirmPassword">Confirm Password</label>
+                <input type="password" name="confirmPassword" id="signupConfirmPassword" required>
+            </div>
+            <div class="form-group">
+                <label for="signupPhone">Phone Number</label>
+                <input type="tel" name="phone" id="signupPhone" required>
+            </div>
+            <button type="submit">Create Account</button>
+            <p class="login-link">Already have an account? <a href="#" id="showLogin">Login here</a></p>
+        </form>
+    </div>
+</div>
+
+<!-- Rides History Modal -->
+<div id="ridesModal" class="modal rides-modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Your Ride History</h2>
+        <div id="ridesContainer" class="rides-list">
+            <p style="text-align: center; color: var(--gray-color);">Loading your rides...</p>
+        </div>
+    </div>
+</div>
+
+<!-- Settings Modal -->
+<div id="settingsModal" class="modal">
+    <div class="modal-content modern-settings-modal">
+        <div class="modal-header-modern">
+            <h2><i class="fas fa-cog"></i> Account Settings</h2>
+            <span class="close modern-close">&times;</span>
+        </div>
+        
+        <div class="settings-tabs-modern">
+            <button class="tab-btn-modern active" data-tab="password">
+                <i class="fas fa-lock"></i>
+                <span>Password</span>
+            </button>
+            <button class="tab-btn-modern" data-tab="notifications">
+                <i class="fas fa-bell"></i>
+                <span>Notifications</span>
+            </button>
+            <button class="tab-btn-modern" data-tab="locations">
+                <i class="fas fa-map-marker-alt"></i>
+                <span>Favorites</span>
+            </button>
+            <button class="tab-btn-modern" data-tab="emergency">
+                <i class="fas fa-phone"></i>
+                <span>Emergency</span>
+            </button>
+        </div>
+        
+        <!-- Password Reset Tab -->
+        <div id="passwordTab" class="tab-content-modern active">
+            <div class="settings-section">
+                <h3><i class="fas fa-shield-alt"></i> Change Password</h3>
+                <p class="section-description">Keep your account secure with a strong password</p>
+                <form id="passwordResetForm" class="modern-form">
+                    <div class="form-group-modern">
+                        <label class="modern-label">Current Password</label>
+                        <input type="password" name="currentPassword" class="modern-input" required>
+                    </div>
+                    <div class="form-group-modern">
+                        <label class="modern-label">New Password</label>
+                        <input type="password" name="newPassword" class="modern-input" required>
+                    </div>
+                    <div class="form-group-modern">
+                        <label class="modern-label">Confirm New Password</label>
+                        <input type="password" name="confirmPassword" class="modern-input" required>
+                    </div>
+                    <button type="submit" class="modern-btn primary">Update Password</button>
+                </form>
+            </div>
+        </div>
+        
+        <!-- Notifications Tab -->
+        <div id="notificationsTab" class="tab-content-modern">
+            <div class="settings-section">
+                <h3><i class="fas fa-bell"></i> Notification Preferences</h3>
+                <p class="section-description">Choose how you want to be notified about your rides</p>
+                <form id="notificationsForm" class="modern-form">
+                    <div class="toggle-group">
+                        <div class="toggle-item">
+                            <div class="toggle-info">
+                                <h4>Email Notifications</h4>
+                                <p>Receive ride updates via email</p>
+                            </div>
+                            <label class="toggle-switch">
+                                <input type="checkbox" name="email" checked>
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                        <div class="toggle-item">
+                            <div class="toggle-info">
+                                <h4>SMS Notifications</h4>
+                                <p>Get text messages for important updates</p>
+                            </div>
+                            <label class="toggle-switch">
+                                <input type="checkbox" name="sms" checked>
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                        <div class="toggle-item">
+                            <div class="toggle-info">
+                                <h4>Push Notifications</h4>
+                                <p>Browser notifications for real-time updates</p>
+                            </div>
+                            <label class="toggle-switch">
+                                <input type="checkbox" name="push" checked>
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                    </div>
+                    <button type="submit" class="modern-btn primary">Save Preferences</button>
+                </form>
+            </div>
+        </div>
+        
+        <!-- Favorite Locations Tab -->
+        <div id="locationsTab" class="tab-content-modern">
+            <div class="settings-section">
+                <h3><i class="fas fa-star"></i> Favorite Locations</h3>
+                <p class="section-description">Save frequently used locations for quick booking</p>
+                <div id="favoriteLocationsList" class="locations-list"></div>
+                <div class="add-section">
+                    <h4>Add New Location</h4>
+                    <form id="addLocationForm" class="modern-form">
+                        <div class="form-row">
+                            <div class="form-group-modern">
+                                <label class="modern-label">Location Name</label>
+                                <input type="text" name="name" class="modern-input" placeholder="e.g., Home, Office" required>
+                            </div>
+                            <div class="form-group-modern">
+                                <label class="modern-label">Type</label>
+                                <select name="type" class="modern-select">
+                                    <option value="home">🏠 Home</option>
+                                    <option value="work">🏢 Work</option>
+                                    <option value="other">📍 Other</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group-modern">
+                            <label class="modern-label">Address</label>
+                            <input type="text" name="address" class="modern-input" placeholder="Full address" required>
+                        </div>
+                        <button type="submit" class="modern-btn secondary">Add Location</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Emergency Contacts Tab -->
+        <div id="emergencyTab" class="tab-content-modern">
+            <div class="settings-section">
+                <h3><i class="fas fa-phone-alt"></i> Emergency Contacts</h3>
+                <p class="section-description">Add trusted contacts for emergency situations</p>
+                <div id="emergencyContactsList" class="contacts-list"></div>
+                <div class="add-section">
+                    <h4>Add Emergency Contact</h4>
+                    <form id="addEmergencyForm" class="modern-form">
+                        <div class="form-row">
+                            <div class="form-group-modern">
+                                <label class="modern-label">Contact Name</label>
+                                <input type="text" name="name" class="modern-input" required>
+                            </div>
+                            <div class="form-group-modern">
+                                <label class="modern-label">Relationship</label>
+                                <input type="text" name="relationship" class="modern-input" placeholder="e.g., Spouse, Parent" required>
+                            </div>
+                        </div>
+                        <div class="form-group-modern">
+                            <label class="modern-label">Phone Number</label>
+                            <input type="tel" name="phone" class="modern-input" required>
+                        </div>
+                        <button type="submit" class="modern-btn secondary">Add Contact</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Forgot Password Modal -->
+<div id="forgotPasswordModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Reset Password</h2>
+        <p style="color: var(--gray-color); margin-bottom: 1.5rem;">Enter your email address and we'll send you a link to reset your password.</p>
+        <form id="forgotPasswordForm">
+            <div class="form-group">
+                <label for="forgotEmail">Email Address</label>
+                <input type="email" name="email" id="forgotEmail" required>
+            </div>
+            <button type="submit">Send Reset Link</button>
+            <p class="login-link">Remember your password? <a href="#" id="backToLogin">Back to Login</a></p>
+        </form>
+    </div>
+</div>

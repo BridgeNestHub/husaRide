@@ -1,0 +1,24 @@
+<header>
+    <nav class="driver-nav">
+        <div class="nav-left">
+            <div class="logo">Husa<span>Ride</span><br><small>Driver</small></div>
+        </div>
+        <ul class="nav-links driver-nav-links">
+            <li><a href="/driver/dashboard">Dashboard</a></li>
+            <li><a href="#" onclick="switchTab('pending')">Pending Rides</a></li>
+            <li><a href="#" onclick="switchTab('accepted')">Accepted Rides</a></li>
+            <li><a href="#" onclick="switchTab('history')">Ride History</a></li>
+        </ul>
+        <div class="nav-right">
+            <div class="auth-buttons driver-auth">
+                <span id="userGreeting">Hello, <%= user.name %></span>
+                <button id="logoutBtn">Logout</button>
+            </div>
+            <div class="nav-toggle" onclick="toggleDriverNav()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+</header>

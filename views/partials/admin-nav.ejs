@@ -1,0 +1,17 @@
+<header>
+    <nav class="admin-nav">
+        <div class="logo">Husa<span>Ride</span> Admin</div>
+        <div class="nav-toggle" onclick="toggleAdminNav()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <ul class="nav-links admin-nav-links">
+            <li><a href="/admin/dashboard">Dashboard</a></li>
+        </ul>
+        <div class="auth-buttons admin-auth">
+            <span id="userGreeting" class="admin-greeting">Hello, <%= user.name %></span>
+            <button id="logoutBtn" class="admin-logout-btn">Logout</button>
+        </div>
+    </nav>
+</header>

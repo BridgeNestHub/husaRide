@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('../partials/head') %>
+<body>
+    <%- include('../partials/nav') %>
+
+    <main>
+        <section id="home" class="hero page-hero">
+            <div class="hero-content hero-container">
+                <h1>Ride With Comfort & Safety</h1>
+                <p class="hero-subtitle">Book a ride in seconds and enjoy the journey</p>
+                <div class="booking-form" id="bookingForm">
+                    <div class="input-group">
+                        <i class="fas fa-user"></i>
+                        <input type="text" id="heroFullName" placeholder="Full Name *" required>
+                    </div>
+                    <div class="input-group">
+                        <i class="fas fa-envelope"></i>
+                        <input type="email" id="heroEmail" placeholder="Email Address *" required>
+                    </div>
+                    <div class="input-group">
+                        <i class="fas fa-phone"></i>
+                        <input type="tel" id="heroPhone" placeholder="Phone Number *" required>
+                    </div>
+                    <div class="input-group">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <input type="text" id="heroPickup" placeholder="Pickup Location *" required>
+                    </div>
+                    <div class="input-group">
+                        <i class="fas fa-flag-checkered"></i>
+                        <input type="text" id="heroDropoff" placeholder="Drop-off Location *" required>
+                    </div>
+                    <div class="input-group">
+                        <i class="fas fa-car"></i>
+                        <select id="heroVehicleType" required>
+                            <option value="">Select Vehicle Type *</option>
+                            <option value="limo">Luxury Limo - $2.50/mi + $1.25/hr</option>
+                            <option value="comfort" selected>Comfort Electric - $1.80/mi + $0.90/hr</option>
+                            <option value="suv">Premium SUV - $3.20/mi + $1.60/hr</option>
+                            <option value="van">Luxury Van - $4.50/mi + $2.25/hr</option>
+                            <option value="wedding">Wedding Package - $8.00/mi + $4.00/hr</option>
+                            <option value="bus">Event Bus - $6.00/mi + $3.00/hr</option>
+                            <option value="convention">Convention Transport - $5.50/mi + $2.75/hr</option>
+                            <option value="sports">Sports Events - $4.80/mi + $2.40/hr</option>
+                            <option value="theme">Theme Parks - $3.80/mi + $1.90/hr</option>
+                            <option value="concert">Concert Transport - $4.20/mi + $2.10/hr</option>
+                        </select>
+                    </div>
+                    <div class="fare-display">
+                        <span class="fare-label">Estimated Fare:</span>
+                        <span id="heroEstimatedFare" class="fare-amount">$0.00</span>
+                    </div>
+                    <button id="heroBookNowBtn" class="hero-book-btn">Book Now</button>
+                </div>
+            </div>
+            <div class="hero-image">
+                <img src="/images/limo.jpg" alt="Ride hailing car">
+                
+                <!-- User Profile Section (shown when logged in) -->
+                <div id="userProfileSection" class="user-profile-section" style="display: none;">
+                    <div class="profile-card">
+                        <div class="profile-header">
+                            <div class="profile-info">
+                                <h3 id="profileName">Welcome back!</h3>
+                                <p id="profilePoints">0 points earned</p>
+                            </div>
+                            <button id="viewAllRidesBtn" class="view-rides-btn">View All Rides</button>
+                        </div>
+                        <div class="recent-rides">
+                            <h4>Recent Trips</h4>
+                            <div id="recentRidesList" class="recent-rides-list">
+                                <p class="no-rides">No recent trips</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Services Section -->
+        <section id="services" class="services-section">
+            <h2>Complete Transportation Solutions</h2>
+            <div class="services-grid">
+                <div class="service-category">
+                    <h3><i class="fas fa-car"></i> Personal Transport</h3>
+                    <div class="vehicle-options-row">
+                        <div class="vehicle-card-enhanced" data-type="limo">
+                            <img src="/images/limo.jpg" alt="Luxury Limousine">
+                            <div class="vehicle-info">
+                                <h4>Luxury Limousine</h4>
+                                <p>Premium comfort for special occasions</p>
+                                <div class="vehicle-details">
+                                    <span class="capacity"><i class="fas fa-users"></i> Up to 8 passengers</span>
+                                    <span class="price">$2.50/mi </span>
+                                </div>
+                                <button class="select-vehicle-btn" data-vehicle="limo">Select This Option</button>
+                            </div>
+                        </div>
+                        <div class="vehicle-card-enhanced" data-type="comfort">
+                            <img src="/images/teslaComfort.jpg" alt="Comfort Electric">
+                            <div class="vehicle-info">
+                                <h4>Comfort Electric</h4>
+                                <p>Eco-friendly and comfortable rides</p>
+                                <div class="vehicle-details">
+                                    <span class="capacity"><i class="fas fa-users"></i> Up to 4 passengers</span>
+                                    <span class="price">$1.80/mi</span>
+                                </div>
+                                <button class="select-vehicle-btn" data-vehicle="comfort">Select This Option</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="service-category">
+                    <h3><i class="fas fa-users"></i> Group Transport</h3>
+                    <div class="vehicle-options-row">
+                        <div class="vehicle-card-enhanced" data-type="suv">
+                            <img src="/images/premiumsuv.jpg" alt="Premium SUV">
+                            <div class="vehicle-info">
+                                <h4>Premium SUV</h4>
+                                <p>Spacious and powerful for any journey</p>
+                                <div class="vehicle-details">
+                                    <span class="capacity"><i class="fas fa-users"></i> Up to 5 passengers</span>
+                                    <span class="price">$3.20/mi</span>
+                                </div>
+                                <button class="select-vehicle-btn" data-vehicle="suv">Select This Option</button>
+                            </div>
+                        </div>
+                        <div class="vehicle-card-enhanced" data-type="van">
+                            <img src="/images/sprintervan.jpg" alt="Luxury Van">
+                            <div class="vehicle-info">
+                                <h4>Luxury Van</h4>
+                                <p>Perfect for group travel and events</p>
+                                <div class="vehicle-details">
+                                    <span class="capacity"><i class="fas fa-users"></i> Up to 10 passengers</span>
+                                    <span class="price">$4.50/mi</span>
+                                </div>
+                                <button class="select-vehicle-btn" data-vehicle="van">Select This Option</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="service-category">
+                    <h3><i class="fas fa-heart"></i> Special Events</h3>
+                    <div class="special-events-row">
+                        <div class="vehicle-card-enhanced" data-type="wedding">
+                            <img src="/images/weddinglimo.jpg" alt="Wedding Car">
+                            <div class="vehicle-info">
+                                <h4>Wedding Package</h4>
+                                <p>Luxury vehicles for your special day</p>
+                                <div class="vehicle-details">
+                                    <span class="capacity"><i class="fas fa-heart"></i> Special occasion</span>
+                                    <span class="price">$8.00/mi</span>
+                                </div>
+                                <button class="select-vehicle-btn" data-vehicle="wedding">Select This Option</button>
+                            </div>
+                        </div>
+                        <div class="vehicle-card-enhanced" data-type="bus">
+                            <img src="/images/bus.jpg" alt="Event Bus">
+                            <div class="vehicle-info">
+                                <h4>Event Bus</h4>
+                                <p>Large groups and special events</p>
+                                <div class="vehicle-details">
+                                    <span class="capacity"><i class="fas fa-users"></i> 25+ passengers</span>
+                                    <span class="price">$6.00/mi</span>
+                                </div>
+                                <button class="select-vehicle-btn" data-vehicle="bus">Select This Option</button>
+                            </div>
+                        </div>
+                        <div class="vehicle-card-enhanced" data-type="convention">
+                            <img src="/images/conventiontransport.jpg" alt="Convention Transport">
+                            <div class="vehicle-info">
+                                <h4>Conventions & Trade Shows</h4>
+                                <p>Professional transport for business events</p>
+                                <div class="vehicle-details">
+                                    <span class="capacity"><i class="fas fa-briefcase"></i> Business events</span>
+                                    <span class="price">$5.50/mi</span>
+                                </div>
+                                <button class="select-vehicle-btn" data-vehicle="convention">Select This Option</button>
+                            </div>
+                        </div>
+                        <div class="vehicle-card-enhanced" data-type="sports">
+                            <img src="/images/sportsevent.jpg" alt="Sports Event Transport">
+                            <div class="vehicle-info">
+                                <h4>Sporting Events</h4>
+                                <p>Get to the game in style and comfort</p>
+                                <div class="vehicle-details">
+                                    <span class="capacity"><i class="fas fa-football-ball"></i> Sports events</span>
+                                    <span class="price">$4.80/mi</span>
+                                </div>
+                                <button class="select-vehicle-btn" data-vehicle="sports">Select This Option</button>
+                            </div>
+                        </div>
+                        <!-- <div class="vehicle-card-enhanced" data-type="theme">
+                            <img src="/images/limo.jpg" alt="Theme Park Transport">
+                            <div class="vehicle-info">
+                                <h4>Theme Parks</h4>
+                                <p>Family-friendly transport to attractions</p>
+                                <div class="vehicle-details">
+                                    <span class="capacity"><i class="fas fa-magic"></i> Family fun</span>
+                                    <span class="price">$3.80/mi + $1.90/hr</span>
+                                </div>
+                                <button class="select-vehicle-btn" data-vehicle="theme">Select This Option</button>
+                            </div>
+                        </div>
+                        <div class="vehicle-card-enhanced" data-type="concert">
+                            <img src="/images/tesla.jpg" alt="Concert Transport">
+                            <div class="vehicle-info">
+                                <h4>Music Concerts & Festivals</h4>
+                                <p>Arrive at concerts safely and on time</p>
+                                <div class="vehicle-details">
+                                    <span class="capacity"><i class="fas fa-music"></i> Music events</span>
+                                    <span class="price">$4.20/mi + $2.10/hr</span>
+                                </div>
+                                <button class="select-vehicle-btn" data-vehicle="concert">Select This Option</button>
+                            </div>
+                        </div> -->
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Features Section -->
+        <section id="features" class="features-section">
+            <h2>Why Choose HusaRide?</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <i class="fas fa-shield-alt"></i>
+                    <h3>Safety First</h3>
+                    <p>All drivers background-checked, vehicles regularly inspected</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-clock"></i>
+                    <h3>24/7 Service</h3>
+                    <p>Available round the clock for all your transportation needs</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-star"></i>
+                    <h3>Premium Quality</h3>
+                    <p>Luxury vehicles maintained to the highest standards</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-mobile-alt"></i>
+                    <h3>Easy Booking</h3>
+                    <p>Simple online booking with real-time tracking</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <%- include('../partials/auth-modals') %>
+
+    <!-- Vehicle Booking Modal -->
+    <div id="vehicleBookingModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Book Your Ride</h2>
+            <div id="selectedVehicleInfo" class="selected-vehicle-info"></div>
+            <form id="vehicleBookingForm">
+                <div class="form-group">
+                    <label for="bookingName">Full Name <span class="required">*</span></label>
+                    <input type="text" id="bookingName" name="fullName" required>
+                </div>
+                <div class="form-group">
+                    <label for="bookingEmail">Email Address <span class="required">*</span></label>
+                    <input type="email" id="bookingEmail" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="bookingPhone">Phone Number <span class="required">*</span></label>
+                    <input type="tel" id="bookingPhone" name="phone" required>
+                </div>
+                <div class="form-group">
+                    <label for="bookingPickup">Pickup Location <span class="required">*</span></label>
+                    <input type="text" id="bookingPickup" name="pickupLocation" required>
+                </div>
+                <div class="form-group">
+                    <label for="bookingDropoff">Drop-off Location <span class="required">*</span></label>
+                    <input type="text" id="bookingDropoff" name="dropoffLocation" required>
+                </div>
+                <div class="form-group">
+                    <label for="bookingDate">Date & Time <span class="required">*</span></label>
+                    <input type="datetime-local" id="bookingDate" name="bookingDate" required>
+                </div>
+                <div class="form-group">
+                    <label for="bookingPassengers">Number of Passengers <span class="required">*</span></label>
+                    <select id="bookingPassengers" name="passengers" required>
+                        <option value="">Select passengers</option>
+                        <option value="1">1 passenger</option>
+                        <option value="2">2 passengers</option>
+                        <option value="3">3 passengers</option>
+                        <option value="4">4 passengers</option>
+                        <option value="5">5 passengers</option>
+                        <option value="6">6 passengers</option>
+                        <option value="7">7 passengers</option>
+                        <option value="8">8+ passengers</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="bookingNotes">Special Requests (Optional)</label>
+                    <textarea id="bookingNotes" name="notes" placeholder="Any special requests or notes..."></textarea>
+                </div>
+                <div class="estimated-fare">
+                    <p>Estimated Fare: <span id="estimatedFare">$0.00</span></p>
+                    <small>*Fare = Distance Rate + Time Rate (50% of distance rate). Final fare may vary based on actual route and traffic conditions.</small>
+                </div>
+                <button type="submit" class="book-ride-btn">Book This Ride</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Attraction Booking Modal -->
+    <div id="attractionBookingModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Book Ride to Attraction</h2>
+            <div id="attractionDestinationInfo" class="selected-vehicle-info"></div>
+            <form id="attractionBookingForm">
+                <div class="form-group">
+                    <label for="attractionBookingName">Full Name <span class="required">*</span></label>
+                    <input type="text" id="attractionBookingName" name="fullName" required>
+                </div>
+                <div class="form-group">
+                    <label for="attractionBookingEmail">Email Address <span class="required">*</span></label>
+                    <input type="email" id="attractionBookingEmail" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="attractionBookingPhone">Phone Number <span class="required">*</span></label>
+                    <input type="tel" id="attractionBookingPhone" name="phone" required>
+                </div>
+                <div class="form-group">
+                    <label for="attractionBookingPickup">Pickup Location <span class="required">*</span></label>
+                    <input type="text" id="attractionBookingPickup" name="pickupLocation" required>
+                </div>
+                <div class="form-group">
+                    <label for="attractionBookingDropoff">Drop-off Location <span class="required">*</span></label>
+                    <input type="text" id="attractionBookingDropoff" name="dropoffLocation" required readonly>
+                </div>
+                <div class="form-group">
+                    <label for="attractionVehicleType">Vehicle Type <span class="required">*</span></label>
+                    <select id="attractionVehicleType" name="vehicleType" required>
+                        <option value="comfort">Comfort Electric - $1.80/mi + $0.90/hr</option>
+                        <option value="suv">Premium SUV - $3.20/mi + $1.60/hr</option>
+                        <option value="van">Luxury Van - $4.50/mi + $2.25/hr</option>
+                        <option value="limo">Luxury Limo - $2.50/mi + $1.25/hr</option>
+                        <option value="wedding">Wedding Package - $8.00/mi + $4.00/hr</option>
+                        <option value="bus">Event Bus - $6.00/mi + $3.00/hr</option>
+                        <option value="convention">Convention Transport - $5.50/mi + $2.75/hr</option>
+                        <option value="sports">Sports Events - $4.80/mi + $2.40/hr</option>
+                        <option value="theme">Theme Parks - $3.80/mi + $1.90/hr</option>
+                        <option value="concert">Concert Transport - $4.20/mi + $2.10/hr</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="attractionBookingDate">Date & Time <span class="required">*</span></label>
+                    <input type="datetime-local" id="attractionBookingDate" name="bookingDate" required>
+                </div>
+                <div class="form-group">
+                    <label for="attractionBookingPassengers">Number of Passengers <span class="required">*</span></label>
+                    <select id="attractionBookingPassengers" name="passengers" required>
+                        <option value="1">1 passenger</option>
+                        <option value="2">2 passengers</option>
+                        <option value="3">3 passengers</option>
+                        <option value="4">4 passengers</option>
+                        <option value="5">5+ passengers</option>
+                    </select>
+                </div>
+                <button type="submit" class="book-ride-btn">Book This Ride</button>
+            </form>
+        </div>
+    </div>
+
+    <%- include('../partials/footer') %>
+
+    <script src="/js/main.js"></script>
+</body>
+</html>

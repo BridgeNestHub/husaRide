@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hamburger Menu Test - HusaRide</title>
+    <link rel="stylesheet" href="/public/css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Test specific styles */
+        body { margin: 0; padding-top: 80px; }
+        .test-content { 
+            padding: 2rem; 
+            text-align: center; 
+            background: #f8f9fa; 
+            min-height: 100vh; 
+        }
+        .test-content h1 { color: var(--primary-color); }
+        .test-content p { color: var(--gray-color); margin: 1rem 0; }
+        .resize-instruction {
+            background: #fff3cd;
+            color: #856404;
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 2rem 0;
+            border: 1px solid #ffeaa7;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">Husa<span>Ride</span></div>
+            <ul class="nav-links">
+                <li><a href="/">Home</a></li>
+                <li><a href="/about">About</a></li>
+                <li><a href="/services">Services</a></li>
+                <li><a href="/contact">Contact</a></li>
+            </ul>
+            <div class="auth-buttons">
+                <button id="loginBtn">Login</button>
+                <button id="signupBtn">Sign Up</button>
+            </div>
+            <div class="menu-toggle">
+                <i class="fas fa-bars"></i>
+            </div>
+        </nav>
+    </header>
+
+    <div class="test-content">
+        <h1>🍔 Hamburger Menu Test</h1>
+        <p>This page tests the mobile hamburger menu functionality.</p>
+        
+        <div class="resize-instruction">
+            <strong>📱 Test Instructions:</strong><br>
+            1. Resize your browser window to mobile size (less than 768px width)<br>
+            2. You should see a hamburger menu (☰) icon appear on the right side<br>
+            3. Click the hamburger menu to toggle the navigation links<br>
+            4. The menu should slide down smoothly when opened<br>
+            5. Click outside the menu or on a link to close it
+        </div>
+
+        <p><strong>Current window width:</strong> <span id="windowWidth">Loading...</span>px</p>
+        <p><strong>Hamburger menu visible:</strong> <span id="hamburgerVisible">Checking...</span></p>
+        <p><strong>Navigation links visible:</strong> <span id="navLinksVisible">Checking...</span></p>
+    </div>
+
+    <script>
+        // Simple test script
+        function updateStatus() {
+            const windowWidth = window.innerWidth;
+            const hamburger = document.querySelector('.menu-toggle');
+            const navLinks = document.querySelector('.nav-links');
+            
+            document.getElementById('windowWidth').textContent = windowWidth;
+            
+            const hamburgerStyle = window.getComputedStyle(hamburger);
+            const hamburgerVisible = hamburgerStyle.display !== 'none';
+            document.getElementById('hamburgerVisible').textContent = hamburgerVisible ? 'Yes ✅' : 'No ❌';
+            
+            const navLinksStyle = window.getComputedStyle(navLinks);
+            const navLinksVisible = navLinksStyle.visibility === 'visible' && navLinksStyle.opacity > 0;
+            document.getElementById('navLinksVisible').textContent = navLinksVisible ? 'Yes ✅' : 'No ❌';
+        }
+
+        // Mobile navigation toggle function
+        function toggleMobileNav() {
+            const navLinks = document.querySelector('.nav-links');
+            if (navLinks) {
+                navLinks.classList.toggle('active');
+                updateStatus();
+            }
+        }
+
+        // Event listeners
+        document.querySelector('.menu-toggle')?.addEventListener('click', toggleMobileNav);
+        
+        // Close mobile nav when clicking outside
+        document.addEventListener('click', (e) => {
+            const nav = document.querySelector('nav');
+            const navLinks = document.querySelector('.nav-links');
+            
+            if (navLinks && navLinks.classList.contains('active') && 
+                nav && !nav.contains(e.target)) {
+                navLinks.classList.remove('active');
+                updateStatus();
+            }
+        });
+        
+        // Close mobile nav when clicking on nav links
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault(); // Prevent navigation for test
+                document.querySelector('.nav-links')?.classList.remove('active');
+                updateStatus();
+            });
+        });
+
+        // Update status on load and resize
+        window.addEventListener('load', updateStatus);
+        window.addEventListener('resize', updateStatus);
+    </script>
+</body>
+</html>
