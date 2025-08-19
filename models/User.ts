@@ -7,9 +7,34 @@ export interface IUser extends Document {
   email: string;
   password: string;
   phone: string;
-  role: 'passenger' | 'driver';
+  role: 'passenger' | 'driver' | 'admin';
   isVerified: boolean;
   points: number;
+  vehicles?: Array<{
+    type: string;
+    make: string;
+    model: string;
+    year: number;
+    licensePlate: string;
+    color: string;
+  }>;
+  settings?: {
+    notifications: {
+      email: boolean;
+      sms: boolean;
+      push: boolean;
+    };
+    favoriteLocations: Array<{
+      name: string;
+      address: string;
+      type: string;
+    }>;
+    emergencyContacts: Array<{
+      name: string;
+      phone: string;
+      relationship: string;
+    }>;
+  };
   createdAt: Date;
   comparePassword(candidatePassword: string): Promise<boolean>;
 }

@@ -27,8 +27,8 @@ router.post('/login', async (req, res) => {
     
     const token = jwt.sign(
       { userId: user._id, role: user.role },
-      process.env.JWT_SECRET!,
-      { expiresIn: process.env.JWT_EXPIRES_IN }
+      process.env.JWT_SECRET || 'fallback-secret',
+      { expiresIn: '7d' }
     );
     
     res.cookie('driverToken', token, {
@@ -164,8 +164,8 @@ router.patch('/rides/:rideId/accept', auth, requireRole('driver'), async (req, r
           }
         });
       }
-    } catch (emailError) {
-      console.log('Email notification failed, but ride accepted successfully:', emailError.message);
+    } catch (emailError: any) {
+      console.log('Email notification failed, but ride accepted successfully:', emailError?.message || emailError);
     }
 
     res.json({ 
@@ -263,8 +263,8 @@ router.patch('/rides/:rideId/complete', auth, requireRole('driver'), async (req,
           }
         });
       }
-    } catch (emailError) {
-      console.log('Email notifications failed, but ride completed successfully:', emailError.message);
+    } catch (emailError: any) {
+      console.log('Email notifications failed, but ride completed successfully:', emailError?.message || emailError);
     }
     
     res.json({ message: 'Ride completed successfully' });

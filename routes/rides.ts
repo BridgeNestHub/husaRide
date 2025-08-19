@@ -53,10 +53,10 @@ router.post('/book', async (req, res) => {
 
     // Add passenger info based on login status
     if (userId) {
-      rideData.passenger = userId;
+      (rideData as any).passenger = userId;
     } else {
       // For guest bookings, store contact info
-      rideData.guestInfo = {
+      (rideData as any).guestInfo = {
         fullName,
         email,
         phone: formatPhoneNumber(phone)
@@ -95,8 +95,8 @@ router.post('/book', async (req, res) => {
             bookingDate: new Date().toLocaleDateString()
           }
         });
-      } catch (emailError) {
-        console.warn('Failed to send confirmation email:', emailError.message);
+      } catch (emailError: any) {
+        console.warn('Failed to send confirmation email:', emailError?.message || emailError);
       }
     }
 
@@ -119,12 +119,12 @@ router.post('/book', async (req, res) => {
               rideId: ride._id
             }
           });
-        } catch (driverEmailError) {
-          console.warn(`Failed to notify driver ${driver.email}:`, driverEmailError.message);
+        } catch (driverEmailError: any) {
+          console.warn(`Failed to notify driver ${driver.email}:`, driverEmailError?.message || driverEmailError);
         }
       }
-    } catch (driversError) {
-      console.warn('Failed to notify drivers:', driversError.message);
+    } catch (driversError: any) {
+      console.warn('Failed to notify drivers:', driversError?.message || driversError);
     }
 
     res.status(201).json({

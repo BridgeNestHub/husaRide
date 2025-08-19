@@ -30,8 +30,8 @@ router.post('/register', async (req, res) => {
     // Generate JWT
     const token = jwt.sign(
       { userId: user._id, role: user.role },
-      process.env.JWT_SECRET!,
-      { expiresIn: process.env.JWT_EXPIRES_IN }
+      process.env.JWT_SECRET || 'fallback-secret',
+      { expiresIn: '7d' }
     );
 
     // Send welcome email
@@ -43,8 +43,8 @@ router.post('/register', async (req, res) => {
         data: { name }
       });
       console.log('Welcome email sent successfully to:', email);
-    } catch (emailError) {
-      console.error('Failed to send welcome email:', emailError.message);
+    } catch (emailError: any) {
+      console.error('Failed to send welcome email:', emailError?.message || emailError);
       // Continue with registration even if email fails
     }
 
@@ -97,8 +97,8 @@ router.post('/login', async (req, res) => {
     // Generate JWT
     const token = jwt.sign(
       { userId: user._id, role: user.role },
-      process.env.JWT_SECRET!,
-      { expiresIn: process.env.JWT_EXPIRES_IN }
+      process.env.JWT_SECRET || 'fallback-secret',
+      { expiresIn: '7d' }
     );
 
     // Set cookie for session persistence
@@ -167,9 +167,9 @@ router.post('/create-admin', async (req, res) => {
     
     await admin.save();
     res.json({ message: 'Admin account created successfully' });
-  } catch (error) {
+  } catch (error: any) {
     console.error('Admin creation error:', error);
-    res.status(500).json({ error: 'Server error', details: error.message });
+    res.status(500).json({ error: 'Server error', details: error?.message || error });
   }
 });
 

@@ -39,8 +39,8 @@ router.post('/login', async (req, res) => {
     
     const token = jwt.sign(
       { userId: user._id, role: user.role },
-      process.env.JWT_SECRET!,
-      { expiresIn: process.env.JWT_EXPIRES_IN }
+      process.env.JWT_SECRET || 'fallback-secret',
+      { expiresIn: '7d' }
     );
     
     res.cookie('adminToken', token, {
@@ -298,8 +298,8 @@ router.patch('/users/:userId/update-field', auth, requireRole('admin'), async (r
             updatedBy: 'Administrator'
           }
         });
-      } catch (emailError) {
-        console.log('Email notification failed:', emailError.message);
+      } catch (emailError: any) {
+        console.log('Email notification failed:', emailError?.message || emailError);
       }
     }
     
@@ -359,8 +359,8 @@ router.patch('/users/:userId/vehicles', auth, requireRole('admin'), async (req, 
             updatedBy: 'Administrator'
           }
         });
-      } catch (emailError) {
-        console.log('Email notification failed:', emailError.message);
+      } catch (emailError: any) {
+        console.log('Email notification failed:', emailError?.message || emailError);
       }
     }
     
@@ -409,8 +409,8 @@ router.patch('/rides/:rideId/accept', auth, requireRole('admin'), async (req, re
           fare: ride.fare
         }
       });
-    } catch (emailError) {
-      console.log('Passenger email failed:', emailError.message);
+    } catch (emailError: any) {
+      console.log('Passenger email failed:', emailError?.message || emailError);
     }
     
     // Send email to driver
@@ -430,8 +430,8 @@ router.patch('/rides/:rideId/accept', auth, requireRole('admin'), async (req, re
           fare: ride.fare
         }
       });
-    } catch (emailError) {
-      console.log('Driver email failed:', emailError.message);
+    } catch (emailError: any) {
+      console.log('Driver email failed:', emailError?.message || emailError);
     }
     
     res.json({ message: 'Ride accepted and driver assigned successfully' });
