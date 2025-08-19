@@ -2,10 +2,10 @@
   "name": "husaride",
   "version": "1.0.0",
   "description": "A ride-hailing platform connecting passengers and drivers",
-  "main": "dist/app.js",
+  "main": "dist/src/app.js",
   "scripts": {
     "build": "tsc",
-    "start": "node dist/app.js",
+    "start": "node dist/src/app.js",
     "dev": "ts-node-dev --respawn --transpile-only src/app.ts",
     "watch": "tsc -w"
   },
