@@ -396,11 +396,11 @@ router.patch('/rides/:rideId/accept', auth, requireRole('admin'), async (req, re
     try {
       const { sendEmail } = require('../utils/email');
       await sendEmail({
-        to: ride.passenger?.email || ride.guestInfo?.email,
+        to: (ride.passenger as any)?.email || ride.guestInfo?.email,
         subject: 'Ride Accepted - Driver Assigned',
         template: 'ride-accepted',
         data: {
-          passengerName: ride.passenger?.name || ride.guestInfo?.fullName,
+          passengerName: (ride.passenger as any)?.name || ride.guestInfo?.fullName,
           driverName: driver.name,
           driverPhone: driver.phone,
           pickupLocation: ride.pickupLocation,
@@ -422,8 +422,8 @@ router.patch('/rides/:rideId/accept', auth, requireRole('admin'), async (req, re
         template: 'ride-assigned',
         data: {
           driverName: driver.name,
-          passengerName: ride.passenger?.name || ride.guestInfo?.fullName,
-          passengerPhone: ride.passenger?.phone || ride.guestInfo?.phone,
+          passengerName: (ride.passenger as any)?.name || ride.guestInfo?.fullName,
+          passengerPhone: (ride.passenger as any)?.phone || ride.guestInfo?.phone,
           pickupLocation: ride.pickupLocation,
           dropoffLocation: ride.dropoffLocation,
           vehicleType: ride.vehicleType,
@@ -469,11 +469,11 @@ router.patch('/rides/:rideId/reassign', auth, requireRole('admin'), async (req, 
     try {
       const { sendEmail } = require('../utils/email');
       await sendEmail({
-        to: ride.passenger?.email || ride.guestInfo?.email,
+        to: (ride.passenger as any)?.email || ride.guestInfo?.email,
         subject: 'Driver Changed for Your Ride',
         template: 'ride-accepted',
         data: {
-          passengerName: ride.passenger?.name || ride.guestInfo?.fullName,
+          passengerName: (ride.passenger as any)?.name || ride.guestInfo?.fullName,
           driverName: newDriver.name,
           driverPhone: newDriver.phone,
           pickupLocation: ride.pickupLocation,
@@ -495,8 +495,8 @@ router.patch('/rides/:rideId/reassign', auth, requireRole('admin'), async (req, 
         template: 'ride-assigned',
         data: {
           driverName: newDriver.name,
-          passengerName: ride.passenger?.name || ride.guestInfo?.fullName,
-          passengerPhone: ride.passenger?.phone || ride.guestInfo?.phone,
+          passengerName: (ride.passenger as any)?.name || ride.guestInfo?.fullName,
+          passengerPhone: (ride.passenger as any)?.phone || ride.guestInfo?.phone,
           pickupLocation: ride.pickupLocation,
           dropoffLocation: ride.dropoffLocation,
           vehicleType: ride.vehicleType,
@@ -512,11 +512,11 @@ router.patch('/rides/:rideId/reassign', auth, requireRole('admin'), async (req, 
       try {
         const { sendEmail } = require('../utils/email');
         await sendEmail({
-          to: oldDriver.email,
+          to: (oldDriver as any).email,
           subject: 'Ride Reassigned',
           template: 'account-updated',
           data: {
-            driverName: oldDriver.name,
+            driverName: (oldDriver as any).name,
             field: 'Ride Assignment',
             newValue: `Ride from ${ride.pickupLocation} to ${ride.dropoffLocation} has been reassigned to another driver`,
             updatedBy: 'Administrator'
@@ -537,7 +537,7 @@ router.patch('/rides/:rideId/reassign', auth, requireRole('admin'), async (req, 
         data: {
           driverName: 'Administrator',
           field: 'Ride Reassignment',
-          newValue: `Ride from ${ride.pickupLocation} to ${ride.dropoffLocation} has been reassigned from ${oldDriver?.name || 'Previous Driver'} to ${newDriver.name}`,
+          newValue: `Ride from ${ride.pickupLocation} to ${ride.dropoffLocation} has been reassigned from ${(oldDriver as any)?.name || 'Previous Driver'} to ${newDriver.name}`,
           updatedBy: 'System'
         }
       });

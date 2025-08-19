@@ -117,7 +117,7 @@ router.patch('/rides/:rideId/accept', auth, requireRole('driver'), async (req, r
     }
 
     // Accept the ride
-    ride.driver = driverId;
+    ride.driver = driverId as any;
     ride.status = 'accepted';
     ride.acceptedAt = new Date();
     ride.estimatedArrival = new Date(Date.now() + (Math.floor(Math.random() * 8) + 3) * 60000); // 3-10 minutes
