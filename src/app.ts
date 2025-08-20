@@ -49,7 +49,8 @@ app.use(express.static(path.join(__dirname, '../public')));
 
 // View engine setup
 app.set('view engine', 'ejs');
-app.set('views', path.join(__dirname, '../views'));
+// 👇 FIX: Adjust the path to look for the 'views' directory inside 'dist'
+app.set('views', path.join(__dirname, './views'));
 
 // Database connection
 mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/husaride')
@@ -76,7 +77,7 @@ app.use('*', (req, res) => {
 });
 
 // Error handler
-app.use((err: any, req: express.Request, res: express.Response, next: express.NextFunction) => {
+app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).render('pages/error', { 
     title: 'Server Error',
