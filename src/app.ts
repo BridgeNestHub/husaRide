@@ -49,8 +49,7 @@ app.use(express.static(path.join(__dirname, '../public')));
 
 // View engine setup
 app.set('view engine', 'ejs');
-// 👇 FIX: Adjust the path to look for the 'views' directory inside 'dist'
-app.set('views', path.join(__dirname, './views'));
+app.set('views', path.join(__dirname, '../views'));
 
 // Database connection
 mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/husaride')
