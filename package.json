@@ -1,13 +1,10 @@
 {
   "name": "husaride",
   "version": "1.0.0",
-  "description": "A ride-hailing platform connecting passengers and drivers",
-  "main": "dist/src/app.js",
   "scripts": {
-    "build": "echo 'Build starting...' && pwd && ls -la && tsc && echo 'TypeScript compiled, now copying assets...' && node build-assets.js && echo 'Build completed, checking final structure...' && ls -la dist/",
+    "build": "tsc && cp -r public dist/ && cp -r views dist/",
     "start": "node dist/src/app.js",
     "dev": "ts-node-dev --respawn --transpile-only src/app.ts",
-    "watch": "tsc -w",
     "postinstall": "npm run build"
   },
   "keywords": [
