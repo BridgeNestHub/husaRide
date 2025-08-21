@@ -1,0 +1,290 @@
+/* Attractions Page Styles */
+.attractions-page {
+    min-height: 100vh;
+}
+
+.attractions-hero {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 6rem 0;
+    text-align: center;
+}
+
+.attractions-hero h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    font-weight: 700;
+}
+
+.attractions-hero p {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+    opacity: 0.9;
+}
+
+.hero-features {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+    margin-top: 2rem;
+}
+
+.hero-feature {
+    background: rgba(255,255,255,0.1);
+    padding: 1.5rem;
+    border-radius: 15px;
+    backdrop-filter: blur(10px);
+    transition: transform 0.3s ease;
+}
+
+.hero-feature:hover {
+    transform: translateY(-5px);
+}
+
+.hero-feature i {
+    font-size: 2.5rem;
+    margin-bottom: 0.8rem;
+    display: block;
+}
+
+.attractions-section {
+    padding: 5rem 0;
+    background: #f8f9fa;
+}
+
+.attractions-section h2 {
+    text-align: center;
+    margin-bottom: 3rem;
+    font-size: 2.5rem;
+    color: #333;
+    font-weight: 600;
+}
+
+.attractions-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+    gap: 2.5rem;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+.attraction-card {
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.08);
+    overflow: hidden;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(0,0,0,0.05);
+}
+
+.attraction-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 25px 50px rgba(0,0,0,0.15);
+}
+
+.attraction-card img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.attraction-card:hover img {
+    transform: scale(1.05);
+}
+
+.attraction-content {
+    padding: 2rem;
+}
+
+.attraction-content h3 {
+    color: #2c3e50;
+    margin-bottom: 0.8rem;
+    font-size: 1.4rem;
+    font-weight: 600;
+    line-height: 1.3;
+}
+
+.attraction-description {
+    color: #6c757d;
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+    font-size: 0.95rem;
+}
+
+.attraction-tags {
+    margin-bottom: 1.5rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.attraction-tag {
+    padding: 0.4rem 1rem;
+    border-radius: 25px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 0.3px;
+}
+
+.tag-seattle { background: #e3f2fd; color: #1976d2; }
+.tag-urban { background: #f3e5f5; color: #7b1fa2; }
+.tag-market { background: #fff3e0; color: #f57c00; }
+.tag-national-park { background: #e8f5e8; color: #2e7d32; }
+.tag-mountain { background: #f3e5f5; color: #7b1fa2; }
+.tag-rainforest { background: #e0f2f1; color: #00695c; }
+.tag-islands { background: #e3f2fd; color: #1976d2; }
+.tag-ferry { background: #e0f2f1; color: #00695c; }
+.tag-waterfall { background: #e3f2fd; color: #1976d2; }
+.tag-hiking { background: #e8f5e8; color: #2e7d32; }
+.tag-village { background: #fff3e0; color: #f57c00; }
+.tag-bavarian { background: #fce4ec; color: #c2185b; }
+.tag-art { background: #f3e5f5; color: #7b1fa2; }
+.tag-bridge { background: #e0f2f1; color: #00695c; }
+.tag-scenic { background: #e8f5e8; color: #2e7d32; }
+.tag-alpine { background: #f3e5f5; color: #7b1fa2; }
+.tag-park { background: #e8f5e8; color: #2e7d32; }
+.tag-spokane { background: #e0f2f1; color: #00695c; }
+.tag-islands { background: #e3f2fd; color: #1976d2; }
+.tag-desert { background: #fff3e0; color: #f57c00; }
+.tag-lavender { background: #f3e5f5; color: #7b1fa2; }
+.tag-ski-resort { background: #e1f5fe; color: #0277bd; }
+.tag-festival { background: #fce4ec; color: #c2185b; }
+.tag-flowers { background: #f3e5f5; color: #7b1fa2; }
+
+.attraction-details {
+    margin-bottom: 2rem;
+    background: #f8f9fa;
+    padding: 1.2rem;
+    border-radius: 12px;
+    border-left: 4px solid #667eea;
+}
+
+.attraction-details p {
+    margin: 0.3rem 0;
+    font-size: 0.9rem;
+    color: #495057;
+}
+
+.attraction-details strong {
+    color: #2c3e50;
+    font-weight: 600;
+}
+
+.book-ride-btn {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    padding: 1rem 2rem;
+    border-radius: 30px;
+    cursor: pointer;
+    width: 100%;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.book-ride-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+}
+
+.book-ride-btn:active {
+    transform: translateY(0);
+}
+
+.seasonal-guide {
+    background: white;
+    padding: 5rem 0;
+}
+
+.seasonal-guide h2 {
+    text-align: center;
+    margin-bottom: 3rem;
+    font-size: 2.5rem;
+    color: #333;
+    font-weight: 600;
+}
+
+.seasonal-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+.seasonal-card {
+    background: white;
+    padding: 2.5rem;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    transition: transform 0.3s ease;
+    border: 1px solid rgba(0,0,0,0.05);
+}
+
+.seasonal-card:hover {
+    transform: translateY(-5px);
+}
+
+.seasonal-card i {
+    font-size: 3.5rem;
+    margin-bottom: 1.5rem;
+    display: block;
+}
+
+.seasonal-card h3 {
+    margin-bottom: 1rem;
+    color: #2c3e50;
+    font-size: 1.3rem;
+    font-weight: 600;
+}
+
+.seasonal-card p {
+    color: #6c757d;
+    line-height: 1.6;
+}
+
+@media (max-width: 768px) {
+    .attractions-hero h1 {
+        font-size: 2.2rem;
+    }
+    
+    .attractions-hero p {
+        font-size: 1rem;
+    }
+    
+    .hero-features {
+        gap: 1rem;
+    }
+    
+    .hero-feature {
+        padding: 1rem;
+    }
+    
+    .attractions-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        padding: 0 1rem;
+    }
+    
+    .attraction-content {
+        padding: 1.5rem;
+    }
+    
+    .seasonal-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        padding: 0 1rem;
+    }
+    
+    .seasonal-card {
+        padding: 2rem;
+    }
+}

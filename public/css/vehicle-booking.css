@@ -1,0 +1,411 @@
+/* Enhanced Vehicle Cards */
+.vehicle-card-enhanced {
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+    margin-bottom: 2rem;
+}
+
+.vehicle-card-enhanced:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 35px rgba(0,0,0,0.15);
+}
+
+.vehicle-card-enhanced img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.vehicle-info {
+    padding: 1.5rem;
+}
+
+.vehicle-info h4 {
+    font-size: 1.3rem;
+    margin-bottom: 0.5rem;
+    color: var(--dark-color);
+}
+
+.vehicle-info p {
+    color: var(--gray-color);
+    margin-bottom: 1rem;
+    font-size: 0.95rem;
+}
+
+.vehicle-details {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    padding: 0.8rem;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+}
+
+.capacity {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--dark-color);
+    font-size: 0.9rem;
+}
+
+.capacity i {
+    color: var(--primary-color);
+}
+
+.price {
+    font-weight: 600;
+    color: var(--primary-color);
+    font-size: 1.1rem;
+}
+
+.select-vehicle-btn {
+    width: 100%;
+    padding: 0.8rem 1.5rem;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.select-vehicle-btn:hover {
+    background-color: #3367d6;
+    transform: translateY(-2px);
+}
+
+/* Vehicle Booking Modal */
+.selected-vehicle-info {
+    background: linear-gradient(135deg, var(--primary-color), #3367d6);
+    color: white;
+    padding: 1.5rem;
+    border-radius: 10px;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.selected-vehicle-info h3 {
+    margin-bottom: 0.5rem;
+    font-size: 1.4rem;
+}
+
+.selected-vehicle-info p {
+    margin-bottom: 0;
+    opacity: 0.9;
+}
+
+#vehicleBookingForm .form-group {
+    margin-bottom: 1.5rem;
+}
+
+#vehicleBookingForm label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: var(--dark-color);
+}
+
+.required {
+    color: #dc3545;
+    font-weight: bold;
+}
+
+#vehicleBookingForm input,
+#vehicleBookingForm select,
+#vehicleBookingForm textarea {
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid var(--light-gray);
+    border-radius: 5px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+}
+
+#vehicleBookingForm input:focus,
+#vehicleBookingForm select:focus,
+#vehicleBookingForm textarea:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px rgba(66, 133, 244, 0.2);
+}
+
+#vehicleBookingForm textarea {
+    min-height: 80px;
+    resize: vertical;
+}
+
+.estimated-fare {
+    background-color: #f8f9fa;
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.estimated-fare p {
+    margin-bottom: 0.5rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--dark-color);
+}
+
+.estimated-fare span {
+    color: var(--primary-color);
+    font-size: 1.3rem;
+}
+
+.estimated-fare small {
+    color: var(--gray-color);
+    font-size: 0.85rem;
+}
+
+.book-ride-btn {
+    width: 100%;
+    padding: 1rem;
+    background: linear-gradient(135deg, var(--secondary-color), #2d9249);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.book-ride-btn:hover {
+    background: linear-gradient(135deg, #2d9249, var(--secondary-color));
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(52, 168, 83, 0.3);
+}
+
+/* Google Places Autocomplete Styling */
+.pac-container {
+    background-color: #fff;
+    z-index: 20000;
+    position: fixed;
+    display: inline-block;
+    float: left;
+    border-radius: 8px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    border: 1px solid #e0e0e0;
+}
+
+.pac-item {
+    cursor: pointer;
+    padding: 0.8rem 1rem;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    line-height: 1.4;
+    border-bottom: 1px solid #f0f0f0;
+    transition: background-color 0.2s ease;
+}
+
+.pac-item:hover {
+    background-color: #f8f9fa;
+}
+
+.pac-item-selected {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.pac-matched {
+    font-weight: 600;
+    color: var(--primary-color);
+}
+
+.pac-item-selected .pac-matched {
+    color: white;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .vehicle-details {
+        flex-direction: column;
+        gap: 0.5rem;
+        text-align: center;
+        min-width: auto;
+        width: 100%;
+    }
+    
+    .vehicle-card-enhanced {
+        width: 100%;
+        box-sizing: border-box;
+    }
+    
+    .vehicle-card-enhanced img {
+        height: 150px;
+    }
+    
+    .vehicle-info {
+        padding: 1rem;
+        min-width: auto;
+        width: 100%;
+        box-sizing: border-box;
+    }
+    
+    .select-vehicle-btn {
+        width: 100%;
+        box-sizing: border-box;
+        padding: 0.8rem 1rem;
+    }
+    
+    .pac-container {
+        width: 90% !important;
+        left: 5% !important;
+    }
+    
+    /* Vehicle Booking Form Responsive */
+    #vehicleBookingForm {
+        width: 100%;
+        box-sizing: border-box;
+    }
+    
+    #vehicleBookingForm input,
+    #vehicleBookingForm select,
+    #vehicleBookingForm textarea {
+        width: 100%;
+        box-sizing: border-box;
+        min-width: 0;
+    }
+}
+
+@media (max-width: 576px) {
+    .vehicle-card-enhanced {
+        margin-bottom: 1rem;
+    }
+    
+    .vehicle-info {
+        padding: 0.8rem;
+        min-height: auto;
+    }
+    
+    .vehicle-details {
+        padding: 0.6rem;
+        margin-bottom: 1rem;
+        min-width: auto;
+    }
+    
+    .select-vehicle-btn {
+        padding: 0.7rem 1rem;
+        font-size: 0.9rem;
+    }
+    
+    #vehicleBookingForm {
+        padding: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .vehicle-info {
+        padding: 0.6rem;
+        min-width: auto;
+        min-height: auto;
+    }
+    
+    .vehicle-info h4 {
+        font-size: 1rem;
+        margin-bottom: 0.4rem;
+    }
+    
+    .vehicle-info p {
+        font-size: 0.85rem;
+        margin-bottom: 0.8rem;
+    }
+    
+    .vehicle-details {
+        padding: 0.5rem;
+        gap: 0.4rem;
+        min-width: auto;
+    }
+    
+    .capacity {
+        font-size: 0.8rem;
+    }
+    
+    .price {
+        font-size: 0.9rem;
+    }
+    
+    .select-vehicle-btn {
+        padding: 0.6rem 0.8rem;
+        font-size: 0.85rem;
+    }
+}
+
+@media (max-width: 380px) {
+    .vehicle-info {
+        padding: 0.5rem;
+    }
+    
+    .vehicle-info h4 {
+        font-size: 0.9rem;
+    }
+    
+    .vehicle-info p {
+        font-size: 0.8rem;
+    }
+    
+    .vehicle-details {
+        padding: 0.4rem;
+        font-size: 0.75rem;
+    }
+    
+    .select-vehicle-btn {
+        padding: 0.5rem 0.6rem;
+        font-size: 0.8rem;
+    }
+}
+
+@media (max-width: 320px) {
+    .vehicle-info {
+        padding: 0.4rem;
+    }
+    
+    .vehicle-info h4 {
+        font-size: 0.85rem;
+        margin-bottom: 0.3rem;
+    }
+    
+    .vehicle-info p {
+        font-size: 0.75rem;
+        margin-bottom: 0.6rem;
+    }
+    
+    .vehicle-details {
+        padding: 0.3rem;
+        font-size: 0.7rem;
+        gap: 0.3rem;
+    }
+    
+    .capacity {
+        font-size: 0.65rem;
+    }
+    
+    .price {
+        font-size: 0.75rem;
+    }
+    
+    .select-vehicle-btn {
+        padding: 0.4rem 0.5rem;
+        font-size: 0.75rem;
+    }
+    
+    #vehicleBookingForm {
+        padding: 0.8rem;
+    }
+    
+    #vehicleBookingForm input,
+    #vehicleBookingForm select,
+    #vehicleBookingForm textarea {
+        padding: 0.6rem;
+        font-size: 0.9rem;
+    }
+}
