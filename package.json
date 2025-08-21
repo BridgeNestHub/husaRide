@@ -4,7 +4,7 @@
   "description": "A ride-hailing platform connecting passengers and drivers",
   "main": "dist/src/app.js",
   "scripts": {
-    "build": "tsc && node build-assets.js",
+    "build": "echo 'Build starting...' && pwd && ls -la && tsc && echo 'TypeScript compiled, now copying assets...' && node build-assets.js && echo 'Build completed, checking final structure...' && ls -la dist/",
     "start": "node dist/src/app.js",
     "dev": "ts-node-dev --respawn --transpile-only src/app.ts",
     "watch": "tsc -w",

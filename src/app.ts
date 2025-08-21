@@ -6,6 +6,7 @@ import rateLimit from 'express-rate-limit';
 import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 import cookieParser from 'cookie-parser';
+import fs from 'fs';
 
 // Import routes
 import indexRoutes from '../routes/index';
@@ -44,12 +45,46 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-// Static files
-app.use(express.static(path.join(__dirname, '../public')));
+// Static files - with verification
+const publicPath = path.join(__dirname, '../public');
+console.log('🔍 Checking static files setup:');
+console.log('Current __dirname:', __dirname);
+console.log('Looking for public directory at:', publicPath);
+console.log('Public directory exists:', fs.existsSync(publicPath));
+
+if (fs.existsSync(publicPath)) {
+  const contents = fs.readdirSync(publicPath);
+  console.log('Public directory contents:', contents);
+  
+  // Check for CSS directory specifically
+  const cssPath = path.join(publicPath, 'css');
+  if (fs.existsSync(cssPath)) {
+    const cssFiles = fs.readdirSync(cssPath);
+    console.log('✅ CSS files available:', cssFiles);
+  } else {
+    console.log('❌ CSS directory not found at:', cssPath);
+  }
+} else {
+  console.log('❌ Public directory not found! Static files will not work.');
+  
+  // Let's see what directories are available
+  const parentDir = path.dirname(__dirname);
+  console.log('Parent directory (__dirname/..):', parentDir);
+  if (fs.existsSync(parentDir)) {
+    const parentContents = fs.readdirSync(parentDir);
+    console.log('Parent directory contents:', parentContents);
+  }
+}
+
+app.use(express.static(publicPath));
 
 // View engine setup
+const viewsPath = path.join(__dirname, '../views');
+console.log('Views directory path:', viewsPath);
+console.log('Views directory exists:', fs.existsSync(viewsPath));
+
 app.set('view engine', 'ejs');
-app.set('views', path.join(__dirname, '../views'));
+app.set('views', viewsPath);
 
 // Database connection
 mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/husaride')
@@ -86,7 +121,9 @@ app.use((err, req, res, next) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`HusaRide server running on port http://localhost:${PORT}`);
+  console.log(`🚀 HusaRide server running on ort http://localhost:${PORT}`);
+  console.log(`📁 Static files served from: ${publicPath}`);
+  console.log(`📋 Views served from: ${viewsPath}`);
 });
 
 export default app;
