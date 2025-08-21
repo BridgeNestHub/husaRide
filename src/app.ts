@@ -45,38 +45,72 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-// Static files - with verification
-const publicPath = path.join(__dirname, '../public');
+// Static files - with verification and multiple fallbacks
+const possiblePublicPaths = [
+  path.join(__dirname, '../public'),     // Expected location after build
+  path.join(__dirname, '../../public'),  // If something went wrong with build structure
+  path.join(process.cwd(), 'public'),    // Fallback to process working directory
+  path.join(process.cwd(), 'dist/public') // Another possible location
+];
+
+let publicPath = '';
+let foundPublic = false;
+
 console.log('🔍 Checking static files setup:');
 console.log('Current __dirname:', __dirname);
-console.log('Looking for public directory at:', publicPath);
-console.log('Public directory exists:', fs.existsSync(publicPath));
+console.log('Current process.cwd():', process.cwd());
 
-if (fs.existsSync(publicPath)) {
-  const contents = fs.readdirSync(publicPath);
-  console.log('Public directory contents:', contents);
-  
-  // Check for CSS directory specifically
-  const cssPath = path.join(publicPath, 'css');
-  if (fs.existsSync(cssPath)) {
-    const cssFiles = fs.readdirSync(cssPath);
-    console.log('✅ CSS files available:', cssFiles);
+for (const testPath of possiblePublicPaths) {
+  console.log(`Testing path: ${testPath}`);
+  if (fs.existsSync(testPath)) {
+    publicPath = testPath;
+    foundPublic = true;
+    console.log('✅ Found public directory at:', testPath);
+    
+    const contents = fs.readdirSync(testPath);
+    console.log('Public directory contents:', contents);
+    
+    // Check for CSS directory specifically
+    const cssPath = path.join(testPath, 'css');
+    if (fs.existsSync(cssPath)) {
+      const cssFiles = fs.readdirSync(cssPath);
+      console.log('✅ CSS files available:', cssFiles);
+    } else {
+      console.log('❌ CSS directory not found in:', testPath);
+    }
+    break;
   } else {
-    console.log('❌ CSS directory not found at:', cssPath);
-  }
-} else {
-  console.log('❌ Public directory not found! Static files will not work.');
-  
-  // Let's see what directories are available
-  const parentDir = path.dirname(__dirname);
-  console.log('Parent directory (__dirname/..):', parentDir);
-  if (fs.existsSync(parentDir)) {
-    const parentContents = fs.readdirSync(parentDir);
-    console.log('Parent directory contents:', parentContents);
+    console.log('❌ Not found at:', testPath);
   }
 }
 
-app.use(express.static(publicPath));
+if (!foundPublic) {
+  console.log('❌ No public directory found in any expected location!');
+  
+  // Debug: show what's actually in these directories
+  const debugPaths = [__dirname, path.dirname(__dirname), process.cwd()];
+  debugPaths.forEach(dir => {
+    if (fs.existsSync(dir)) {
+      console.log(`Contents of ${dir}:`, fs.readdirSync(dir));
+    }
+  });
+} else {
+  console.log('📁 Using public directory:', publicPath);
+}
+
+app.use(express.static(publicPath, {
+  setHeaders: (res, path) => {
+    if (path.endsWith('.css')) {
+      res.setHeader('Content-Type', 'text/css');
+    } else if (path.endsWith('.js')) {
+      res.setHeader('Content-Type', 'application/javascript');
+    } else if (path.endsWith('.jpg') || path.endsWith('.jpeg')) {
+      res.setHeader('Content-Type', 'image/jpeg');
+    } else if (path.endsWith('.png')) {
+      res.setHeader('Content-Type', 'image/png');
+    }
+  }
+}));
 
 // View engine setup
 const viewsPath = path.join(__dirname, '../views');
@@ -121,7 +155,7 @@ app.use((err, req, res, next) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`🚀 HusaRide server running on ort http://localhost:${PORT}`);
+  console.log(`🚀 HusaRide server running on port http://localhost:${PORT}`);
   console.log(`📁 Static files served from: ${publicPath}`);
   console.log(`📋 Views served from: ${viewsPath}`);
 });
