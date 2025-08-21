@@ -25,9 +25,40 @@ const IS_PRODUCTION = process.env.NODE_ENV === 'production';
 // Trust proxy for Railway/production
 app.set('trust proxy', 1);
 
-// 🔒 Temporarily disable CSP to test functionality
+// 🔒 Content Security Policy Configuration
 app.use(helmet({
-  contentSecurityPolicy: false // Disable CSP entirely for testing
+  contentSecurityPolicy: {
+    directives: {
+      defaultSrc: ["'self'"],
+      styleSrc: [
+        "'self'",
+        "'unsafe-inline'",
+        "https://cdnjs.cloudflare.com",
+        "https://fonts.googleapis.com"
+      ],
+      scriptSrc: [
+        "'self'",
+        "'unsafe-inline'",
+        "https://maps.googleapis.com",
+        "https://cdnjs.cloudflare.com"
+      ],
+      fontSrc: [
+        "'self'",
+        "https://cdnjs.cloudflare.com",
+        "https://fonts.gstatic.com"
+      ],
+      imgSrc: [
+        "'self'",
+        "data:",
+        "https:",
+        "http:"
+      ],
+      connectSrc: [
+        "'self'",
+        "https://maps.googleapis.com"
+      ]
+    }
+  }
 }));
 
 // 🚦 Production Rate Limiting
