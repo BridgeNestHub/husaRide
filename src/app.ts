@@ -121,7 +121,7 @@ app.use((err, req, res, next) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`🚀 HusaRide server running on ort http://localhost:${PORT}`);
+  console.log(`🚀 HusaRide server running on port http://localhost:${PORT}`);
   console.log(`📁 Static files served from: ${publicPath}`);
   console.log(`📋 Views served from: ${viewsPath}`);
 });
