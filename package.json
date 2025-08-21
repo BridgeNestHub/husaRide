@@ -4,7 +4,7 @@
   "description": "A ride-hailing platform connecting passengers and drivers",
   "main": "dist/src/app.js",
   "scripts": {
-    "build": "tsc && node copy-assets.js",
+    "build": "tsc && node build-assets.js",
     "start": "node dist/src/app.js",
     "dev": "ts-node-dev --respawn --transpile-only src/app.ts",
     "watch": "tsc -w",
