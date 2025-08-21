@@ -25,22 +25,9 @@ const IS_PRODUCTION = process.env.NODE_ENV === 'production';
 // Trust proxy for Railway/production
 app.set('trust proxy', 1);
 
-// 🔒 Production Security
+// 🔒 Temporarily disable CSP to test functionality
 app.use(helmet({
-  contentSecurityPolicy: {
-    directives: {
-      defaultSrc: ["'self'"],
-      styleSrc: ["'self'", "'unsafe-inline'"],
-      scriptSrc: ["'self'", "https://maps.googleapis.com", "https://cdnjs.cloudflare.com"],
-      imgSrc: ["'self'", "data:", "https:"],
-      connectSrc: ["'self'"],
-      fontSrc: ["'self'"],
-      objectSrc: ["'none'"],
-      mediaSrc: ["'self'"],
-      frameSrc: ["'none'"],
-    },
-  },
-  crossOriginEmbedderPolicy: false // Needed for Google Maps
+  contentSecurityPolicy: false // Disable CSP entirely for testing
 }));
 
 // 🚦 Production Rate Limiting

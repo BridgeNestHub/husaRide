@@ -36,32 +36,80 @@ A modern ride-hailing platform built with Node.js, TypeScript, Express, and Mong
 ## Project Structure
 
 ```
-husaride/
+OnRide/
 ├── .env                      # Environment variables
-├── package.json              # Dependencies and scripts
-├── tsconfig.json            # TypeScript configuration
+├── .gitignore               # Git ignore rules
+├── package.json             # Dependencies and scripts
+├── package-lock.json        # Dependency lock file
+├── tsconfig.json           # TypeScript configuration
+├── railway.toml            # Railway deployment config
+├── README.md               # Project documentation
+├── DesignDoc.md            # Design documentation
+├── IOSDesign.md            # iOS design specifications
+├── test-hamburger.html     # Test file for UI components
 ├── src/
-│   └── app.ts               # Main Express application
-├── models/                   # MongoDB models
-│   ├── User.ts              # User model (passengers & drivers)
-│   └── Ride.ts              # Ride booking model
-├── routes/                   # Express route handlers
-│   ├── index.ts             # Public routes
-│   ├── auth.ts              # Authentication routes
-│   ├── rides.ts             # Ride booking routes
-│   └── driver.ts            # Driver dashboard routes
-├── utils/                    # Utility functions
-│   ├── auth.ts              # JWT middleware
-│   ├── validation.ts        # Input validation
-│   └── email.ts             # Email templates and sending
-├── views/                    # EJS templates
-│   ├── partials/            # Reusable components
-│   ├── pages/               # Main pages
-│   └── driver/              # Driver-specific pages
-└── public/                   # Static assets
-    ├── css/                 # Stylesheets
-    ├── js/                  # Client-side JavaScript
-    └── images/              # Images and assets
+│   └── app.ts              # Main Express application
+├── models/                 # MongoDB models
+│   ├── User.ts             # User model (passengers & drivers)
+│   └── Ride.ts             # Ride booking model
+├── routes/                 # Express route handlers
+│   ├── index.ts            # Public routes
+│   ├── auth.ts             # Authentication routes
+│   ├── rides.ts            # Ride booking routes
+│   ├── driver.ts           # Driver dashboard routes
+│   ├── admin.ts            # Admin panel routes
+│   └── settings.ts         # Settings routes
+├── utils/                  # Utility functions
+│   ├── auth.ts             # JWT middleware
+│   ├── validation.ts       # Input validation
+│   ├── email.ts            # Email templates and sending
+│   └── phoneFormatter.ts   # Phone number formatting
+├── views/                  # EJS templates
+│   ├── partials/           # Reusable components
+│   │   ├── head.ejs        # HTML head section
+│   │   ├── nav.ejs         # Main navigation
+│   │   ├── footer.ejs      # Main footer
+│   │   ├── auth-modals.ejs # Authentication modals
+│   │   ├── admin-nav.ejs   # Admin navigation
+│   │   ├── admin-footer.ejs# Admin footer
+│   │   ├── driver-nav.ejs  # Driver navigation
+│   │   └── driver-footer.ejs# Driver footer
+│   ├── pages/              # Main pages
+│   │   ├── index.ejs       # Homepage
+│   │   ├── about.ejs       # About page
+│   │   ├── services.ejs    # Services page
+│   │   ├── attractions.ejs # Attractions page
+│   │   ├── contact.ejs     # Contact page
+│   │   ├── contact-success.ejs # Contact success page
+│   │   ├── error.ejs       # Error page
+│   │   └── 404.ejs         # 404 page
+│   ├── admin/              # Admin panel templates
+│   │   ├── dashboard.ejs   # Admin dashboard
+│   │   └── login.ejs       # Admin login
+│   └── driver/             # Driver-specific pages
+│       ├── dashboard.ejs   # Driver dashboard
+│       └── login.ejs       # Driver login
+├── public/                 # Static assets
+│   ├── css/                # Stylesheets
+│   │   ├── styles.css      # Main styles
+│   │   ├── enhanced-styles.css # Enhanced UI styles
+│   │   ├── vehicle-booking.css # Vehicle booking styles
+│   │   ├── attractions.css # Attractions page styles
+│   │   ├── login.css       # Login page styles
+│   │   └── image-optimization.css # Image optimization styles
+│   ├── js/                 # Client-side JavaScript
+│   │   ├── main.js         # Main JavaScript file
+│   │   └── image-optimizer.js # Image optimization script
+│   └── images/             # Images and assets
+│       ├── Vehicle images  # Vehicle type images
+│       ├── Attraction images # Washington state attractions
+│       └── Team photos     # Team member photos
+├── img/                    # Additional images
+│   ├── limo.jpg           # Limo images
+│   ├── tesla.jpg          # Tesla images
+│   ├── suv.png            # SUV images
+│   └── hummerlimo.jpg     # Hummer limo images
+└── docs/                   # Documentation folder
 ```
 
 ## Installation & Setup

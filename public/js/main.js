@@ -1926,9 +1926,9 @@ class HusaRide {
   }
 
   optimizeImages() {
-    // Convert existing images to lazy loading
-    document.querySelectorAll('img:not([data-src])').forEach(img => {
-      if (img.src && !img.classList.contains('no-lazy')) {
+    // Convert existing images to lazy loading (skip no-lazy class)
+    document.querySelectorAll('img:not([data-src]):not(.no-lazy)').forEach(img => {
+      if (img.src) {
         img.dataset.src = img.src;
         img.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMSIgaGVpZ2h0PSIxIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InRyYW5zcGFyZW50Ii8+PC9zdmc+';
         img.classList.add('lazy-image');
