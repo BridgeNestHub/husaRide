@@ -4,8 +4,7 @@
   "scripts": {
     "build": "tsc && cp -r public dist/ && cp -r views dist/",
     "start": "node dist/src/app.js",
-    "dev": "ts-node-dev --respawn --transpile-only src/app.ts",
-    "postinstall": "npm run build"
+    "dev": "ts-node-dev --respawn --transpile-only src/app.ts"
   },
   "keywords": [
     "ride-hailing",
