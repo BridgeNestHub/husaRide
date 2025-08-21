@@ -26,10 +26,19 @@
     font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    overflow-x: hidden;
+}
+
 body {
     background-color: #fff;
     color: var(--dark-color);
     line-height: 1.6;
+    margin: 0;
+    padding: 0;
 }
 
 a {
@@ -2192,6 +2201,24 @@ nav {
 @media (max-width: 320px) {
     .hero {
         padding: 4rem 0.5rem 2rem;
+        margin: 0;
+        width: 100vw;
+        position: relative;
+        left: 50%;
+        right: 50%;
+        margin-left: -50vw;
+        margin-right: -50vw;
+    }
+    
+    .page-hero {
+        margin: 0;
+        width: 100vw;
+        position: relative;
+        left: 50%;
+        right: 50%;
+        margin-left: -50vw;
+        margin-right: -50vw;
+        padding-top: 5rem;
     }
     
     .hero-content h1 {
@@ -2519,6 +2546,8 @@ nav {
     background: linear-gradient(135deg, var(--primary-color) 0%, #3367d6 100%);
     color: white;
     text-align: center;
+    margin-top: 0;
+    padding-top: 6rem;
 }
 
 .hero-container {
@@ -3203,7 +3232,7 @@ nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 8rem 2rem 4rem;
+    padding: 6rem 2rem 4rem;
     max-width: 1200px;
     margin: 0 auto;
 }
@@ -4303,9 +4332,9 @@ footer {
 .page-hero {
     background: linear-gradient(135deg, var(--primary-color) 0%, var(--gradient-end) 100%);
     color: white;
-    padding: 4rem 2rem 4rem;
+    padding: 6rem 2rem 4rem;
     text-align: center;
-    margin-top: 4rem;
+    margin-top: 0;
 }
 
 .hero-container h1 {
@@ -4703,6 +4732,26 @@ p {
         gap: 2rem;
     }
     
+    .page-hero {
+        margin: 0;
+        width: 100vw;
+        position: relative;
+        left: 50%;
+        right: 50%;
+        margin-left: -50vw;
+        margin-right: -50vw;
+    }
+    
+    .hero {
+        margin: 0;
+        width: 100vw;
+        position: relative;
+        left: 50%;
+        right: 50%;
+        margin-left: -50vw;
+        margin-right: -50vw;
+    }
+    
     .hero-container h1 {
         font-size: 2.5rem;
     }
@@ -4713,8 +4762,33 @@ p {
 }
 
 @media (max-width: 480px) {
+    body {
+        overflow-x: hidden;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+    }
+    
     .page-hero {
-        padding: 6rem 1rem 3rem;
+        padding: 5rem 1rem 3rem;
+        margin: 0;
+        width: 100vw;
+        position: relative;
+        left: 50%;
+        right: 50%;
+        margin-left: -50vw;
+        margin-right: -50vw;
+    }
+    
+    .hero {
+        margin: 0;
+        width: 100vw;
+        position: relative;
+        left: 50%;
+        right: 50%;
+        margin-left: -50vw;
+        margin-right: -50vw;
+        padding: 5rem 1rem 2rem;
     }
     
     .hero-container h1 {
