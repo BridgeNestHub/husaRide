@@ -64,6 +64,7 @@ class HusaRide {
     this.setActiveNavigation();
     this.checkPrefilledDestination();
     this.setupPhoneFormatting();
+    this.optimizeImages();
     
     // Ensure auth state is properly initialized
     setTimeout(() => this.updateAuthUI(), 100);
@@ -1921,6 +1922,17 @@ class HusaRide {
       input.addEventListener('blur', (e) => {
         e.target.value = this.formatPhoneNumber(e.target.value);
       });
+    });
+  }
+
+  optimizeImages() {
+    // Convert existing images to lazy loading
+    document.querySelectorAll('img:not([data-src])').forEach(img => {
+      if (img.src && !img.classList.contains('no-lazy')) {
+        img.dataset.src = img.src;
+        img.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMSIgaGVpZ2h0PSIxIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InRyYW5zcGFyZW50Ii8+PC9zdmc+';
+        img.classList.add('lazy-image');
+      }
     });
   }
 }
