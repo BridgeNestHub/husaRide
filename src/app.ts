@@ -6,7 +6,6 @@ import rateLimit from 'express-rate-limit';
 import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 import cookieParser from 'cookie-parser';
-import fs from 'fs';
 
 // Import routes
 import indexRoutes from '../routes/index';
@@ -21,80 +20,138 @@ dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+const IS_PRODUCTION = process.env.NODE_ENV === 'production';
 
-// ✅ Trust proxy for Railway reverse proxy
+// Trust proxy for Railway/production
 app.set('trust proxy', 1);
 
-// Security middleware
+// 🔒 Production Security
 app.use(helmet({
-  contentSecurityPolicy: false // Disable for development
+  contentSecurityPolicy: {
+    directives: {
+      defaultSrc: ["'self'"],
+      styleSrc: ["'self'", "'unsafe-inline'"],
+      scriptSrc: ["'self'", "https://maps.googleapis.com", "https://cdnjs.cloudflare.com"],
+      imgSrc: ["'self'", "data:", "https:"],
+      connectSrc: ["'self'"],
+      fontSrc: ["'self'"],
+      objectSrc: ["'none'"],
+      mediaSrc: ["'self'"],
+      frameSrc: ["'none'"],
+    },
+  },
+  crossOriginEmbedderPolicy: false // Needed for Google Maps
 }));
 
-// Rate limiting - more permissive in development
+// 🚦 Production Rate Limiting
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
-  max: process.env.NODE_ENV === 'development' ? 1000 : 100 // Higher limit for development
+  max: IS_PRODUCTION ? 100 : 1000,
+  message: 'Too many requests from this IP, please try again later.',
+  standardHeaders: true,
+  legacyHeaders: false,
 });
 app.use(limiter);
 
-// CORS
-app.use(cors());
+// 🌐 CORS Configuration
+app.use(cors({
+  origin: IS_PRODUCTION 
+    ? ['https://your-domain.com', 'https://husaride-production.up.railway.app'] 
+    : true,
+  credentials: true
+}));
 
-// Body parsing middleware
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+// Body parsing
+app.use(express.json({ limit: '10mb' }));
+app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 app.use(cookieParser());
 
-// Static files - with verification
+// 📁 Static Files Setup
 const publicPath = path.join(__dirname, '../public');
-console.log('🔍 Checking static files setup:');
-console.log('Current __dirname:', __dirname);
-console.log('Looking for public directory at:', publicPath);
-console.log('Public directory exists:', fs.existsSync(publicPath));
-
-if (fs.existsSync(publicPath)) {
-  const contents = fs.readdirSync(publicPath);
-  console.log('Public directory contents:', contents);
-  
-  // Check for CSS directory specifically
-  const cssPath = path.join(publicPath, 'css');
-  if (fs.existsSync(cssPath)) {
-    const cssFiles = fs.readdirSync(cssPath);
-    console.log('✅ CSS files available:', cssFiles);
-  } else {
-    console.log('❌ CSS directory not found at:', cssPath);
-  }
-} else {
-  console.log('❌ Public directory not found! Static files will not work.');
-  
-  // Let's see what directories are available
-  const parentDir = path.dirname(__dirname);
-  console.log('Parent directory (__dirname/..):', parentDir);
-  if (fs.existsSync(parentDir)) {
-    const parentContents = fs.readdirSync(parentDir);
-    console.log('Parent directory contents:', parentContents);
-  }
-}
-
-app.use(express.static(publicPath));
-
-// View engine setup
 const viewsPath = path.join(__dirname, '../views');
-console.log('Views directory path:', viewsPath);
-console.log('Views directory exists:', fs.existsSync(viewsPath));
 
+// Static files with caching and proper MIME types
+app.use('/css', express.static(path.join(publicPath, 'css'), {
+  maxAge: IS_PRODUCTION ? '1y' : 0, // Cache CSS for 1 year in production
+  setHeaders: (res, filePath) => {
+    if (filePath.endsWith('.css')) {
+      res.setHeader('Content-Type', 'text/css; charset=utf-8');
+    }
+  }
+}));
+
+app.use('/js', express.static(path.join(publicPath, 'js'), {
+  maxAge: IS_PRODUCTION ? '1y' : 0, // Cache JS for 1 year in production
+  setHeaders: (res, filePath) => {
+    if (filePath.endsWith('.js')) {
+      res.setHeader('Content-Type', 'application/javascript; charset=utf-8');
+    }
+  }
+}));
+
+app.use('/images', express.static(path.join(publicPath, 'images'), {
+  maxAge: IS_PRODUCTION ? '30d' : 0, // Cache images for 30 days in production
+  setHeaders: (res, filePath) => {
+    const ext = path.extname(filePath).toLowerCase();
+    const mimeTypes = {
+      '.jpg': 'image/jpeg',
+      '.jpeg': 'image/jpeg',
+      '.png': 'image/png',
+      '.gif': 'image/gif',
+      '.webp': 'image/webp',
+      '.svg': 'image/svg+xml'
+    };
+    if (mimeTypes[ext]) {
+      res.setHeader('Content-Type', mimeTypes[ext]);
+    }
+  }
+}));
+
+// General static files
+app.use(express.static(publicPath, {
+  maxAge: IS_PRODUCTION ? '1d' : 0 // Cache other static files for 1 day
+}));
+
+// View engine
 app.set('view engine', 'ejs');
 app.set('views', viewsPath);
 
-// Database connection
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/husaride')
-  .then(() => console.log('Connected to MongoDB'))
-  .catch(err => console.error('MongoDB connection error:', err));
+// 🗄️ Database Connection with Production Settings
+const mongoOptions = {
+  maxPoolSize: 10,
+  serverSelectionTimeoutMS: 5000,
+  socketTimeoutMS: 45000,
+  bufferCommands: false,
+  bufferMaxEntries: 0
+};
 
-// Apply optional auth globally for user context
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/husaride', mongoOptions)
+  .then(() => console.log('✅ Connected to MongoDB'))
+  .catch(err => {
+    console.error('❌ MongoDB connection error:', err);
+    process.exit(1);
+  });
+
+// Handle MongoDB connection errors after initial connection
+mongoose.connection.on('error', (err) => {
+  console.error('MongoDB connection error:', err);
+});
+
+mongoose.connection.on('disconnected', () => {
+  console.log('MongoDB disconnected');
+});
+
+// Graceful shutdown
+process.on('SIGINT', async () => {
+  console.log('Shutting down gracefully...');
+  await mongoose.connection.close();
+  process.exit(0);
+});
+
+// Global auth middleware
 app.use(optionalAuth);
 
-// Routes
+// 🛣️ Routes
 app.use('/', indexRoutes);
 app.use('/auth', authRoutes);
 app.use('/rides', rideRoutes);
@@ -102,28 +159,64 @@ app.use('/driver', driverRoutes);
 app.use('/settings', settingsRoutes);
 app.use('/admin', adminRoutes);
 
-// 404 handler
+// 🏥 Health Check Endpoint
+app.get('/health', (req, res) => {
+  res.status(200).json({
+    status: 'OK',
+    timestamp: new Date().toISOString(),
+    uptime: process.uptime(),
+    environment: process.env.NODE_ENV || 'development',
+    version: process.env.npm_package_version || '1.0.0'
+  });
+});
+
+// 🤖 Robots.txt
+app.get('/robots.txt', (req, res) => {
+  res.type('text/plain');
+  if (IS_PRODUCTION) {
+    res.send(`User-agent: *
+Allow: /
+Sitemap: https://your-domain.com/sitemap.xml`);
+  } else {
+    res.send(`User-agent: *
+Disallow: /`);
+  }
+});
+
+// 404 Handler
 app.use('*', (req, res) => {
+  console.log(`404 - Route not found: ${req.method} ${req.originalUrl}`);
   res.status(404).render('pages/404', { 
     title: 'Page Not Found',
     user: req.user || null
   });
 });
 
-// Error handler
-app.use((err, req, res, next) => {
-  console.error(err.stack);
-  res.status(500).render('pages/error', { 
+// 🚨 Global Error Handler
+app.use((err: any, req: express.Request, res: express.Response, next: express.NextFunction) => {
+  console.error('Global error handler:', err);
+  
+  // Don't leak error details in production
+  const errorDetails = IS_PRODUCTION ? {} : { 
+    message: err.message, 
+    stack: err.stack 
+  };
+
+  res.status(err.status || 500).render('pages/error', { 
     title: 'Server Error',
     user: req.user || null,
-    error: process.env.NODE_ENV === 'development' ? err : {}
+    error: errorDetails
   });
 });
 
+// Start server
 app.listen(PORT, () => {
-  console.log(`🚀 HusaRide server running on port http://localhost:${PORT}`);
-  console.log(`📁 Static files served from: ${publicPath}`);
-  console.log(`📋 Views served from: ${viewsPath}`);
+  console.log(`🚀 HusaRide ${IS_PRODUCTION ? 'PRODUCTION' : 'DEVELOPMENT'} server running on port ${PORT}`);
+  console.log(`📁 Static files: ${publicPath}`);
+  console.log(`📋 Views: ${viewsPath}`);
+  if (!IS_PRODUCTION) {
+    console.log(`🌐 Health check: http://localhost:${PORT}/health`);
+  }
 });
 
 export default app;
