@@ -14,5 +14,5 @@
     "sourceMap": true
   },
   "include": ["src/**/*", "routes/**/*", "models/**/*", "utils/**/*"],
-  "exclude": ["node_modules", "dist", "views", "public"]
+  "exclude": ["node_modules", "dist", "public"]
 }
