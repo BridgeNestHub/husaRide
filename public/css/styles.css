@@ -63,10 +63,29 @@ html {
     }
     
     .hero-container {
-        margin: 0 !important;
+        margin: 0 auto !important;
         padding-left: 1rem !important;
         padding-right: 1rem !important;
         width: 100% !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        text-align: center !important;
+    }
+    
+    .hero-content {
+        width: 100% !important;
+        max-width: 500px !important;
+        margin: 0 auto !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+    }
+    
+    .booking-form {
+        width: 100% !important;
+        max-width: 400px !important;
+        margin: 0 auto !important;
     }
 }
 
@@ -2565,14 +2584,6 @@ nav {
 }
 
 /* Page Hero Styles (Shared) */
-.page-hero {
-    background: linear-gradient(135deg, var(--primary-color) 0%, #3367d6 100%);
-    color: white;
-    text-align: center;
-    margin-top: 0;
-    padding-top: 6rem;
-}
-
 .hero-container {
     max-width: 1200px;
     margin: 0 auto;
@@ -2695,12 +2706,15 @@ nav {
 .contact-form select,
 .contact-form textarea {
     width: 100%;
+    max-width: 100%;
     padding: 0.8rem;
     border: 2px solid #e9ecef;
     border-radius: 8px;
     font-size: 1rem;
     transition: border-color 0.3s ease;
     box-sizing: border-box;
+    min-width: 0;
+    overflow: hidden;
 }
 
 .contact-form input:focus,
@@ -3258,6 +3272,7 @@ nav {
     padding: 6rem 2rem 4rem;
     max-width: 1200px;
     margin: 0 auto;
+    gap: 3rem;
 }
 
 .hero-content {
@@ -3284,6 +3299,9 @@ nav {
     padding: 1.5rem;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
     max-width: 500px;
+    width: 100%;
+    box-sizing: border-box;
+    overflow: hidden;
 }
 
 .input-group {
@@ -3293,6 +3311,10 @@ nav {
     border: 1px solid var(--light-gray);
     border-radius: 5px;
     padding: 0.5rem;
+    width: 100%;
+    box-sizing: border-box;
+    max-width: 100%;
+    overflow: hidden;
 }
 
 .input-group i {
@@ -3306,6 +3328,55 @@ nav {
     outline: none;
     padding: 0.5rem;
     font-size: 1rem;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    min-width: 0;
+}
+
+/* Pickup and Dropoff location inputs - expand vertically on smaller screens */
+#heroPickup,
+#heroDropoff,
+#bookingPickup,
+#bookingDropoff,
+#attractionBookingPickup,
+#attractionBookingDropoff {
+    white-space: normal;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
+}
+
+@media (max-width: 768px) {
+    #heroPickup,
+    #heroDropoff,
+    #bookingPickup,
+    #bookingDropoff,
+    #attractionBookingPickup,
+    #attractionBookingDropoff {
+        min-height: 2.5rem;
+        height: auto;
+        line-height: 1.4;
+        padding: 0.75rem 0.5rem;
+        resize: none;
+        overflow: hidden;
+        white-space: pre-wrap;
+        word-break: break-word;
+    }
+}
+
+@media (max-width: 480px) {
+    #heroPickup,
+    #heroDropoff,
+    #bookingPickup,
+    #bookingDropoff,
+    #attractionBookingPickup,
+    #attractionBookingDropoff {
+        min-height: 3rem;
+        padding: 1rem 0.5rem;
+        font-size: 0.9rem;
+        line-height: 1.3;
+    }
 }
 
 #bookNowBtn, .hero-book-btn {
@@ -3592,27 +3663,66 @@ nav {
     color: var(--gray-color);
 }
 
-/* Style for the vehicle type dropdown */
+/* Modern style for the vehicle type dropdown */
 .input-group select {
     width: 100%;
     padding: 12px 15px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
+    border: 2px solid rgba(66, 133, 244, 0.2);
+    border-radius: 12px;
     font-size: 16px;
-    background-color: white;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(248, 249, 250, 0.9) 100%);
+    backdrop-filter: blur(10px);
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
-    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%234285f4' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
     background-repeat: no-repeat;
-    background-position: right 10px center;
-    background-size: 1em;
+    background-position: right 15px center;
+    background-size: 1.2em;
+    height: auto;
+    min-height: 2.5rem;
+    box-shadow: 0 4px 15px rgba(66, 133, 244, 0.1);
+    transition: all 0.3s ease;
+    color: var(--dark-color);
+    font-weight: 500;
 }
 
 .input-group select:focus {
     outline: none;
-    border-color: #007bff;
-    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(66, 133, 244, 0.15), 0 8px 25px rgba(66, 133, 244, 0.2);
+    transform: translateY(-2px);
+}
+
+.input-group select:hover {
+    border-color: rgba(66, 133, 244, 0.4);
+    box-shadow: 0 6px 20px rgba(66, 133, 244, 0.15);
+    transform: translateY(-1px);
+}
+
+@media (max-width: 768px) {
+    .input-group select {
+        height: auto;
+        padding: 0.8rem 1rem;
+        line-height: 1.4;
+        white-space: normal;
+        border-radius: 10px;
+    }
+    
+    .input-group select option {
+        white-space: normal;
+        padding: 0.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .input-group select {
+        height: auto;
+        padding: 0.6rem 0.8rem;
+        font-size: 0.9rem;
+        line-height: 1.3;
+        border-radius: 8px;
+    }
 }
 
 
@@ -3735,6 +3845,14 @@ nav {
     width: 100%;
     max-width: 800px;
     margin: 0 auto;
+}
+
+/* Mobile responsive for vehicle options */
+@media (max-width: 768px) {
+    .vehicle-options-row {
+        grid-template-columns: 1fr !important;
+        gap: 1.5rem;
+    }
 }
 
 /* Special Events Horizontal Layout */
@@ -4013,6 +4131,8 @@ footer {
     width: 90%;
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
     position: relative;
+    box-sizing: border-box;
+    overflow: hidden;
 }
 
 .close {
@@ -4037,6 +4157,8 @@ footer {
 
 .form-group {
     margin-bottom: 1.5rem;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .form-group label {
@@ -4048,10 +4170,44 @@ footer {
 
 .form-group input {
     width: 100%;
+    max-width: 100%;
     padding: 0.8rem;
     border: 1px solid var(--light-gray);
     border-radius: 5px;
     font-size: 1rem;
+    box-sizing: border-box;
+    min-width: 0;
+}
+
+/* Form group pickup/dropoff inputs - expand vertically on smaller screens */
+.form-group input[name="pickupLocation"],
+.form-group input[name="dropoffLocation"] {
+    white-space: normal;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
+}
+
+@media (max-width: 768px) {
+    .form-group input[name="pickupLocation"],
+    .form-group input[name="dropoffLocation"] {
+        min-height: 2.5rem;
+        height: auto;
+        line-height: 1.4;
+        padding: 0.75rem;
+        white-space: pre-wrap;
+        word-break: break-word;
+    }
+}
+
+@media (max-width: 480px) {
+    .form-group input[name="pickupLocation"],
+    .form-group input[name="dropoffLocation"] {
+        min-height: 3rem;
+        padding: 1rem;
+        font-size: 0.9rem;
+        line-height: 1.3;
+    }
 }
 
 .modal button[type="submit"] {
@@ -4299,29 +4455,97 @@ footer {
         font-size: 1.8rem;
     }
     
-    .booking-form {
-        width: 100%;
-        box-sizing: border-box;
-        padding: 1rem;
+    /* All Forms Mobile Constraints */
+    .booking-form,
+    .contact-form,
+    .modal form,
+    .modern-form {
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+        padding: 1rem !important;
+        margin: 0 !important;
+        overflow: hidden !important;
     }
     
-    .input-group {
-        width: 100%;
-        box-sizing: border-box;
+    /* All Input Groups Mobile Constraints */
+    .input-group,
+    .form-group,
+    .form-group-modern {
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+        margin-bottom: 1rem !important;
+        overflow: hidden !important;
     }
     
+    /* All Input Elements Mobile Constraints */
     .input-group input,
-    .input-group select {
-        min-width: 0;
-        box-sizing: border-box;
-        width: 100%;
+    .input-group select,
+    .form-group input,
+    .form-group select,
+    .form-group textarea,
+    .contact-form input,
+    .contact-form select,
+    .contact-form textarea,
+    .modern-input,
+    .modern-select,
+    input[type="text"],
+    input[type="email"],
+    input[type="password"],
+    input[type="tel"],
+    select,
+    textarea {
+        min-width: 0 !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+        width: 100% !important;
+        font-size: 16px !important;
+        padding: 0.8rem !important;
+        border: 1px solid var(--light-gray) !important;
+        border-radius: 5px !important;
+        overflow: visible !important;
+    }
+    
+    /* Override for pickup/dropoff inputs to allow vertical expansion */
+    #heroPickup,
+    #heroDropoff,
+    #bookingPickup,
+    #bookingDropoff,
+    #attractionBookingPickup,
+    #attractionBookingDropoff,
+    .form-group input[name="pickupLocation"],
+    .form-group input[name="dropoffLocation"] {
+        overflow: visible !important;
+        height: auto !important;
+        min-height: 3rem !important;
+        white-space: pre-wrap !important;
+        word-break: break-word !important;
+        line-height: 1.3 !important;
+    }
+    
+    .fare-display {
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+        overflow: hidden !important;
+    }
+    
+    .hero-book-btn,
+    .contact-submit-btn,
+    .modern-btn {
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
     }
     
     .modal-content {
         margin: 10% auto;
         padding: 1.5rem;
-        width: 95%;
+        width: 95% !important;
+        max-width: 95% !important;
         box-sizing: border-box;
+        overflow: hidden;
     }
     
     .status-actions {
@@ -4346,6 +4570,17 @@ footer {
         box-sizing: border-box;
         min-width: 0;
     }
+    
+    /* Vehicle booking form pickup/dropoff inputs */
+    #vehicleBookingForm input[name="pickupLocation"],
+    #vehicleBookingForm input[name="dropoffLocation"] {
+        min-height: 3rem;
+        height: auto;
+        white-space: pre-wrap;
+        word-break: break-word;
+        line-height: 1.3;
+        overflow: visible;
+    }
 }
 
 
@@ -4365,6 +4600,7 @@ footer {
     font-size: 3rem;
     margin-bottom: 1rem;
     font-weight: 700;
+    padding-top: 2rem;
 }
 
 .hero-subtitle {
@@ -4939,6 +5175,10 @@ p {
     background: rgba(255, 255, 255, 0.8);
     backdrop-filter: blur(10px);
     transition: all 0.3s ease;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    min-width: 0;
 }
 
 .modern-input:focus, .modern-select:focus {

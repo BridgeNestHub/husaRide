@@ -839,12 +839,12 @@
     }
     
     .vehicle-options-row {
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr !important;
         gap: 1rem;
     }
     
     .special-events-row {
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr !important;
         gap: 1rem;
     }
 }

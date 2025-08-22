@@ -4,78 +4,80 @@
 <body>
     <%- include('../partials/nav') %>
 
+    <section id="home" class="hero page-hero">
+        <div class="hero-content hero-container">
+            <h1>Ride With Comfort & Safety</h1>
+            <p class="hero-subtitle">Book a ride in seconds and enjoy the journey</p>
+            <div class="booking-form" id="bookingForm">
+                <div class="input-group">
+                    <i class="fas fa-user"></i>
+                    <input type="text" id="heroFullName" placeholder="Full Name *" required>
+                </div>
+                <div class="input-group">
+                    <i class="fas fa-envelope"></i>
+                    <input type="email" id="heroEmail" placeholder="Email Address *" required>
+                </div>
+                <div class="input-group">
+                    <i class="fas fa-phone"></i>
+                    <input type="tel" id="heroPhone" placeholder="Phone Number *" required>
+                </div>
+                <div class="input-group">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <input type="text" id="heroPickup" placeholder="Pickup Location *" required>
+                </div>
+                <div class="input-group">
+                    <i class="fas fa-flag-checkered"></i>
+                    <input type="text" id="heroDropoff" placeholder="Drop-off Location *" required>
+                </div>
+                <div class="input-group">
+                    <i class="fas fa-car"></i>
+                    <select id="heroVehicleType" required>
+                        <option value="">Select Vehicle Type *</option>
+                        <option value="limo">Luxury Limo - $2.50/mi + $1.25/hr</option>
+                        <option value="comfort" selected>Comfort Electric - $1.80/mi + $0.90/hr</option>
+                        <option value="suv">Premium SUV - $3.20/mi + $1.60/hr</option>
+                        <option value="van">Luxury Van - $4.50/mi + $2.25/hr</option>
+                        <option value="wedding">Wedding Package - $8.00/mi + $4.00/hr</option>
+                        <option value="bus">Event Bus - $6.00/mi + $3.00/hr</option>
+                        <option value="convention">Convention Transport - $5.50/mi + $2.75/hr</option>
+                        <option value="sports">Sports Events - $4.80/mi + $2.40/hr</option>
+                        <option value="theme">Theme Parks - $3.80/mi + $1.90/hr</option>
+                        <option value="concert">Concert Transport - $4.20/mi + $2.10/hr</option>
+                    </select>
+                </div>
+                <div class="fare-display">
+                    <span class="fare-label">Estimated Fare:</span>
+                    <span id="heroEstimatedFare" class="fare-amount">$0.00</span>
+                </div>
+                <button id="heroBookNowBtn" class="hero-book-btn">Book Now</button>
+            </div>
+        </div>
+        <div class="hero-image">
+            <img data-src="/images/limo.jpg" alt="Ride hailing car" class="lazy-image no-lazy">
+            
+            <!-- User Profile Section (shown when logged in) -->
+            <div id="userProfileSection" class="user-profile-section" style="display: none;">
+                <div class="profile-card">
+                    <div class="profile-header">
+                        <div class="profile-info">
+                            <h3 id="profileName">Welcome back!</h3>
+                            <p id="profilePoints">0 points earned</p>
+                        </div>
+                        <button id="viewAllRidesBtn" class="view-rides-btn">View All Rides</button>
+                    </div>
+                    <div class="recent-rides">
+                        <h4>Recent Trips</h4>
+                        <div id="recentRidesList" class="recent-rides-list">
+                            <p class="no-rides">No recent trips</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <main>
-        <section id="home" class="hero page-hero">
-            <div class="hero-content hero-container">
-                <h1>Ride With Comfort & Safety</h1>
-                <p class="hero-subtitle">Book a ride in seconds and enjoy the journey</p>
-                <div class="booking-form" id="bookingForm">
-                    <div class="input-group">
-                        <i class="fas fa-user"></i>
-                        <input type="text" id="heroFullName" placeholder="Full Name *" required>
-                    </div>
-                    <div class="input-group">
-                        <i class="fas fa-envelope"></i>
-                        <input type="email" id="heroEmail" placeholder="Email Address *" required>
-                    </div>
-                    <div class="input-group">
-                        <i class="fas fa-phone"></i>
-                        <input type="tel" id="heroPhone" placeholder="Phone Number *" required>
-                    </div>
-                    <div class="input-group">
-                        <i class="fas fa-map-marker-alt"></i>
-                        <input type="text" id="heroPickup" placeholder="Pickup Location *" required>
-                    </div>
-                    <div class="input-group">
-                        <i class="fas fa-flag-checkered"></i>
-                        <input type="text" id="heroDropoff" placeholder="Drop-off Location *" required>
-                    </div>
-                    <div class="input-group">
-                        <i class="fas fa-car"></i>
-                        <select id="heroVehicleType" required>
-                            <option value="">Select Vehicle Type *</option>
-                            <option value="limo">Luxury Limo - $2.50/mi + $1.25/hr</option>
-                            <option value="comfort" selected>Comfort Electric - $1.80/mi + $0.90/hr</option>
-                            <option value="suv">Premium SUV - $3.20/mi + $1.60/hr</option>
-                            <option value="van">Luxury Van - $4.50/mi + $2.25/hr</option>
-                            <option value="wedding">Wedding Package - $8.00/mi + $4.00/hr</option>
-                            <option value="bus">Event Bus - $6.00/mi + $3.00/hr</option>
-                            <option value="convention">Convention Transport - $5.50/mi + $2.75/hr</option>
-                            <option value="sports">Sports Events - $4.80/mi + $2.40/hr</option>
-                            <option value="theme">Theme Parks - $3.80/mi + $1.90/hr</option>
-                            <option value="concert">Concert Transport - $4.20/mi + $2.10/hr</option>
-                        </select>
-                    </div>
-                    <div class="fare-display">
-                        <span class="fare-label">Estimated Fare:</span>
-                        <span id="heroEstimatedFare" class="fare-amount">$0.00</span>
-                    </div>
-                    <button id="heroBookNowBtn" class="hero-book-btn">Book Now</button>
-                </div>
-            </div>
-            <div class="hero-image">
-                <img data-src="/images/limo.jpg" alt="Ride hailing car" class="lazy-image no-lazy">
-                
-                <!-- User Profile Section (shown when logged in) -->
-                <div id="userProfileSection" class="user-profile-section" style="display: none;">
-                    <div class="profile-card">
-                        <div class="profile-header">
-                            <div class="profile-info">
-                                <h3 id="profileName">Welcome back!</h3>
-                                <p id="profilePoints">0 points earned</p>
-                            </div>
-                            <button id="viewAllRidesBtn" class="view-rides-btn">View All Rides</button>
-                        </div>
-                        <div class="recent-rides">
-                            <h4>Recent Trips</h4>
-                            <div id="recentRidesList" class="recent-rides-list">
-                                <p class="no-rides">No recent trips</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+
 
         <!-- Services Section -->
         <section id="services" class="services-section">
