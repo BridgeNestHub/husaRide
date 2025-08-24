@@ -1,0 +1,375 @@
+/* Mobile Chrome Horizontal Scroll Fix */
+
+/* Prevent horizontal overflow on all elements */
+* {
+    box-sizing: border-box !important;
+}
+
+html, body {
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow-x: hidden !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+/* Fix for Chrome mobile viewport issues */
+@media screen and (max-width: 768px) {
+    /* Ensure no element can cause horizontal scroll */
+    * {
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+    }
+    
+    /* Fix hero section layout */
+    .hero {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        padding: 5rem 1rem 2rem !important;
+        overflow: hidden !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+    }
+    
+    .hero-content {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        text-align: center !important;
+        overflow: hidden !important;
+    }
+    
+    .hero-image {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 2rem 0 0 0 !important;
+        padding: 0 !important;
+        overflow: hidden !important;
+    }
+    
+    .hero-image img {
+        width: 100% !important;
+        max-width: 100% !important;
+        height: auto !important;
+        object-fit: cover !important;
+    }
+    
+    /* Fix booking form */
+    .booking-form {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 2rem 0 0 0 !important;
+        padding: 1rem !important;
+        box-sizing: border-box !important;
+        overflow: hidden !important;
+    }
+    
+    .input-group {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin-bottom: 1rem !important;
+        padding: 0.5rem !important;
+        box-sizing: border-box !important;
+        overflow: hidden !important;
+        display: flex !important;
+        align-items: center !important;
+    }
+    
+    .input-group input,
+    .input-group select {
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
+        flex: 1 !important;
+        padding: 0.8rem !important;
+        border: 1px solid #ddd !important;
+        border-radius: 5px !important;
+        font-size: 16px !important;
+        box-sizing: border-box !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+    }
+    
+    .input-group i {
+        flex-shrink: 0 !important;
+        margin-right: 0.5rem !important;
+        width: 20px !important;
+        text-align: center !important;
+    }
+    
+    /* Fix fare display */
+    .fare-display {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin-bottom: 1rem !important;
+        padding: 0.8rem !important;
+        box-sizing: border-box !important;
+        overflow: hidden !important;
+        display: flex !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+    }
+    
+    /* Fix buttons */
+    .hero-book-btn,
+    #heroBookNowBtn {
+        width: 100% !important;
+        max-width: 100% !important;
+        padding: 1rem !important;
+        margin-top: 1rem !important;
+        box-sizing: border-box !important;
+        font-size: 16px !important;
+    }
+    
+    /* Fix user profile section */
+    .user-profile-section {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 2rem 0 0 0 !important;
+        padding: 0 1rem !important;
+        box-sizing: border-box !important;
+        overflow: hidden !important;
+    }
+    
+    .profile-card {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        padding: 1rem !important;
+        box-sizing: border-box !important;
+        overflow: hidden !important;
+    }
+    
+    /* Fix navigation */
+    nav {
+        width: 100% !important;
+        max-width: 100% !important;
+        padding: 1rem !important;
+        box-sizing: border-box !important;
+        overflow: hidden !important;
+    }
+    
+    /* Fix main content areas */
+    main {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        box-sizing: border-box !important;
+        overflow-x: hidden !important;
+    }
+    
+    section {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        padding: 2rem 1rem !important;
+        box-sizing: border-box !important;
+        overflow-x: hidden !important;
+    }
+    
+    /* Fix containers */
+    .hero-container,
+    .content-container,
+    .contact-container {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        padding: 0 1rem !important;
+        box-sizing: border-box !important;
+        overflow: hidden !important;
+    }
+    
+    /* Fix services section */
+    .services-section {
+        width: 100% !important;
+        max-width: 100% !important;
+        padding: 2rem 1rem !important;
+        box-sizing: border-box !important;
+        overflow-x: hidden !important;
+    }
+    
+    .services-grid {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        box-sizing: border-box !important;
+        overflow: hidden !important;
+        display: grid !important;
+        grid-template-columns: 1fr !important;
+        gap: 1rem !important;
+    }
+    
+    .service-category {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 0 1rem 0 !important;
+        padding: 1rem !important;
+        box-sizing: border-box !important;
+        overflow: hidden !important;
+    }
+    
+    /* Fix vehicle cards */
+    .vehicle-card-enhanced {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 0 1rem 0 !important;
+        box-sizing: border-box !important;
+        overflow: hidden !important;
+    }
+    
+    .vehicle-info {
+        width: 100% !important;
+        max-width: 100% !important;
+        padding: 1rem !important;
+        box-sizing: border-box !important;
+        overflow: hidden !important;
+    }
+    
+    .vehicle-details {
+        width: 100% !important;
+        max-width: 100% !important;
+        padding: 0.8rem !important;
+        box-sizing: border-box !important;
+        overflow: hidden !important;
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 0.5rem !important;
+        text-align: center !important;
+    }
+    
+    .select-vehicle-btn {
+        width: 100% !important;
+        max-width: 100% !important;
+        padding: 1rem !important;
+        box-sizing: border-box !important;
+        font-size: 16px !important;
+    }
+    
+    /* Fix special events row */
+    .special-events-row {
+        width: 100% !important;
+        max-width: 100% !important;
+        display: grid !important;
+        grid-template-columns: 1fr !important;
+        gap: 1rem !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        box-sizing: border-box !important;
+        overflow: hidden !important;
+    }
+    
+    .vehicle-options-row {
+        width: 100% !important;
+        max-width: 100% !important;
+        display: grid !important;
+        grid-template-columns: 1fr !important;
+        gap: 1rem !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        box-sizing: border-box !important;
+        overflow: hidden !important;
+    }
+}
+
+/* Chrome-specific fixes */
+@media screen and (max-width: 768px) and (-webkit-min-device-pixel-ratio: 0) {
+    /* Chrome mobile specific fixes */
+    body {
+        -webkit-text-size-adjust: 100% !important;
+        -webkit-overflow-scrolling: touch !important;
+        overflow-x: hidden !important;
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+    
+    .hero {
+        -webkit-transform: translateZ(0) !important;
+        transform: translateZ(0) !important;
+        will-change: transform !important;
+    }
+    
+    .booking-form {
+        -webkit-transform: translateZ(0) !important;
+        transform: translateZ(0) !important;
+        will-change: transform !important;
+    }
+    
+    /* Prevent zoom on input focus */
+    input, select, textarea {
+        font-size: 16px !important;
+        -webkit-appearance: none !important;
+        -webkit-border-radius: 0 !important;
+        border-radius: 5px !important;
+    }
+    
+    /* Fix for Chrome's aggressive text sizing */
+    * {
+        -webkit-text-size-adjust: 100% !important;
+        text-size-adjust: 100% !important;
+    }
+}
+
+/* Ultra-small screens (iPhone SE, etc.) */
+@media screen and (max-width: 375px) {
+    .hero {
+        padding: 4rem 0.5rem 2rem !important;
+    }
+    
+    .booking-form {
+        padding: 0.8rem !important;
+        margin: 1rem 0 0 0 !important;
+    }
+    
+    .input-group {
+        padding: 0.3rem !important;
+        margin-bottom: 0.8rem !important;
+    }
+    
+    .input-group input,
+    .input-group select {
+        padding: 0.6rem !important;
+        font-size: 16px !important;
+    }
+    
+    .fare-display {
+        padding: 0.6rem !important;
+        font-size: 0.9rem !important;
+    }
+    
+    .hero-book-btn {
+        padding: 0.8rem !important;
+        font-size: 16px !important;
+    }
+}
+
+/* Very small screens */
+@media screen and (max-width: 320px) {
+    .hero {
+        padding: 4rem 0.25rem 2rem !important;
+    }
+    
+    .booking-form {
+        padding: 0.6rem !important;
+    }
+    
+    .input-group {
+        padding: 0.2rem !important;
+        margin-bottom: 0.6rem !important;
+    }
+    
+    .input-group input,
+    .input-group select {
+        padding: 0.5rem !important;
+        font-size: 16px !important;
+    }
+    
+    .input-group i {
+        margin-right: 0.3rem !important;
+        font-size: 0.9rem !important;
+    }
+}

@@ -1,3 +1,41 @@
+/* Mobile Viewport Fix - Prevent horizontal scrolling on all devices */
+html {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+    box-sizing: border-box;
+}
+
+body {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    position: relative;
+}
+
+/* Ensure all elements respect viewport width */
+*, *::before, *::after {
+    box-sizing: border-box;
+    max-width: 100%;
+}
+
+/* Chrome Mobile Specific Fixes */
+@supports (-webkit-touch-callout: none) {
+    /* iOS Safari and Chrome mobile */
+    body {
+        -webkit-text-size-adjust: 100%;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    /* Prevent zoom on input focus */
+    input, select, textarea {
+        font-size: 16px;
+    }
+}
+
 /* Global Styles */
 :root {
     /* Modern Rideshare Color Scheme */
@@ -39,12 +77,21 @@ html {
 @media screen and (max-width: 768px) {
     * {
         box-sizing: border-box !important;
+        max-width: 100% !important;
     }
     
     html, body {
         width: 100% !important;
+        max-width: 100% !important;
         margin: 0 !important;
         padding: 0 !important;
+        overflow-x: hidden !important;
+        position: relative !important;
+    }
+    
+    /* Prevent any element from causing horizontal scroll */
+    body > * {
+        max-width: 100% !important;
         overflow-x: hidden !important;
     }
     
@@ -53,39 +100,60 @@ html {
         padding-left: 0 !important;
         padding-right: 0 !important;
         width: 100% !important;
+        max-width: 100% !important;
+        overflow-x: hidden !important;
     }
     
     .hero {
         margin: 0 !important;
-        padding-left: 0 !important;
-        padding-right: 0 !important;
+        padding: 5rem 1rem 2rem !important;
         width: 100% !important;
+        max-width: 100% !important;
+        overflow-x: hidden !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
     }
     
     .hero-container {
         margin: 0 auto !important;
-        padding-left: 1rem !important;
-        padding-right: 1rem !important;
+        padding: 0 1rem !important;
         width: 100% !important;
+        max-width: 100% !important;
         display: flex !important;
         flex-direction: column !important;
         align-items: center !important;
         text-align: center !important;
+        overflow-x: hidden !important;
     }
     
     .hero-content {
         width: 100% !important;
-        max-width: 500px !important;
-        margin: 0 auto !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
         display: flex !important;
         flex-direction: column !important;
         align-items: center !important;
+        overflow-x: hidden !important;
+    }
+    
+    .hero-image {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 2rem 0 0 0 !important;
+        padding: 0 !important;
+        overflow-x: hidden !important;
     }
     
     .booking-form {
         width: 100% !important;
-        max-width: 400px !important;
-        margin: 0 auto !important;
+        max-width: 100% !important;
+        margin: 2rem 0 0 0 !important;
+        padding: 1rem !important;
+        box-sizing: border-box !important;
+        overflow-x: hidden !important;
     }
 }
 
@@ -3273,6 +3341,9 @@ nav {
     max-width: 1200px;
     margin: 0 auto;
     gap: 3rem;
+    width: 100%;
+    box-sizing: border-box;
+    overflow-x: hidden;
 }
 
 .hero-content {
@@ -3302,6 +3373,8 @@ nav {
     width: 100%;
     box-sizing: border-box;
     overflow: hidden;
+    margin: 0 auto;
+    position: relative;
 }
 
 .input-group {
@@ -3315,6 +3388,8 @@ nav {
     box-sizing: border-box;
     max-width: 100%;
     overflow: hidden;
+    position: relative;
+    min-width: 0;
 }
 
 .input-group i {
