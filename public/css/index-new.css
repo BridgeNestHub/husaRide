@@ -231,7 +231,7 @@
 }
 
 /* Services Section */
-.transport-services-area {
+.transport-services-area, .services-section {
     width: 100%;
     max-width: 1200px;
     margin: 0 auto;
@@ -246,7 +246,7 @@
     color: var(--dark-color);
 }
 
-.services-layout {
+.services-layout, .services-grid {
     width: 100%;
     display: grid;
     grid-template-columns: 1fr;
@@ -254,7 +254,7 @@
     box-sizing: border-box;
 }
 
-.service-group {
+.service-group, .service-category {
     width: 100%;
     background: white;
     padding: 2rem;
@@ -265,13 +265,13 @@
     box-sizing: border-box;
 }
 
-.service-group:hover {
+.service-group:hover, .service-category:hover {
     border-color: var(--primary-color);
     transform: translateY(-5px);
     box-shadow: 0 12px 35px rgba(66, 133, 244, 0.15);
 }
 
-.service-group h3 {
+.service-group h3, .service-category h3 {
     font-size: 1.4rem;
     margin-bottom: 1.5rem;
     color: var(--dark-color);
@@ -281,12 +281,14 @@
     gap: 0.5rem;
 }
 
-.service-group h3 i {
+.service-group h3 i, .service-category h3 i {
     color: var(--primary-color);
 }
 
 .vehicles-row,
-.special-vehicles-row {
+.special-vehicles-row,
+.vehicle-options-row,
+.special-events-row {
     width: 100%;
     display: grid;
     grid-template-columns: 1fr;
@@ -294,7 +296,7 @@
     box-sizing: border-box;
 }
 
-.vehicle-option {
+.vehicle-option, .vehicle-card-enhanced {
     width: 100%;
     background: #f8f9fa;
     border-radius: 15px;
@@ -304,13 +306,13 @@
     box-sizing: border-box;
 }
 
-.vehicle-option:hover {
+.vehicle-option:hover, .vehicle-card-enhanced:hover {
     border-color: var(--primary-color);
     box-shadow: 0 8px 25px rgba(66, 133, 244, 0.2);
     transform: translateY(-3px);
 }
 
-.vehicle-option img {
+.vehicle-option img, .vehicle-card-enhanced img {
     width: 100%;
     height: 200px;
     object-fit: cover;
