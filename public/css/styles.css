@@ -5401,3 +5401,523 @@ input:checked + .slider:before {
     transform: translateY(-2px) !important;
     box-shadow: 0 8px 25px rgba(139, 92, 246, 0.4) !important;
 }
+
+/* New Mobile-Safe Hero Section */
+.hero-section {
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--gradient-end) 100%);
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 6rem 2rem 4rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    gap: 3rem;
+    width: 100%;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.mobile-safe {
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow-x: hidden !important;
+    box-sizing: border-box !important;
+}
+
+.hero-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 100%;
+    gap: 3rem;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.hero-content-area {
+    flex: 1;
+    padding-right: 1rem;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.hero-content-area h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    color: white;
+    width: 100%;
+    box-sizing: border-box;
+    font-weight: 700;
+    padding-top: 2rem;
+}
+
+.hero-content-area p {
+    font-size: 1.2rem;
+    font-weight: 800;
+    color: white;
+    margin-bottom: 2rem;
+    width: 100%;
+    box-sizing: border-box;
+    opacity: 0.9;
+}
+
+.booking-form-container {
+    background-color: white;
+    border-radius: 10px;
+    padding: 1.5rem;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    max-width: 500px;
+    width: 100%;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.hero-image-area {
+    flex: 1;
+    text-align: center;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.hero-image-area img {
+    max-width: 100%;
+    border-radius: 10px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    height: auto;
+    box-sizing: border-box;
+}
+
+/* Mobile Responsive for New Hero Section */
+@media (max-width: 992px) {
+    .hero-section {
+        flex-direction: column;
+        padding-top: 6rem;
+        width: 100% !important;
+        max-width: 100% !important;
+        overflow-x: hidden !important;
+    }
+    
+    .hero-wrapper {
+        flex-direction: column;
+        width: 100% !important;
+        max-width: 100% !important;
+        overflow-x: hidden !important;
+    }
+    
+    .hero-content-area {
+        padding-right: 0;
+        margin-bottom: 2rem;
+        text-align: center;
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+    
+    .booking-form-container {
+        margin: 0 auto;
+        width: 100% !important;
+        max-width: 500px !important;
+    }
+    
+    .hero-image-area {
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+}
+
+@media (max-width: 768px) {
+    .hero-section {
+        padding: 5rem 1rem 2rem !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        overflow-x: hidden !important;
+    }
+    
+    .hero-wrapper {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        overflow-x: hidden !important;
+    }
+    
+    .hero-content-area {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        overflow-x: hidden !important;
+    }
+    
+    .hero-content-area h1 {
+        font-size: 2.2rem;
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+    
+    .booking-form-container {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        padding: 1rem !important;
+        box-sizing: border-box !important;
+        overflow: hidden !important;
+    }
+    
+    .hero-image-area {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        overflow-x: hidden !important;
+    }
+}
+
+@media (max-width: 576px) {
+    .hero-section {
+        padding: 5rem 0.5rem 2rem !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        overflow-x: hidden !important;
+    }
+    
+    .hero-content-area h1 {
+        font-size: 1.8rem;
+        width: 100% !important;
+        max-width: 100% !important;
+        word-wrap: break-word;
+    }
+    
+    .booking-form-container {
+        width: 100% !important;
+        max-width: 100% !important;
+        padding: 1rem !important;
+        margin: 0 !important;
+        box-sizing: border-box !important;
+        overflow: hidden !important;
+    }
+    
+    .booking-form-container .input-group {
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+        margin-bottom: 1rem !important;
+        overflow: hidden !important;
+    }
+    
+    .booking-form-container .input-group input,
+    .booking-form-container .input-group select {
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+        min-width: 0 !important;
+        font-size: 16px !important;
+        padding: 0.8rem !important;
+        border: 1px solid var(--light-gray) !important;
+        border-radius: 5px !important;
+        overflow: visible !important;
+    }
+    
+    .booking-form-container .fare-display {
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+        overflow: hidden !important;
+    }
+    
+    .booking-form-container .hero-book-btn {
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+    }
+}
+
+/* Ultra-small screens */
+@media (max-width: 320px) {
+    .hero-section {
+        padding: 4rem 0.25rem 1rem !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        overflow-x: hidden !important;
+    }
+    
+    .hero-content-area h1 {
+        font-size: 1.5rem;
+        line-height: 1.1;
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+    
+    .hero-content-area p {
+        font-size: 0.9rem;
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+    
+    .booking-form-container {
+        padding: 0.8rem !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        box-sizing: border-box !important;
+    }
+    
+    .booking-form-container .input-group {
+        padding: 0.3rem !important;
+        margin-bottom: 0.6rem !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+    }
+    
+    .booking-form-container .input-group i {
+        margin: 0 0.6rem !important;
+        font-size: 0.8rem !important;
+    }
+    
+    .booking-form-container .input-group input,
+    .booking-form-container .input-group select {
+        padding: 0.4rem !important;
+        font-size: 14px !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+        min-width: 0 !important;
+    }
+    
+    .booking-form-container .fare-display {
+        padding: 0.5rem !important;
+        font-size: 0.8rem !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+    }
+    
+    .booking-form-container .hero-book-btn {
+        padding: 0.7rem !important;
+        font-size: 0.85rem !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+    }
+}
+/* Additional Mobile Chrome Fixes */
+@media screen and (max-width: 768px) {
+    /* Force all elements to respect viewport width */
+    * {
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+    }
+    
+    /* Prevent horizontal scrolling at root level */
+    html {
+        width: 100% !important;
+        max-width: 100% !important;
+        overflow-x: hidden !important;
+        -webkit-overflow-scrolling: touch !important;
+    }
+    
+    body {
+        width: 100% !important;
+        max-width: 100% !important;
+        overflow-x: hidden !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+    
+    /* Main container constraints */
+    main {
+        width: 100% !important;
+        max-width: 100% !important;
+        overflow-x: hidden !important;
+        box-sizing: border-box !important;
+        padding: 5rem 0 2rem !important;
+    }
+    
+    /* Section constraints */
+    section {
+        width: 100% !important;
+        max-width: 100% !important;
+        overflow-x: hidden !important;
+        box-sizing: border-box !important;
+    }
+    
+    /* Container constraints */
+    .hero-container,
+    .content-container,
+    .contact-container {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        padding: 0 1rem !important;
+        box-sizing: border-box !important;
+        overflow-x: hidden !important;
+    }
+    
+    /* Form constraints */
+    .booking-form,
+    .contact-form,
+    .modal form {
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+        overflow: hidden !important;
+    }
+    
+    /* Input constraints */
+    .input-group,
+    .form-group {
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+        overflow: hidden !important;
+    }
+    
+    .input-group input,
+    .input-group select,
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+        min-width: 0 !important;
+        font-size: 16px !important;
+    }
+    
+    /* Image constraints */
+    img {
+        max-width: 100% !important;
+        height: auto !important;
+        box-sizing: border-box !important;
+    }
+    
+    /* Grid constraints */
+    .services-grid,
+    .fleet-grid,
+    .features-grid,
+    .drivers-grid {
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+        overflow-x: hidden !important;
+    }
+    
+    /* Card constraints */
+    .vehicle-card,
+    .vehicle-card-enhanced,
+    .service-category,
+    .fleet-item,
+    .driver-card,
+    .feature-card {
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+        overflow: hidden !important;
+    }
+}
+
+/* Chrome-specific mobile fixes */
+@supports (-webkit-appearance: none) {
+    @media screen and (max-width: 768px) {
+        /* WebKit specific fixes for Chrome mobile */
+        .hero-section.mobile-safe {
+            -webkit-transform: translateZ(0) !important;
+            transform: translateZ(0) !important;
+            will-change: transform !important;
+        }
+        
+        .booking-form-container {
+            -webkit-transform: translateZ(0) !important;
+            transform: translateZ(0) !important;
+        }
+        
+        /* Prevent zoom on input focus */
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        select,
+        textarea {
+            font-size: 16px !important;
+            -webkit-appearance: none !important;
+            -webkit-border-radius: 0 !important;
+            border-radius: 5px !important;
+        }
+        
+        /* Fix select dropdown on mobile Chrome */
+        select {
+            -webkit-appearance: none !important;
+            -moz-appearance: none !important;
+            appearance: none !important;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%234285f4' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e") !important;
+            background-repeat: no-repeat !important;
+            background-position: right 15px center !important;
+            background-size: 1.2em !important;
+        }
+    }
+}
+
+/* Additional viewport constraints for very small screens */
+@media screen and (max-width: 480px) {
+    /* Ensure no element can cause horizontal scroll */
+    * {
+        max-width: 100vw !important;
+        box-sizing: border-box !important;
+    }
+    
+    /* Viewport meta tag enforcement */
+    html {
+        width: 100vw !important;
+        max-width: 100vw !important;
+        overflow-x: hidden !important;
+    }
+    
+    body {
+        width: 100vw !important;
+        max-width: 100vw !important;
+        overflow-x: hidden !important;
+    }
+    
+    /* Hero section specific fixes */
+    .hero-section {
+        width: 100vw !important;
+        max-width: 100vw !important;
+        margin: 0 !important;
+        padding: 5rem 0.5rem 2rem !important;
+        overflow-x: hidden !important;
+    }
+    
+    .hero-wrapper {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        overflow-x: hidden !important;
+    }
+    
+    .hero-content-area,
+    .hero-image-area {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        overflow-x: hidden !important;
+    }
+    
+    .booking-form-container {
+        width: calc(100% - 1rem) !important;
+        max-width: calc(100% - 1rem) !important;
+        margin: 0 0.5rem !important;
+        padding: 1rem !important;
+        box-sizing: border-box !important;
+    }
+}
