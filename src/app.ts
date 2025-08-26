@@ -85,12 +85,8 @@ app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 app.use(cookieParser());
 
 // 📁 Static Files Setup
-const publicPath = IS_PRODUCTION 
-  ? path.join(__dirname, 'public')
-  : path.join(__dirname, '..', 'public');
-const viewsPath = IS_PRODUCTION 
-  ? path.join(__dirname, '..', 'views')
-  : path.join(__dirname, '..', 'views');
+const publicPath = path.join(__dirname, '..', 'public');
+const viewsPath = path.join(__dirname, '..', 'views');
 
 // Static files with caching and proper MIME types
 app.use('/css', express.static(path.join(publicPath, 'css'), {

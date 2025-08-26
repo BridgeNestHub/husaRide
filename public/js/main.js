@@ -65,6 +65,7 @@ class HusaRide {
     this.checkPrefilledDestination();
     this.setupPhoneFormatting();
     this.optimizeImages();
+    this.setupImagePreloading();
     
     // Ensure auth state is properly initialized
     setTimeout(() => this.updateAuthUI(), 100);
@@ -149,7 +150,14 @@ class HusaRide {
 
   setupEventListeners() {
     // Mobile navigation toggle
-    document.querySelector('.menu-toggle')?.addEventListener('click', () => this.toggleMobileNav());
+    const menuToggle = document.querySelector('.menu-toggle');
+    if (menuToggle) {
+      menuToggle.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        this.toggleMobileNav();
+      });
+    }
     
     // Auth buttons
     document.getElementById('loginBtn')?.addEventListener('click', () => this.showModal('loginModal'));
@@ -1737,8 +1745,24 @@ class HusaRide {
   
   toggleMobileNav() {
     const navLinks = document.querySelector('.nav-links');
+    const menuToggle = document.querySelector('.menu-toggle');
+    
     if (navLinks) {
       navLinks.classList.toggle('active');
+      
+      // Update hamburger icon
+      if (menuToggle) {
+        const icon = menuToggle.querySelector('i');
+        if (icon) {
+          if (navLinks.classList.contains('active')) {
+            icon.classList.remove('fa-bars');
+            icon.classList.add('fa-times');
+          } else {
+            icon.classList.remove('fa-times');
+            icon.classList.add('fa-bars');
+          }
+        }
+      }
     }
   }
 
@@ -1933,6 +1957,149 @@ class HusaRide {
         img.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMSIgaGVpZ2h0PSIxIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InRyYW5zcGFyZW50Ii8+PC9zdmc+';
         img.classList.add('lazy-image');
       }
+    });
+    
+    // Setup image error handling for all images
+    this.setupImageErrorHandling();
+  }
+  
+  setupImageErrorHandling() {
+    // Handle all images on the page
+    document.querySelectorAll('img').forEach(img => {
+      this.addImageErrorHandler(img);
+    });
+    
+    // Setup observer for dynamically added images
+    const observer = new MutationObserver(mutations => {
+      mutations.forEach(mutation => {
+        mutation.addedNodes.forEach(node => {
+          if (node.nodeType === 1) { // Element node
+            if (node.tagName === 'IMG') {
+              this.addImageErrorHandler(node);
+            }
+            // Check for images within added elements
+            node.querySelectorAll?.('img').forEach(img => {
+              this.addImageErrorHandler(img);
+            });
+          }
+        });
+      });
+    });
+    
+    observer.observe(document.body, { childList: true, subtree: true });
+  }
+  
+  addImageErrorHandler(img) {
+    if (img.dataset.errorHandled) return;
+    img.dataset.errorHandled = 'true';
+    
+    const originalSrc = img.src || img.dataset.src;
+    let retryCount = 0;
+    const maxRetries = 3;
+    
+    const handleError = () => {
+      retryCount++;
+      
+      if (retryCount <= maxRetries) {
+        // Retry loading the image with cache busting
+        setTimeout(() => {
+          const cacheBuster = `?v=${Date.now()}`;
+          const newSrc = originalSrc + (originalSrc.includes('?') ? '&' : '') + cacheBuster.substring(1);
+          img.src = newSrc;
+        }, 1000 * retryCount); // Exponential backoff
+      } else {
+        // Show fallback after max retries
+        this.showImageFallback(img);
+      }
+    };
+    
+    img.addEventListener('error', handleError);
+    
+    // Also handle load success to clear any previous error states
+    img.addEventListener('load', () => {
+      img.style.opacity = '1';
+      img.style.filter = 'none';
+    });
+  }
+  
+  showImageFallback(img) {
+    // Create a placeholder based on image context
+    const alt = img.alt || 'Image';
+    const width = img.offsetWidth || 300;
+    const height = img.offsetHeight || 200;
+    
+    // Create SVG placeholder
+    const placeholder = `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(`
+      <svg width="${width}" height="${height}" xmlns="http://www.w3.org/2000/svg">
+        <rect width="100%" height="100%" fill="#f8f9fa" stroke="#dee2e6" stroke-width="2"/>
+        <text x="50%" y="50%" font-family="Arial, sans-serif" font-size="14" fill="#6c757d" text-anchor="middle" dy=".3em">
+          ${alt}
+        </text>
+      </svg>
+    `)}`;
+    
+    img.src = placeholder;
+    img.style.opacity = '0.7';
+    img.style.filter = 'grayscale(100%)';
+    
+    // Add retry button overlay for important images
+    if (img.closest('.hero-image, .vehicle-card-enhanced, .attraction-card')) {
+      this.addRetryButton(img);
+    }
+  }
+  
+  addRetryButton(img) {
+    const container = img.parentElement;
+    if (container.querySelector('.image-retry-btn')) return; // Already has retry button
+    
+    const retryBtn = document.createElement('button');
+    retryBtn.className = 'image-retry-btn';
+    retryBtn.innerHTML = '🔄 Retry';
+    retryBtn.style.cssText = `
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(0, 0, 0, 0.7);
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 12px;
+      z-index: 10;
+    `;
+    
+    retryBtn.addEventListener('click', () => {
+      const originalSrc = img.dataset.src || img.src.split('?')[0];
+      img.src = originalSrc + `?retry=${Date.now()}`;
+      retryBtn.remove();
+    });
+    
+    // Make container relative if not already positioned
+    if (getComputedStyle(container).position === 'static') {
+      container.style.position = 'relative';
+    }
+    
+    container.appendChild(retryBtn);
+  }
+  
+  setupImagePreloading() {
+    // Preload critical images
+    const criticalImages = [
+      '/images/limo.jpg',
+      '/images/teslaComfort.jpg',
+      '/images/premiumsuv.jpg',
+      '/images/sprintervan.jpg',
+      '/images/weddinglimo.jpg'
+    ];
+    
+    criticalImages.forEach(src => {
+      const img = new Image();
+      img.src = src;
+      // Store in cache for faster loading
+      img.onload = () => console.log(`Preloaded: ${src}`);
+      img.onerror = () => console.warn(`Failed to preload: ${src}`);
     });
   }
 }

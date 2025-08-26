@@ -1,0 +1,43 @@
+/* Image Error Handling Styles */
+
+.image-retry-btn {
+  transition: all 0.3s ease;
+}
+
+.image-retry-btn:hover {
+  background: rgba(0, 0, 0, 0.9) !important;
+  transform: translate(-50%, -50%) scale(1.05);
+}
+
+/* Loading state for images */
+img[data-src] {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+img[data-src].loaded {
+  opacity: 1;
+}
+
+/* Fallback styling for broken images */
+img[src*="data:image/svg+xml"] {
+  background: #f8f9fa;
+  border: 1px solid #dee2e6;
+}
+
+/* Ensure containers can hold retry buttons */
+.hero-image,
+.vehicle-card-enhanced,
+.attraction-card {
+  position: relative;
+}
+
+/* Smooth loading animation */
+@keyframes imageLoad {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+img.loaded {
+  animation: imageLoad 0.3s ease-out;
+}
