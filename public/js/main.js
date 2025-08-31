@@ -1752,15 +1752,25 @@ class HusaRide {
     const navLinks = document.querySelector('.nav-links');
     const menuToggle = document.querySelector('.menu-toggle');
     
-    if (navLinks && menuToggle) {
+    if (navLinks) {
       const isActive = navLinks.classList.contains('active');
       
       if (isActive) {
         navLinks.classList.remove('active');
-        menuToggle.classList.remove('active');
       } else {
         navLinks.classList.add('active');
-        menuToggle.classList.add('active');
+      }
+      
+      // Update hamburger icon
+      if (menuToggle) {
+        const icon = menuToggle.querySelector('i');
+        if (icon) {
+          if (!isActive) {
+            icon.className = 'fas fa-times';
+          } else {
+            icon.className = 'fas fa-bars';
+          }
+        }
       }
     }
   }
