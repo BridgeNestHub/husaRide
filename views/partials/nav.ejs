@@ -29,8 +29,10 @@
             <button id="loginBtn" style="<%= (typeof user !== 'undefined' && user) ? 'display: none;' : 'display: inline-block;' %>">Login</button>
             <button id="signupBtn" style="<%= (typeof user !== 'undefined' && user) ? 'display: none;' : 'display: inline-block;' %>">Sign Up</button>
         </div>
-        <div class="menu-toggle">
-            <i class="fas fa-bars"></i>
-        </div>
+        <button class="mobile-menu-btn" id="mobileMenuBtn">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
     </nav>
 </header>
