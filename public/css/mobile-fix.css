@@ -143,13 +143,38 @@ nav {
     max-width: 100% !important;
     padding: 1rem !important;
     box-sizing: border-box !important;
-    overflow: hidden !important;
+    overflow: visible !important;
+    position: relative !important;
 }
 
-.nav-links {
-    width: 100% !important;
-    max-width: 100% !important;
-    box-sizing: border-box !important;
+@media screen and (max-width: 768px) {
+    .nav-links {
+        position: absolute !important;
+        top: 100% !important;
+        left: 0 !important;
+        width: 100% !important;
+        background: white !important;
+        flex-direction: column !important;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1) !important;
+        border-radius: 0 0 15px 15px !important;
+        padding: 1rem 0 !important;
+        transform: translateY(-10px) !important;
+        opacity: 0 !important;
+        visibility: hidden !important;
+        transition: all 0.3s ease !important;
+        z-index: 1000 !important;
+        display: flex !important;
+    }
+    
+    .nav-links.active {
+        transform: translateY(0) !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+    }
+    
+    .menu-toggle {
+        display: flex !important;
+    }
 }
 
 /* Grid layout fixes */
