@@ -1,0 +1,64 @@
+/* Debug CSS for Mobile Horizontal Scrolling Issues */
+/* Add this temporarily to identify elements causing horizontal scroll */
+
+/* Uncomment the following rules to debug horizontal scrolling issues */
+
+/*
+* {
+    outline: 1px solid red !important;
+}
+
+*:hover {
+    outline: 2px solid blue !important;
+}
+
+body * {
+    background: rgba(255, 0, 0, 0.1) !important;
+}
+
+.special-events-row * {
+    background: rgba(0, 255, 0, 0.2) !important;
+}
+
+.vehicle-card-enhanced {
+    background: rgba(0, 0, 255, 0.2) !important;
+}
+
+.service-category {
+    background: rgba(255, 255, 0, 0.2) !important;
+}
+*/
+
+/* Mobile viewport debugging */
+@media (max-width: 768px) {
+    /* Show viewport width indicator */
+    body::before {
+        content: "Viewport: " attr(data-viewport-width) "px";
+        position: fixed;
+        top: 0;
+        right: 0;
+        background: rgba(0, 0, 0, 0.8);
+        color: white;
+        padding: 5px 10px;
+        font-size: 12px;
+        z-index: 10000;
+        pointer-events: none;
+    }
+    
+    /* Highlight elements that might cause overflow */
+    .potential-overflow {
+        border: 2px solid red !important;
+        background: rgba(255, 0, 0, 0.1) !important;
+    }
+}
+
+/* JavaScript to add viewport width */
+/* Add this to your main.js:
+document.addEventListener('DOMContentLoaded', function() {
+    function updateViewportWidth() {
+        document.body.setAttribute('data-viewport-width', window.innerWidth);
+    }
+    updateViewportWidth();
+    window.addEventListener('resize', updateViewportWidth);
+});
+*/
