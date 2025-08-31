@@ -3266,6 +3266,12 @@ nav {
     background: none;
 }
 
+@media (max-width: 768px) {
+    .menu-toggle {
+        display: flex !important;
+    }
+}
+
 .menu-toggle i {
     font-size: 1.5rem;
     color: var(--dark-color);
