@@ -3252,6 +3252,8 @@ nav {
     padding: 0.5rem;
     border: none;
     background: none;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
 }
 
 .menu-toggle i {
@@ -3269,7 +3271,7 @@ nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 6rem 2rem 4rem;
+    padding: 8rem 2rem 4rem;
     max-width: 1200px;
     margin: 0 auto;
     gap: 3rem;
@@ -4598,7 +4600,7 @@ footer {
 .page-hero {
     background: linear-gradient(135deg, var(--primary-color) 0%, var(--gradient-end) 100%);
     color: white;
-    padding: 6rem 2rem 4rem;
+    padding: 8rem 2rem 4rem;
     text-align: center;
     margin-top: 0;
 }

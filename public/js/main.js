@@ -157,6 +157,11 @@ class HusaRide {
         e.stopPropagation();
         this.toggleMobileNav();
       });
+      // Safari fix - also listen on touchstart
+      menuToggle.addEventListener('touchstart', (e) => {
+        e.preventDefault();
+        this.toggleMobileNav();
+      }, { passive: false });
     }
     
     // Auth buttons
@@ -1748,18 +1753,22 @@ class HusaRide {
     const menuToggle = document.querySelector('.menu-toggle');
     
     if (navLinks) {
-      navLinks.classList.toggle('active');
+      const isActive = navLinks.classList.contains('active');
+      
+      if (isActive) {
+        navLinks.classList.remove('active');
+      } else {
+        navLinks.classList.add('active');
+      }
       
       // Update hamburger icon
       if (menuToggle) {
         const icon = menuToggle.querySelector('i');
         if (icon) {
-          if (navLinks.classList.contains('active')) {
-            icon.classList.remove('fa-bars');
-            icon.classList.add('fa-times');
+          if (!isActive) {
+            icon.className = 'fas fa-times';
           } else {
-            icon.classList.remove('fa-times');
-            icon.classList.add('fa-bars');
+            icon.className = 'fas fa-bars';
           }
         }
       }
