@@ -590,7 +590,7 @@ nav {
 
 /* Admin Dashboard Styles */
 .admin-main {
-    padding: 6rem 2rem 2rem;
+    padding: 8rem 2rem 2rem;
     max-width: 1400px;
     margin: 0 auto;
     background: #f8f9fa;
@@ -1541,7 +1541,7 @@ nav {
     }
     
     .admin-main {
-        padding: 5rem 1rem 2rem;
+        padding: 7rem 1rem 2rem;
     }
     
     .admin-stats {
@@ -1751,7 +1751,7 @@ nav {
     
     /* Main content and other styles */
     .admin-main {
-        padding: 4rem 0.5rem 2rem;
+        padding: 6rem 0.5rem 2rem;
     }
     
     .admin-header h1 {
@@ -2322,7 +2322,7 @@ nav {
 /* Ultra-small screens */
 @media (max-width: 320px) {
     .hero {
-        padding: 0rem 0.5rem 1rem;
+        padding: 6rem 0.5rem 1rem;
     }
     
     .hero-content h1 {
@@ -3074,7 +3074,7 @@ nav {
 /* Mobile Styles - CORRECTED */
 @media (max-width: 480px) {
     main {
-        padding: 5rem 1rem 2rem !important;
+        padding: 6rem 1rem 2rem !important;
     }
     
     /* FIXED: Keep driver nav horizontal, NOT vertical */
@@ -3281,7 +3281,7 @@ nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 6rem 2rem 4rem;
+    padding: 8rem 2rem 4rem;
     max-width: 1200px;
     margin: 0 auto;
     gap: 3rem;
@@ -4470,7 +4470,7 @@ footer {
     }
     
     .hero {
-        padding: 5rem 1rem 2rem;
+        padding: 7rem 1rem 2rem;
     }
     
     .hero-content h1 {
@@ -4612,7 +4612,7 @@ footer {
 .page-hero {
     background: linear-gradient(135deg, var(--primary-color) 0%, var(--gradient-end) 100%);
     color: white;
-    padding: 6rem 2rem 4rem;
+    padding: 8rem 2rem 4rem;
     text-align: center;
     margin-top: 0;
 }
@@ -4638,6 +4638,7 @@ footer {
 .about-main, .services-main, .contact-main {
     min-height: 100vh;
     background: var(--light-color);
+    padding-top: 6rem;
 }
 
 .content-container {
@@ -5024,11 +5025,11 @@ p {
 
 @media (max-width: 480px) {
     .page-hero {
-        padding: 5rem 0 3rem !important;
+        padding: 7rem 0 3rem !important;
     }
     
     .hero {
-        padding: 5rem 0 2rem !important;
+        padding: 7rem 0 2rem !important;
     }
     
     .hero-container h1 {
