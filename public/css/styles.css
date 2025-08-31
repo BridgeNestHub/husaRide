@@ -2322,7 +2322,7 @@ nav {
 /* Ultra-small screens */
 @media (max-width: 320px) {
     .hero {
-        padding: 6rem 0.5rem 1rem;
+        padding: 8rem 0.5rem 1rem;
     }
     
     .hero-content h1 {
@@ -3281,7 +3281,7 @@ nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 8rem 2rem 4rem;
+    padding: 10rem 2rem 4rem;
     max-width: 1200px;
     margin: 0 auto;
     gap: 3rem;
@@ -4471,7 +4471,7 @@ footer {
     }
     
     .hero {
-        padding: 7rem 1rem 2rem;
+        padding: 9rem 1rem 2rem;
     }
     
     .hero-content h1 {
@@ -5030,7 +5030,7 @@ p {
     }
     
     .hero {
-        padding: 7rem 0 2rem !important;
+        padding: 9rem 0 2rem !important;
     }
     
     .hero-container h1 {
