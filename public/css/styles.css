@@ -123,7 +123,7 @@ button {
 }
 
 /* Header & Navigation */
-header {
+.main-header {
     background-color: rgba(255, 255, 255, 0.98);
     backdrop-filter: blur(8px);
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.08);
@@ -132,6 +132,17 @@ header {
     width: 100%;
     top: 0;
     z-index: 1000;
+    height: 80px;
+}
+
+@media (max-width: 480px) {
+    .main-header {
+        height: 70px;
+    }
+    
+    body {
+        margin-top: 70px;
+    }
 }
 
 nav {
