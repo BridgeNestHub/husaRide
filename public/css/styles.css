@@ -35,6 +35,25 @@ html {
     -ms-text-size-adjust: 100%;
 }
 
+body {
+    overflow-x: hidden;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+/* Comprehensive Mobile Overflow Prevention */
+* {
+    box-sizing: border-box;
+}
+
+/* Prevent horizontal scroll on all screen sizes */
+html, body {
+    overflow-x: hidden;
+    width: 100%;
+    max-width: 100%;
+}
+
 /* Mobile full-width fix for production */
 @media screen and (max-width: 768px) {
     * {
@@ -44,25 +63,15 @@ html {
     
     html, body {
         width: 100% !important;
-        max-width: 100vw !important;
         margin: 0 !important;
         padding: 0 !important;
         overflow-x: hidden !important;
     }
     
-    .page-hero {
-        margin: 0 !important;
-        padding-left: 1rem !important;
-        padding-right: 1rem !important;
-        width: 100% !important;
-        max-width: 100% !important;
-        overflow: hidden !important;
-    }
-    
+    /* Hero Section Mobile Fixes */
     .hero {
         margin: 0 !important;
-        padding-left: 1rem !important;
-        padding-right: 1rem !important;
+        padding: 6rem 1rem 4rem !important;
         width: 100% !important;
         max-width: 100% !important;
         overflow: hidden !important;
@@ -70,8 +79,7 @@ html {
     
     .hero-container {
         margin: 0 auto !important;
-        padding-left: 1rem !important;
-        padding-right: 1rem !important;
+        padding: 0 1rem !important;
         width: 100% !important;
         max-width: 100% !important;
         display: flex !important;
@@ -89,14 +97,97 @@ html {
         flex-direction: column !important;
         align-items: center !important;
         overflow: hidden !important;
+        padding: 0 !important;
+    }
+    
+    .hero-image {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 2rem 0 0 0 !important;
+        overflow: hidden !important;
+    }
+    
+    .hero-image img {
+        width: 100% !important;
+        max-width: 100% !important;
+        height: auto !important;
     }
     
     .booking-form {
         width: 100% !important;
         max-width: 100% !important;
-        margin: 0 auto !important;
+        margin: 0 !important;
         padding: 1rem !important;
-        box-sizing: border-box !important;
+        overflow: hidden !important;
+    }
+    
+    /* Services Section Mobile Fixes */
+    .services-section {
+        width: 100% !important;
+        max-width: 100% !important;
+        padding: 2rem 1rem !important;
+        overflow: hidden !important;
+    }
+    
+    .services-grid {
+        width: 100% !important;
+        max-width: 100% !important;
+        overflow: hidden !important;
+    }
+    
+    .service-category {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin-bottom: 2rem !important;
+        overflow: hidden !important;
+    }
+    
+    .vehicle-options-row {
+        width: 100% !important;
+        max-width: 100% !important;
+        grid-template-columns: 1fr !important;
+        overflow: hidden !important;
+    }
+    
+    .special-events-row {
+        width: 100% !important;
+        max-width: 100% !important;
+        grid-template-columns: 1fr !important;
+        overflow: hidden !important;
+    }
+    
+    .vehicle-card-enhanced {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 0 1rem 0 !important;
+        overflow: hidden !important;
+    }
+    
+    .vehicle-info {
+        width: 100% !important;
+        max-width: 100% !important;
+        overflow: hidden !important;
+    }
+    
+    /* Features Section Mobile Fixes */
+    .features-section {
+        width: 100% !important;
+        max-width: 100% !important;
+        padding: 2rem 1rem !important;
+        overflow: hidden !important;
+    }
+    
+    .features-grid {
+        width: 100% !important;
+        max-width: 100% !important;
+        grid-template-columns: 1fr !important;
+        overflow: hidden !important;
+    }
+    
+    .feature-card {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin-bottom: 1rem !important;
         overflow: hidden !important;
     }
 }
@@ -1998,6 +2089,9 @@ nav {
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease;
     margin-bottom: 2rem;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
 }
 
 /* Special Events Cards */
@@ -2322,7 +2416,7 @@ nav {
 /* Ultra-small screens */
 @media (max-width: 320px) {
     .hero {
-        padding: 6rem 0.5rem 1rem;
+        padding: 0rem 0.5rem 1rem;
     }
     
     .hero-content h1 {
@@ -3074,7 +3168,7 @@ nav {
 /* Mobile Styles - CORRECTED */
 @media (max-width: 480px) {
     main {
-        padding: 6rem 1rem 2rem !important;
+        padding: 5rem 1rem 2rem !important;
     }
     
     /* FIXED: Keep driver nav horizontal, NOT vertical */
@@ -3281,18 +3375,22 @@ nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 8rem 2rem 4rem;
+    padding: 6rem 2rem 4rem;
     max-width: 1200px;
     margin: 0 auto;
     gap: 3rem;
     width: 100%;
-    box-sizing: border-box;
     overflow: hidden;
+    box-sizing: border-box;
 }
 
 .hero-content {
     flex: 1;
     padding-right: 1rem;
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
+    box-sizing: border-box;
 }
 
 .hero-content h1 {
@@ -3748,12 +3846,19 @@ nav {
 .hero-image {
     flex: 1;
     text-align: center;
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
+    box-sizing: border-box;
 }
 
 .hero-image img {
     max-width: 100%;
+    width: 100%;
+    height: auto;
     border-radius: 10px;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    object-fit: cover;
 }
 
 /* About Section */
@@ -3827,8 +3932,8 @@ nav {
     text-align: center;
     margin-bottom: 4rem;
     width: 100%;
-    box-sizing: border-box;
     overflow: hidden;
+    box-sizing: border-box;
 }
 
 .services-section h2 {
@@ -3863,8 +3968,6 @@ nav {
     width: 100%;
     max-width: 800px;
     margin: 0 auto;
-    box-sizing: border-box;
-    overflow: hidden;
 }
 
 /* Mobile responsive for vehicle options */
@@ -4423,7 +4526,10 @@ footer {
 @media (max-width: 992px) {
     .hero {
         flex-direction: column;
-        padding-top: 6rem;
+        padding: 6rem 1rem 4rem;
+        width: 100%;
+        max-width: 100%;
+        overflow: hidden;
     }
     
     .profile-header {
@@ -4434,6 +4540,8 @@ footer {
     
     .user-profile-section {
         margin-top: 1rem;
+        width: 100%;
+        max-width: 100%;
     }
     
     .ride-meta {
@@ -4445,22 +4553,103 @@ footer {
         padding-right: 0;
         margin-bottom: 2rem;
         text-align: center;
+        width: 100%;
+        max-width: 100%;
     }
     
     .booking-form {
         margin: 0 auto;
+        width: 100%;
+        max-width: 100%;
+    }
+    
+    .services-section {
+        padding: 3rem 1rem;
+        width: 100%;
+        overflow: hidden;
+    }
+    
+    .features-section {
+        padding: 3rem 1rem;
+        width: 100%;
+        overflow: hidden;
     }
 }
 
 @media (max-width: 768px) {
+    /* Ensure full mobile responsiveness */
+    body, html {
+        overflow-x: hidden !important;
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+    
+    .hero {
+        padding: 6rem 1rem 3rem !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        overflow: hidden !important;
+        flex-direction: column !important;
+    }
+    
+    .hero-content {
+        width: 100% !important;
+        max-width: 100% !important;
+        padding: 0 !important;
+        margin-bottom: 2rem !important;
+    }
+    
     .hero-content h1 {
         font-size: 2.2rem;
+        width: 100%;
+        text-align: center;
+    }
+    
+    .hero-image {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+    }
+    
+    .booking-form {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        padding: 1rem !important;
+    }
+    
+    .services-section {
+        padding: 2rem 1rem !important;
+        width: 100% !important;
+        overflow: hidden !important;
+    }
+    
+    .features-section {
+        padding: 2rem 1rem !important;
+        width: 100% !important;
+        overflow: hidden !important;
     }
     
     .about-section h2,
     .services-section h2,
     .contact-section h2 {
         font-size: 2rem;
+    }
+    
+    /* Ensure all grids are single column on mobile */
+    .vehicle-options-row,
+    .special-events-row,
+    .features-grid {
+        grid-template-columns: 1fr !important;
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+    
+    .vehicle-card-enhanced,
+    .feature-card {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 0 1rem 0 !important;
     }
 }
 
@@ -4470,7 +4659,7 @@ footer {
     }
     
     .hero {
-        padding: 7rem 1rem 2rem;
+        padding: 5rem 1rem 2rem;
     }
     
     .hero-content h1 {
@@ -4612,9 +4801,44 @@ footer {
 .page-hero {
     background: linear-gradient(135deg, var(--primary-color) 0%, var(--gradient-end) 100%);
     color: white;
-    padding: 8rem 2rem 4rem;
+    padding: 6rem 2rem 4rem;
     text-align: center;
     margin-top: 0;
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+    overflow: hidden;
+}
+
+/* Full-width hero background for index page */
+.hero.page-hero {
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--gradient-end) 100%);
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+    overflow: hidden;
+    color: white;
+}
+
+.hero.page-hero .hero-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    position: relative;
+}
+
+.hero.page-hero .hero-content h1 {
+    color: white;
+}
+
+.hero.page-hero .hero-subtitle {
+    color: rgba(255, 255, 255, 0.9);
 }
 
 .hero-container h1 {
@@ -4638,7 +4862,6 @@ footer {
 .about-main, .services-main, .contact-main {
     min-height: 100vh;
     background: var(--light-color);
-    padding-top: 6rem;
 }
 
 .content-container {
@@ -5024,20 +5247,103 @@ p {
 }
 
 @media (max-width: 480px) {
+    /* Critical mobile overflow prevention */
+    * {
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+    }
+    
+    html, body {
+        overflow-x: hidden !important;
+        width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+    
     .page-hero {
-        padding: 7rem 0 3rem !important;
+        padding: 5rem 1rem 3rem !important;
+        width: 100vw !important;
+        margin-left: -50vw !important;
+        margin-right: -50vw !important;
+        left: 50% !important;
+        right: 50% !important;
     }
     
     .hero {
-        padding: 7rem 0 2rem !important;
+        padding: 5rem 1rem 2rem !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        overflow: hidden !important;
+        margin: 0 !important;
+    }
+    
+    .hero.page-hero {
+        width: 100vw !important;
+        margin-left: -50vw !important;
+        margin-right: -50vw !important;
+        left: 50% !important;
+        right: 50% !important;
+    }
+    
+    .hero-container {
+        width: 100% !important;
+        max-width: 100% !important;
+        padding: 0 1rem !important;
+        margin: 0 auto !important;
+        overflow: hidden !important;
     }
     
     .hero-container h1 {
         font-size: 2rem;
+        width: 100%;
+        text-align: center;
+    }
+    
+    .hero-content {
+        width: 100% !important;
+        max-width: 100% !important;
+        overflow: hidden !important;
+    }
+    
+    .hero-image {
+        width: 100% !important;
+        max-width: 100% !important;
+        overflow: hidden !important;
+    }
+    
+    .booking-form {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        padding: 1rem !important;
+        overflow: hidden !important;
     }
     
     .content-container {
         padding: 1rem;
+        width: 100%;
+        max-width: 100%;
+        overflow: hidden;
+    }
+    
+    /* Ensure all sections are contained */
+    .services-section,
+    .features-section,
+    main {
+        width: 100% !important;
+        max-width: 100% !important;
+        overflow: hidden !important;
+        padding-left: 1rem !important;
+        padding-right: 1rem !important;
+    }
+    
+    .service-category,
+    .vehicle-card-enhanced,
+    .feature-card {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
     }
 }
 /* Mobile-only navigation elements */
@@ -5423,10 +5729,4 @@ input:checked + .slider:before {
     background: linear-gradient(135deg, #5b21b6, #7c3aed) !important;
     transform: translateY(-2px) !important;
     box-shadow: 0 8px 25px rgba(139, 92, 246, 0.4) !important;
-}
-/* Page Title Mobile Fix */
-@media (max-width: 480px) {
-    .page-title {
-        margin-top: 80px !important;
-    }
 }
