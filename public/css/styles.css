@@ -590,7 +590,7 @@ nav {
 
 /* Admin Dashboard Styles */
 .admin-main {
-    padding: 8rem 2rem 2rem;
+    padding: 6rem 2rem 2rem;
     max-width: 1400px;
     margin: 0 auto;
     background: #f8f9fa;
@@ -1541,7 +1541,7 @@ nav {
     }
     
     .admin-main {
-        padding: 7rem 1rem 2rem;
+        padding: 5rem 1rem 2rem;
     }
     
     .admin-stats {
@@ -1751,7 +1751,7 @@ nav {
     
     /* Main content and other styles */
     .admin-main {
-        padding: 6rem 0.5rem 2rem;
+        padding: 4rem 0.5rem 2rem;
     }
     
     .admin-header h1 {
@@ -3299,6 +3299,7 @@ nav {
     font-size: 3rem;
     margin-bottom: 1rem;
     color: var(--dark-color);
+    padding-top: 2rem;
 }
 
 .hero-content p {
@@ -4622,7 +4623,7 @@ footer {
     font-size: 3rem;
     margin-bottom: 1rem;
     font-weight: 700;
-    padding-top: 2rem;
+    padding-top: 4rem;
 }
 
 .hero-subtitle {
