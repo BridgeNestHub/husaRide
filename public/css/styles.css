@@ -3247,23 +3247,37 @@ nav {
 .menu-toggle {
     display: none;
     flex-direction: column;
-    cursor: pointer;
-    gap: 4px;
-    padding: 0.5rem;
+    justify-content: space-around;
+    width: 30px;
+    height: 30px;
+    background: transparent;
     border: none;
-    background: none;
+    cursor: pointer;
+    padding: 0;
+    z-index: 10;
     -webkit-tap-highlight-color: transparent;
     touch-action: manipulation;
 }
 
-.menu-toggle i {
-    font-size: 1.5rem;
-    color: var(--dark-color);
-    transition: color 0.3s ease;
+.hamburger-line {
+    width: 25px;
+    height: 3px;
+    background-color: var(--dark-color);
+    transition: all 0.3s linear;
+    position: relative;
+    transform-origin: 1px;
 }
 
-.menu-toggle:hover i {
-    color: var(--primary-color);
+.menu-toggle.active .hamburger-line:first-child {
+    transform: rotate(45deg);
+}
+
+.menu-toggle.active .hamburger-line:nth-child(2) {
+    opacity: 0;
+}
+
+.menu-toggle.active .hamburger-line:nth-child(3) {
+    transform: rotate(-45deg);
 }
 
 /* Hero Section */
@@ -3271,7 +3285,7 @@ nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 8rem 2rem 4rem;
+    padding: 10rem 2rem 4rem;
     max-width: 1200px;
     margin: 0 auto;
     gap: 3rem;
@@ -4600,7 +4614,7 @@ footer {
 .page-hero {
     background: linear-gradient(135deg, var(--primary-color) 0%, var(--gradient-end) 100%);
     color: white;
-    padding: 8rem 2rem 4rem;
+    padding: 10rem 2rem 4rem;
     text-align: center;
     margin-top: 0;
 }
