@@ -150,9 +150,9 @@ class HusaRide {
 
   setupEventListeners() {
     // Mobile navigation toggle
-    const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
-    if (mobileMenuBtn) {
-      mobileMenuBtn.addEventListener('click', (e) => {
+    const menuToggle = document.querySelector('.menu-toggle');
+    if (menuToggle) {
+      menuToggle.addEventListener('click', (e) => {
         e.preventDefault();
         e.stopPropagation();
         this.toggleMobileNav();
@@ -1745,11 +1745,24 @@ class HusaRide {
   
   toggleMobileNav() {
     const navLinks = document.querySelector('.nav-links');
-    const menuBtn = document.querySelector('.mobile-menu-btn');
+    const menuToggle = document.querySelector('.menu-toggle');
     
-    if (navLinks && menuBtn) {
-      navLinks.classList.toggle('mobile-active');
-      menuBtn.classList.toggle('active');
+    if (navLinks) {
+      navLinks.classList.toggle('active');
+      
+      // Update hamburger icon
+      if (menuToggle) {
+        const icon = menuToggle.querySelector('i');
+        if (icon) {
+          if (navLinks.classList.contains('active')) {
+            icon.classList.remove('fa-bars');
+            icon.classList.add('fa-times');
+          } else {
+            icon.classList.remove('fa-times');
+            icon.classList.add('fa-bars');
+          }
+        }
+      }
     }
   }
 
