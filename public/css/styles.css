@@ -426,6 +426,8 @@ nav {
     nav {
         padding: 0.8rem;
         flex-wrap: nowrap;
+        height: auto;
+        min-height: 60px;
     }
     
     .logo {
@@ -3383,6 +3385,14 @@ nav {
 }
 
 @media (max-width: 480px) {
+    .hero {
+        padding-top: 120px !important;
+    }
+    
+    .hero-content h1 {
+        padding-top: 0 !important;
+    }
+    
     #heroPickup,
     #heroDropoff,
     #bookingPickup,
