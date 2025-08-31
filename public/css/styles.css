@@ -66,6 +66,7 @@ html {
         width: 100% !important;
         max-width: 100% !important;
         overflow: hidden !important;
+        padding-top: 8rem !important;
     }
     
     .hero-container {
