@@ -233,6 +233,17 @@
         text-align: center;
         min-width: auto;
         width: 100%;
+        background: rgba(248, 249, 250, 0.9);
+    }
+    
+    .vehicle-details .capacity {
+        color: var(--dark-color);
+        justify-content: center;
+    }
+    
+    .vehicle-details .price {
+        color: var(--primary-color);
+        justify-content: center;
     }
     
     .vehicle-card-enhanced {

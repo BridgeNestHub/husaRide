@@ -637,7 +637,7 @@
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    color: #f8f9fa;
+    color: var(--dark-color);
     font-size: 1rem;
     font-weight: 500;
     flex: 1;
@@ -657,6 +657,43 @@
     border-radius: 20px;
     white-space: nowrap;
     flex-shrink: 0;
+}
+
+/* Mobile responsive fixes for vehicle details */
+@media (max-width: 768px) {
+    .service-category .vehicle-details {
+        flex-direction: column !important;
+        gap: 0.5rem !important;
+        text-align: center !important;
+        min-width: auto !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+    }
+    
+    .service-category .capacity {
+        justify-content: center;
+        color: var(--dark-color);
+    }
+    
+    .service-category .price {
+        align-self: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .service-category .vehicle-details {
+        padding: 0.6rem !important;
+        gap: 0.4rem !important;
+    }
+    
+    .service-category .capacity {
+        font-size: 0.9rem;
+    }
+    
+    .service-category .price {
+        font-size: 0.9rem;
+        padding: 0.4rem 0.6rem;
+    }
 }
 
 .service-category .select-vehicle-btn {
@@ -705,6 +742,33 @@
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 2rem;
+}
+
+/* Features grid responsive improvements */
+@media (max-width: 768px) {
+    .features-grid {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .features-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    .feature-card {
+        padding: 1.5rem;
+    }
+    
+    .feature-card i {
+        font-size: 2rem;
+    }
+    
+    .feature-card h3 {
+        font-size: 1.1rem;
+    }
 }
 
 .feature-card {

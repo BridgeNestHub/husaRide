@@ -1,0 +1,283 @@
+/* Mobile-specific fixes for HusaRide */
+
+/* Prevent horizontal scrolling on mobile */
+html, body {
+    overflow-x: hidden !important;
+    width: 100% !important;
+    max-width: 100% !important;
+}
+
+/* Fix viewport issues on iOS */
+@supports (-webkit-touch-callout: none) {
+    html {
+        -webkit-text-size-adjust: 100%;
+        -webkit-font-smoothing: antialiased;
+    }
+}
+
+/* Mobile navigation fixes */
+@media (max-width: 768px) {
+    .nav-links {
+        width: 100% !important;
+        left: 0 !important;
+        right: 0 !important;
+        box-sizing: border-box !important;
+    }
+    
+    /* Hero section mobile fixes */
+    .hero {
+        padding: 5rem 1rem 2rem !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+    }
+    
+    .hero-content {
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+    }
+    
+    .booking-form {
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+        margin: 0 !important;
+        padding: 1rem !important;
+    }
+    
+    /* Input group fixes */
+    .input-group {
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+        overflow: hidden !important;
+    }
+    
+    .input-group input,
+    .input-group select {
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+        min-width: 0 !important;
+    }
+    
+    /* Services section mobile fixes */
+    .services-section {
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+        overflow-x: hidden !important;
+        padding: 2rem 0.5rem !important;
+    }
+    
+    .services-grid {
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+        overflow: hidden !important;
+    }
+    
+    .service-category {
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+        overflow: hidden !important;
+    }
+    
+    /* Vehicle cards mobile fixes */
+    .vehicle-card-enhanced {
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+        margin-bottom: 1rem !important;
+    }
+    
+    .vehicle-info {
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+        padding: 1rem !important;
+    }
+    
+    .vehicle-details {
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+        flex-direction: column !important;
+        gap: 0.5rem !important;
+        text-align: center !important;
+    }
+    
+    .select-vehicle-btn {
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+    }
+}
+
+/* Extra small mobile devices */
+@media (max-width: 480px) {
+    .hero {
+        padding: 4rem 0.5rem 1rem !important;
+    }
+    
+    .hero-content h1 {
+        font-size: 1.8rem !important;
+        line-height: 1.2 !important;
+    }
+    
+    .booking-form {
+        padding: 0.8rem !important;
+    }
+    
+    .input-group {
+        margin-bottom: 0.8rem !important;
+        padding: 0.3rem !important;
+    }
+    
+    .input-group input,
+    .input-group select {
+        padding: 0.6rem !important;
+        font-size: 14px !important;
+    }
+    
+    .services-section {
+        padding: 1.5rem 0.25rem !important;
+    }
+    
+    .service-category {
+        padding: 1rem !important;
+        margin-bottom: 1rem !important;
+    }
+    
+    .vehicle-info {
+        padding: 0.8rem !important;
+    }
+    
+    .vehicle-details {
+        padding: 0.6rem !important;
+        font-size: 0.85rem !important;
+    }
+}
+
+/* Ultra small devices */
+@media (max-width: 320px) {
+    .hero {
+        padding: 3rem 0.25rem 1rem !important;
+    }
+    
+    .hero-content h1 {
+        font-size: 1.5rem !important;
+    }
+    
+    .booking-form {
+        padding: 0.6rem !important;
+    }
+    
+    .input-group {
+        padding: 0.2rem !important;
+        margin-bottom: 0.6rem !important;
+    }
+    
+    .input-group input,
+    .input-group select {
+        padding: 0.5rem !important;
+        font-size: 13px !important;
+    }
+    
+    .services-section {
+        padding: 1rem 0.1rem !important;
+    }
+    
+    .service-category {
+        padding: 0.8rem !important;
+    }
+    
+    .vehicle-info {
+        padding: 0.6rem !important;
+    }
+    
+    .vehicle-details {
+        padding: 0.4rem !important;
+        font-size: 0.8rem !important;
+    }
+    
+    .select-vehicle-btn {
+        padding: 0.6rem !important;
+        font-size: 0.85rem !important;
+    }
+}
+
+/* Fix modal responsiveness */
+@media (max-width: 768px) {
+    .modal-content {
+        width: 95% !important;
+        max-width: 95% !important;
+        margin: 5% auto !important;
+        box-sizing: border-box !important;
+    }
+    
+    #vehicleBookingModal .modal-content {
+        width: 98% !important;
+        max-width: 98% !important;
+        margin: 2% auto !important;
+    }
+    
+    .form-group {
+        width: 100% !important;
+        box-sizing: border-box !important;
+    }
+    
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+        min-width: 0 !important;
+    }
+}
+
+/* Fix text overflow issues */
+.vehicle-info h4,
+.vehicle-info p,
+.service-category h3 {
+    word-wrap: break-word !important;
+    overflow-wrap: break-word !important;
+    hyphens: auto !important;
+}
+
+/* Fix image responsiveness */
+img {
+    max-width: 100% !important;
+    height: auto !important;
+    box-sizing: border-box !important;
+}
+
+/* Fix button responsiveness */
+button {
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+}
+
+/* Ensure all containers are responsive */
+* {
+    box-sizing: border-box !important;
+}
+
+/* Fix flex container issues on mobile */
+@media (max-width: 768px) {
+    .vehicle-options-row,
+    .special-events-row {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 1rem !important;
+        width: 100% !important;
+    }
+    
+    .vehicle-options-row > *,
+    .special-events-row > * {
+        width: 100% !important;
+        flex: none !important;
+    }
+}

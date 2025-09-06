@@ -3294,6 +3294,28 @@ nav {
     overflow-x: hidden;
 }
 
+/* Hero responsive fixes */
+@media (max-width: 992px) {
+    .hero {
+        flex-direction: column;
+        padding: 6rem 1rem 3rem;
+        gap: 2rem;
+        text-align: center;
+    }
+    
+    .hero-content {
+        order: 1;
+        width: 100%;
+        max-width: 600px;
+    }
+    
+    .hero-image {
+        order: 2;
+        width: 100%;
+        max-width: 500px;
+    }
+}
+
 .hero-content {
     flex: 1;
     padding-right: 1rem;
@@ -3323,6 +3345,29 @@ nav {
     overflow: hidden;
 }
 
+/* Booking form responsive improvements */
+@media (max-width: 768px) {
+    .booking-form {
+        max-width: 100%;
+        margin: 0;
+        padding: 1rem;
+        border-radius: 8px;
+    }
+}
+
+@media (max-width: 480px) {
+    .booking-form {
+        padding: 0.8rem;
+        border-radius: 6px;
+    }
+}
+
+@media (max-width: 320px) {
+    .booking-form {
+        padding: 0.6rem;
+    }
+}
+
 .input-group {
     display: flex;
     align-items: center;
@@ -3334,6 +3379,43 @@ nav {
     box-sizing: border-box;
     max-width: 100%;
     overflow: hidden;
+    transition: border-color 0.3s ease;
+}
+
+.input-group:focus-within {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px rgba(66, 133, 244, 0.1);
+}
+
+/* Input group mobile improvements */
+@media (max-width: 768px) {
+    .input-group {
+        padding: 0.4rem;
+        margin-bottom: 0.8rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .input-group {
+        padding: 0.3rem;
+        margin-bottom: 0.6rem;
+    }
+    
+    .input-group i {
+        margin: 0 0.5rem;
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 320px) {
+    .input-group {
+        padding: 0.25rem;
+    }
+    
+    .input-group i {
+        margin: 0 0.4rem;
+        font-size: 0.8rem;
+    }
 }
 
 .input-group i {
@@ -3835,6 +3917,32 @@ nav {
     overflow-x: hidden;
 }
 
+/* Services grid responsive improvements */
+.services-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-top: 2rem;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.services-grid .service-category:last-child {
+    grid-column: 1 / -1;
+    width: 100%;
+}
+
+@media (max-width: 768px) {
+    .services-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    .services-grid .service-category:last-child {
+        grid-column: 1;
+    }
+}
+
 .services-section h2 {
     font-size: 2.5rem;
     margin-bottom: 3rem;
@@ -3887,6 +3995,39 @@ nav {
     box-sizing: border-box;
     overflow-x: hidden;
     max-width: 100%;
+}
+
+/* Improved responsive breakpoints for special events */
+@media (max-width: 1200px) {
+    .special-events-row {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    }
+}
+
+@media (max-width: 992px) {
+    .special-events-row {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .special-events-row {
+        grid-template-columns: 1fr !important;
+        gap: 1rem;
+    }
+    
+    .special-events-row .vehicle-card-enhanced {
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .special-events-row {
+        gap: 0.8rem;
+    }
 }
 
 @media (max-width: 1200px) {
@@ -4451,6 +4592,14 @@ footer {
     
     .booking-form {
         margin: 0 auto;
+    }
+    
+    /* Ensure all sections are properly contained */
+    .services-section,
+    .features-section {
+        overflow-x: hidden;
+        width: 100%;
+        box-sizing: border-box;
     }
 }
 
