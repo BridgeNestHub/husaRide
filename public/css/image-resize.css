@@ -1,0 +1,7 @@
+/* All special events images same size */
+.special-events-row .vehicle-card-enhanced img {
+    width: 100% !important;
+    height: 80px !important;
+    object-fit: cover !important;
+    object-position: center !important;
+}
