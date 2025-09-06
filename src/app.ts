@@ -90,10 +90,13 @@ const viewsPath = path.join(__dirname, '..', 'views');
 
 // Static files with caching and proper MIME types
 app.use('/css', express.static(path.join(publicPath, 'css'), {
-  maxAge: IS_PRODUCTION ? '1y' : 0, // Cache CSS for 1 year in production
+  maxAge: 0, // Disable CSS caching to ensure updates are visible
   setHeaders: (res, filePath) => {
     if (filePath.endsWith('.css')) {
       res.setHeader('Content-Type', 'text/css; charset=utf-8');
+      res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+      res.setHeader('Pragma', 'no-cache');
+      res.setHeader('Expires', '0');
     }
   }
 }));
